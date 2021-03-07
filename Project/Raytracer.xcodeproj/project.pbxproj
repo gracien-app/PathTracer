@@ -1,0 +1,404 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BE23B80125F57DAD000BFAD9 /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE23B80025F57DAD000BFAD9 /* ResourcePath.mm */; };
+		BE23B80425F57DAD000BFAD9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE23B80325F57DAD000BFAD9 /* main.cpp */; };
+		BE23B82225F57E3D000BFAD9 /* freetype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE23B81825F57E33000BFAD9 /* freetype.framework */; };
+		BE23B82325F57E3D000BFAD9 /* freetype.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE23B81825F57E33000BFAD9 /* freetype.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BE23B82525F57E3E000BFAD9 /* sfml-graphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE23B81A25F57E33000BFAD9 /* sfml-graphics.framework */; };
+		BE23B82625F57E3E000BFAD9 /* sfml-graphics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE23B81A25F57E33000BFAD9 /* sfml-graphics.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BE23B82725F57E40000BFAD9 /* sfml-system.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE23B81925F57E33000BFAD9 /* sfml-system.framework */; };
+		BE23B82825F57E40000BFAD9 /* sfml-system.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE23B81925F57E33000BFAD9 /* sfml-system.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BE23B82925F57E41000BFAD9 /* sfml-window.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE23B81B25F57E33000BFAD9 /* sfml-window.framework */; };
+		BE23B82A25F57E41000BFAD9 /* sfml-window.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE23B81B25F57E33000BFAD9 /* sfml-window.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BE23B83325F5802A000BFAD9 /* App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE23B83125F5802A000BFAD9 /* App.cpp */; };
+		BE23B83725F582A3000BFAD9 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE23B83525F582A3000BFAD9 /* Window.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BE23B82425F57E3D000BFAD9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BE23B82A25F57E41000BFAD9 /* sfml-window.framework in Embed Frameworks */,
+				BE23B82825F57E40000BFAD9 /* sfml-system.framework in Embed Frameworks */,
+				BE23B82325F57E3D000BFAD9 /* freetype.framework in Embed Frameworks */,
+				BE23B82625F57E3E000BFAD9 /* sfml-graphics.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		BE23B7FB25F57DAD000BFAD9 /* Raytracer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Raytracer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE23B7FF25F57DAD000BFAD9 /* Raytracer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Raytracer-Info.plist"; sourceTree = "<group>"; };
+		BE23B80025F57DAD000BFAD9 /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
+		BE23B80225F57DAD000BFAD9 /* ResourcePath.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ResourcePath.hpp; sourceTree = "<group>"; };
+		BE23B80325F57DAD000BFAD9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		BE23B81425F57DF9000BFAD9 /* Raytracer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Raytracer.entitlements; sourceTree = "<group>"; };
+		BE23B81725F57E33000BFAD9 /* SFML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SFML.framework; path = ../../../../../../Library/Frameworks/SFML.framework; sourceTree = "<group>"; };
+		BE23B81825F57E33000BFAD9 /* freetype.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = freetype.framework; path = ../../../../../../Library/Frameworks/freetype.framework; sourceTree = "<group>"; };
+		BE23B81925F57E33000BFAD9 /* sfml-system.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-system.framework"; path = "../../../../../../Library/Frameworks/sfml-system.framework"; sourceTree = "<group>"; };
+		BE23B81A25F57E33000BFAD9 /* sfml-graphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-graphics.framework"; path = "../../../../../../Library/Frameworks/sfml-graphics.framework"; sourceTree = "<group>"; };
+		BE23B81B25F57E33000BFAD9 /* sfml-window.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-window.framework"; path = "../../../../../../Library/Frameworks/sfml-window.framework"; sourceTree = "<group>"; };
+		BE23B83125F5802A000BFAD9 /* App.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = App.cpp; sourceTree = "<group>"; };
+		BE23B83225F5802A000BFAD9 /* App.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = App.hpp; sourceTree = "<group>"; };
+		BE23B83425F58040000BFAD9 /* main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		BE23B83525F582A3000BFAD9 /* Window.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
+		BE23B83625F582A3000BFAD9 /* Window.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Window.hpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BE23B7F725F57DAD000BFAD9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE23B82525F57E3E000BFAD9 /* sfml-graphics.framework in Frameworks */,
+				BE23B82925F57E41000BFAD9 /* sfml-window.framework in Frameworks */,
+				BE23B82725F57E40000BFAD9 /* sfml-system.framework in Frameworks */,
+				BE23B82225F57E3D000BFAD9 /* freetype.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BE23B7F125F57DAD000BFAD9 = {
+			isa = PBXGroup;
+			children = (
+				BE23B7FD25F57DAD000BFAD9 /* Raytracer */,
+				BE23B7FC25F57DAD000BFAD9 /* Products */,
+				BE23B81625F57E33000BFAD9 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		BE23B7FC25F57DAD000BFAD9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BE23B7FB25F57DAD000BFAD9 /* Raytracer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BE23B7FD25F57DAD000BFAD9 /* Raytracer */ = {
+			isa = PBXGroup;
+			children = (
+				BE23B82D25F57F9F000BFAD9 /* Source */,
+				BE23B80325F57DAD000BFAD9 /* main.cpp */,
+				BE23B83425F58040000BFAD9 /* main.h */,
+				BE23B81425F57DF9000BFAD9 /* Raytracer.entitlements */,
+				BE23B7FF25F57DAD000BFAD9 /* Raytracer-Info.plist */,
+			);
+			path = Raytracer;
+			sourceTree = "<group>";
+		};
+		BE23B81625F57E33000BFAD9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BE23B81825F57E33000BFAD9 /* freetype.framework */,
+				BE23B81A25F57E33000BFAD9 /* sfml-graphics.framework */,
+				BE23B81925F57E33000BFAD9 /* sfml-system.framework */,
+				BE23B81B25F57E33000BFAD9 /* sfml-window.framework */,
+				BE23B81725F57E33000BFAD9 /* SFML.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BE23B82D25F57F9F000BFAD9 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				BE23B82E25F57FA8000BFAD9 /* Utilities */,
+				BE23B82F25F57FE8000BFAD9 /* Window */,
+				BE23B83125F5802A000BFAD9 /* App.cpp */,
+				BE23B83225F5802A000BFAD9 /* App.hpp */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		BE23B82E25F57FA8000BFAD9 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				BE23B80025F57DAD000BFAD9 /* ResourcePath.mm */,
+				BE23B80225F57DAD000BFAD9 /* ResourcePath.hpp */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		BE23B82F25F57FE8000BFAD9 /* Window */ = {
+			isa = PBXGroup;
+			children = (
+				BE23B83525F582A3000BFAD9 /* Window.cpp */,
+				BE23B83625F582A3000BFAD9 /* Window.hpp */,
+			);
+			path = Window;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BE23B7FA25F57DAD000BFAD9 /* Raytracer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE23B81025F57DAD000BFAD9 /* Build configuration list for PBXNativeTarget "Raytracer" */;
+			buildPhases = (
+				BE23B7F625F57DAD000BFAD9 /* Sources */,
+				BE23B7F725F57DAD000BFAD9 /* Frameworks */,
+				BE23B7F825F57DAD000BFAD9 /* Resources */,
+				BE23B7F925F57DAD000BFAD9 /* ShellScript */,
+				BE23B82425F57E3D000BFAD9 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Raytracer;
+			productName = Raytracer;
+			productReference = BE23B7FB25F57DAD000BFAD9 /* Raytracer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BE23B7F225F57DAD000BFAD9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1240;
+				ORGANIZATIONNAME = "Gracjan Jeżewski";
+				TargetAttributes = {
+					BE23B7FA25F57DAD000BFAD9 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+				};
+			};
+			buildConfigurationList = BE23B7F525F57DAD000BFAD9 /* Build configuration list for PBXProject "Raytracer" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BE23B7F125F57DAD000BFAD9;
+			productRefGroup = BE23B7FC25F57DAD000BFAD9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BE23B7FA25F57DAD000BFAD9 /* Raytracer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BE23B7F825F57DAD000BFAD9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		BE23B7F925F57DAD000BFAD9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This shell script simply copies required SFML dylibs/frameworks into the application bundle frameworks folder.\n# If you're using static libraries (which is not recommended) you should remove this script from your project.\n\n# SETTINGS\nSFML_DEPENDENCIES_INSTALL_PREFIX=\"/Library/Frameworks\"\nCMAKE_INSTALL_FRAMEWORK_PREFIX=\"/Library/Frameworks\"\nCMAKE_INSTALL_LIB_PREFIX=\"/usr/local/lib\"\nFRAMEWORKS_FULL_PATH=\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/\"\n\n# Are we building a project that uses frameworks or dylibs?\ncase \"$SFML_BINARY_TYPE\" in\n    DYLIBS)\n        frameworks=\"false\"\n        ;;\n    *)\n        frameworks=\"true\"\n        ;;\nesac\n\n# Echoes to stderr\nerror () # $* message to display\n{\n    echo $* 1>&2\n    exit 2\n}\n\nassert () # $1 is a boolean, $2...N is an error message\n{\n    if [ $# -lt 2 ]\n    then\n        error \"Internal error in assert: not enough args\"\n    fi\n\n    if [ $1 -ne 0 ]\n    then\n        shift\n        error \"$*\"\n    fi\n}\n\nforce_remove () # $@ is some paths\n{\n    test $# -ge 1\n    assert $? \"force_remove() requires at least one parameter\"\n    rm -fr $@\n    assert $? \"couldn't remove $@\"\n}\n\ncopy () # $1 is a source, $2 is a destination\n{\n    test $# -eq 2\n    assert $? \"copy() requires two parameters\"\n    ditto \"$1\" \"$2\"\n    assert $? \"couldn't copy $1 to $2\"\n}\n\nrequire () # $1 is a SFML module like 'system' or 'audio'\n{\n    dest=\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/\"\n\n    if [ -z \"$1\" ]\n    then\n        error \"require() requires one parameter!\"\n    else\n        # clean potentially old stuff\n        force_remove \"$dest/libsfml-$1\"*\n        force_remove \"$dest/sfml-$1.framework\"\n\n        # copy SFML libraries\n        if [ \"$frameworks\" = \"true\" ]\n        then\n            source=\"$CMAKE_INSTALL_FRAMEWORK_PREFIX/sfml-$1.framework\"\n            target=\"sfml-$1.framework\"\n        elif [ \"$SFML_LINK_DYLIBS_SUFFIX\" = \"-d\" ]\n        then\n            source=\"$CMAKE_INSTALL_LIB_PREFIX/libsfml-$1-d.dylib\"\n            target=\"`readlink $source`\"\n        else\n            source=\"$CMAKE_INSTALL_LIB_PREFIX/libsfml-$1.dylib\"\n            target=\"`readlink $source`\"\n        fi\n\n        copy \"$source\" \"$dest/$target\"\n\n        # copy extra dependencies\n        if [ \"$1\" = \"audio\" ]\n        then\n            # copy \"FLAC\" \"ogg\" \"vorbis\" \"vorbisenc\" \"vorbisfile\" \"OpenAL\" frameworks too\n            for f in \"FLAC\" \"ogg\" \"vorbis\" \"vorbisenc\" \"vorbisfile\" \"OpenAL\"\n            do\n                copy \"$SFML_DEPENDENCIES_INSTALL_PREFIX/$f.framework\" \"$dest/$f.framework\"\n            done\n        elif [ \"$1\" = \"graphics\" ]\n        then\n            copy \"$SFML_DEPENDENCIES_INSTALL_PREFIX/freetype.framework\" \"$dest/freetype.framework\"\n        fi\n    fi\n}\n\nif [ -n \"$SFML_SYSTEM\" ]\nthen\n    require \"system\"\nfi\n\nif [ -n \"$SFML_AUDIO\" ]\nthen\n    require \"audio\"\nfi\n\nif [ -n \"$SFML_NETWORK\" ]\nthen\n    require \"network\"\nfi\n\nif [ -n \"$SFML_WINDOW\" ]\nthen\n    require \"window\"\nfi\n\nif [ -n \"$SFML_GRAPHICS\" ]\nthen\n    require \"graphics\"\nfi\n\n                \n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BE23B7F625F57DAD000BFAD9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE23B83325F5802A000BFAD9 /* App.cpp in Sources */,
+				BE23B80425F57DAD000BFAD9 /* main.cpp in Sources */,
+				BE23B80125F57DAD000BFAD9 /* ResourcePath.mm in Sources */,
+				BE23B83725F582A3000BFAD9 /* Window.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		BE23B80E25F57DAD000BFAD9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
+				CLANG_CXX_LIBRARY = "libc++";
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks/,
+					"$(inherited)",
+				);
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib/,
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"$(SFML_SYSTEM)",
+					"$(SFML_WINDOW)",
+					"$(SFML_GRAPHICS)",
+					"$(SFML_AUDIO)",
+					"$(SFML_NETWORK)",
+				);
+				SFML_AUDIO = "";
+				SFML_BINARY_TYPE = FRAMEWORKS;
+				SFML_GRAPHICS = "$(SFML_LINK_PREFIX) sfml-graphics$(SFML_LINK_SUFFIX)";
+				SFML_LINK_DYLIBS_PREFIX = "-l";
+				SFML_LINK_DYLIBS_SUFFIX = "";
+				SFML_LINK_FRAMEWORKS_PREFIX = "-framework";
+				SFML_LINK_FRAMEWORKS_SUFFIX = "";
+				SFML_LINK_PREFIX = "$(SFML_LINK_$(SFML_BINARY_TYPE)_PREFIX)";
+				SFML_LINK_SUFFIX = "$(SFML_LINK_$(SFML_BINARY_TYPE)_SUFFIX)";
+				SFML_NETWORK = "";
+				SFML_SYSTEM = "$(SFML_LINK_PREFIX) sfml-system$(SFML_LINK_SUFFIX)";
+				SFML_WINDOW = "$(SFML_LINK_PREFIX) sfml-window$(SFML_LINK_SUFFIX)";
+				SUPPORTED_PLATFORMS = macosx;
+			};
+			name = Debug;
+		};
+		BE23B80F25F57DAD000BFAD9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
+				CLANG_CXX_LIBRARY = "libc++";
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks/,
+					"$(inherited)",
+				);
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib/,
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"$(SFML_SYSTEM)",
+					"$(SFML_WINDOW)",
+					"$(SFML_GRAPHICS)",
+					"$(SFML_AUDIO)",
+					"$(SFML_NETWORK)",
+				);
+				SFML_AUDIO = "";
+				SFML_BINARY_TYPE = FRAMEWORKS;
+				SFML_GRAPHICS = "$(SFML_LINK_PREFIX) sfml-graphics$(SFML_LINK_SUFFIX)";
+				SFML_LINK_DYLIBS_PREFIX = "-l";
+				SFML_LINK_DYLIBS_SUFFIX = "";
+				SFML_LINK_FRAMEWORKS_PREFIX = "-framework";
+				SFML_LINK_FRAMEWORKS_SUFFIX = "";
+				SFML_LINK_PREFIX = "$(SFML_LINK_$(SFML_BINARY_TYPE)_PREFIX)";
+				SFML_LINK_SUFFIX = "$(SFML_LINK_$(SFML_BINARY_TYPE)_SUFFIX)";
+				SFML_NETWORK = "";
+				SFML_SYSTEM = "$(SFML_LINK_PREFIX) sfml-system$(SFML_LINK_SUFFIX)";
+				SFML_WINDOW = "$(SFML_LINK_PREFIX) sfml-window$(SFML_LINK_SUFFIX)";
+				SUPPORTED_PLATFORMS = macosx;
+			};
+			name = Release;
+		};
+		BE23B81125F57DAD000BFAD9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_ENTITLEMENTS = Raytracer/Raytracer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 35X65N86W4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				INFOPLIST_FILE = "Raytracer/Raytracer-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@loader_path/../Frameworks",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		BE23B81225F57DAD000BFAD9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_ENTITLEMENTS = Raytracer/Raytracer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 35X65N86W4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				INFOPLIST_FILE = "Raytracer/Raytracer-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@loader_path/../Frameworks",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BE23B7F525F57DAD000BFAD9 /* Build configuration list for PBXProject "Raytracer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE23B80E25F57DAD000BFAD9 /* Debug */,
+				BE23B80F25F57DAD000BFAD9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BE23B81025F57DAD000BFAD9 /* Build configuration list for PBXNativeTarget "Raytracer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE23B81125F57DAD000BFAD9 /* Debug */,
+				BE23B81225F57DAD000BFAD9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BE23B7F225F57DAD000BFAD9 /* Project object */;
+}
