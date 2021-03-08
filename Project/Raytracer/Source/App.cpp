@@ -39,9 +39,9 @@ void App::Run() {
         
         for (int i=0; i < area; i++) {
             if(i%100) {
-                pixels[i*4] = (100);
-                pixels[i*4+1] = (100);
-                pixels[i*4+2] = (100);
+                pixels[i*4] = (10);
+                pixels[i*4+1] = (10);
+                pixels[i*4+2] = (10);
                 pixels[i*4+3] = 255;
             }
             else {

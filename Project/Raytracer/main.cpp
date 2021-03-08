@@ -10,9 +10,7 @@
 
 int main()
 {
-    App* Raytracer = new App();
-    Raytracer->Run();
-    delete Raytracer;
-    Raytracer = nullptr;
+    App Raytracer(1600,1600); //maximum height for my resolution
+    Raytracer.Run();
     return 0;
 }

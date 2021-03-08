@@ -9,10 +9,11 @@
 #include "Window.hpp"
 
 Window::Window(sf::Vector2u *resolution) {
+    
     window_Name = "Raytracer";
+    event.reset(new sf::Event);
     settings.reset(new sf::ContextSettings);
     render_Window.reset(new sf::RenderWindow);
-    event.reset(new sf::Event);
     
     settings->antialiasingLevel = 0;
     render_Window->create(sf::VideoMode(resolution->x, resolution->y), window_Name, sf::Style::Default, *settings);
@@ -32,11 +33,9 @@ void Window::Display(sf::Sprite* drawable_Sprite) {
                 render_Window->close();
             }
         }
-        
-        render_Window->clear(sf::Color(10, 10, 10));
+        render_Window->clear(sf::Color(0, 0, 0));
         render_Window->draw(*drawable_Sprite);
         render_Window->display();
-        
     }
 }
 
