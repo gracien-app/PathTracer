@@ -18,14 +18,14 @@ Window::Window(sf::Vector2u *resolution) {
     render_Window->create(sf::VideoMode(resolution->x, resolution->y), window_Name, sf::Style::Default, *settings);
     render_Window->setFramerateLimit(60);
     
-    std::cout << "Window: Created" << std::endl;
+    std::cout << "[C] Window: Created" << std::endl;
 }
 
 Window::~Window() {
-    std::cout << "Window: Terminated" << std::endl;
+    std::cout << "[D] Window: Terminated" << std::endl;
 }
 
-void Window::Display() {
+void Window::Display(sf::Sprite* drawable_Sprite) {
     while (render_Window->isOpen()) {
         while (render_Window->pollEvent(*event)) {
             if (event->type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
@@ -34,6 +34,7 @@ void Window::Display() {
         }
         
         render_Window->clear(sf::Color(10, 10, 10));
+        render_Window->draw(*drawable_Sprite);
         render_Window->display();
         
     }

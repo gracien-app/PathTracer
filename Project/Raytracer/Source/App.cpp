@@ -9,28 +9,63 @@
 #include "App.hpp"
 
 App::App() {
-    resolution.reset(new sf::Vector2u(1000,1000));
-    app_Window.reset(new Window(resolution.get()));
-    std::cout << "Application:\n Resolution: 1000x1000\n Antialiasing: 0x" << std::endl;
+    app_Resolution.reset(new sf::Vector2u(1000,1000));
+    Initialise();
+    std::cout << "[C] Application:\n Resolution: 1000x1000\n Antialiasing: 0x" << std::endl;
 }
 
 App::App(int width, int height) {
-    resolution.reset(new sf::Vector2u(width, height));
-    app_Window.reset(new Window(resolution.get()));
-    std::cout << "Application:\n Resolution: "<<width<<"x"<<height<<"\n Antialiasing: 0x" << std::endl;
+    app_Resolution.reset(new sf::Vector2u(width,height));
+    Initialise();
+    std::cout << "[C] Application:\n Resolution: "<<width<<"x"<<height<<"\n Antialiasing: 0x" << std::endl;
 }
 
 App::~App() {
-    std::cout << "\nApplication: Terminated"<< std::endl;
+    std::cout << "\n[D] Application: Terminated"<< std::endl;
+}
+
+void App::Initialise() {
+    app_Window.reset(new Window(app_Resolution.get()));
+    app_Sprite.reset(new sf::Sprite);
 }
 
 void App::Run() {
-    std::cout << "Application running" <<std::endl;
-    while (app_Window->is_Open()) {
-        app_Window->Display();
+    app_Texture.reset(new sf::Texture);
+    
+    if (app_Texture->create(app_Resolution->x, app_Resolution->y)) {
+        std::cout << "[M] Application: Running" <<std::endl;
+        int area = app_Resolution->x*app_Resolution->y;
+        sf::Uint8* pixels = new sf::Uint8[area*4];
+        
+        for (int i=0; i < area; i++) {
+            if(i%100) {
+                pixels[i*4] = (100);
+                pixels[i*4+1] = (100);
+                pixels[i*4+2] = (100);
+                pixels[i*4+3] = 255;
+            }
+            else {
+                pixels[i*4] = 255;
+                pixels[i*4+1] = (255);
+                pixels[i*4+2] = (255);
+                pixels[i*4+3] = 255;
+            }
+            
+        }
+        
+        app_Texture->update(pixels);
+        app_Sprite->setTexture(*app_Texture);
+        
+        while (app_Window->is_Open()) {
+            app_Window->Display(app_Sprite.get());
+        }
+        delete[] pixels;
+        pixels = nullptr;
     }
+    else std::cout << "[M] Texture: Creation Failed" << std::endl;
+    Stop();
 }
 
 void App::Stop() {
-    std::cout << "Application stopping" << std::endl;
+    std::cout << "[M] Application: Stopping" << std::endl;
 }

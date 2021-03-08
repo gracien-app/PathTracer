@@ -16,14 +16,14 @@ public:
     Window(sf::Vector2u *resolution);
     ~Window();
     
-    void Display();
+    void Display(sf::Sprite* drawable_Sprite);
     bool is_Open();
 
 private:
     std::string window_Name;
-    std::unique_ptr<sf::RenderWindow> render_Window;
-    std::unique_ptr<sf::ContextSettings> settings;
     std::unique_ptr<sf::Event> event;
+    std::unique_ptr<sf::ContextSettings> settings;
+    std::unique_ptr<sf::RenderWindow> render_Window;
 };
 
 #endif /* Window_hpp */

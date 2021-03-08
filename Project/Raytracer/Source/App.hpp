@@ -17,13 +17,19 @@ public:
     App(int width, int height);
     ~App();
     
+    void Initialise();
     void Run();
     void Stop();
     
 private:
     bool is_Open;
-    std::unique_ptr<sf::Vector2u> resolution;
+    
     std::unique_ptr<Window> app_Window;
+    std::unique_ptr<sf::Sprite> app_Sprite;
+    std::unique_ptr<sf::Texture> app_Texture;
+    std::unique_ptr<sf::Vector2u> app_Resolution;
+    
+    
 };
 
 #endif /* App_hpp */

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -95,8 +95,6 @@
 				BE23B82D25F57F9F000BFAD9 /* Source */,
 				BE23B80325F57DAD000BFAD9 /* main.cpp */,
 				BE23B83425F58040000BFAD9 /* main.h */,
-				BE23B81425F57DF9000BFAD9 /* Raytracer.entitlements */,
-				BE23B7FF25F57DAD000BFAD9 /* Raytracer-Info.plist */,
 			);
 			path = Raytracer;
 			sourceTree = "<group>";
@@ -127,6 +125,8 @@
 		BE23B82E25F57FA8000BFAD9 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				BE23B7FF25F57DAD000BFAD9 /* Raytracer-Info.plist */,
+				BE23B81425F57DF9000BFAD9 /* Raytracer.entitlements */,
 				BE23B80025F57DAD000BFAD9 /* ResourcePath.mm */,
 				BE23B80225F57DAD000BFAD9 /* ResourcePath.hpp */,
 			);
@@ -179,7 +179,7 @@
 				};
 			};
 			buildConfigurationList = BE23B7F525F57DAD000BFAD9 /* Build configuration list for PBXProject "Raytracer" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -333,7 +333,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				CODE_SIGN_ENTITLEMENTS = Raytracer/Raytracer.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Raytracer/Source/Utilities/Raytracer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 35X65N86W4;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -341,7 +341,7 @@
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = "Raytracer/Raytracer-Info.plist";
+				INFOPLIST_FILE = "Raytracer/Source/Utilities/Raytracer-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@loader_path/../Frameworks",
 					"@executable_path/../Frameworks",
@@ -357,7 +357,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				CODE_SIGN_ENTITLEMENTS = Raytracer/Raytracer.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Raytracer/Source/Utilities/Raytracer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 35X65N86W4;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -365,7 +365,7 @@
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = "Raytracer/Raytracer-Info.plist";
+				INFOPLIST_FILE = "Raytracer/Source/Utilities/Raytracer-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@loader_path/../Frameworks",
 					"@executable_path/../Frameworks",
