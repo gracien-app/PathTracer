@@ -115,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				BE23B82E25F57FA8000BFAD9 /* Utilities */,
+				BE3CBF7125F7B950008D5A9B /* Renderer */,
 				BE23B82F25F57FE8000BFAD9 /* Window */,
 				BE23B83125F5802A000BFAD9 /* App.cpp */,
 				BE23B83225F5802A000BFAD9 /* App.hpp */,
@@ -140,6 +141,13 @@
 				BE23B83625F582A3000BFAD9 /* Window.hpp */,
 			);
 			path = Window;
+			sourceTree = "<group>";
+		};
+		BE3CBF7125F7B950008D5A9B /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Renderer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
