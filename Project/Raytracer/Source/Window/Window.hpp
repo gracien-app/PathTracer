@@ -13,11 +13,13 @@
 
 class Window {
 public:
-    Window(sf::Vector2u *resolution);
+    Window(uint width, uint height);
     ~Window();
     
+    bool isOpen();
+    sf::Event* getEvent();
+    sf::Vector2u getResolution();
     void Display(sf::Sprite* drawable_Sprite);
-    bool is_Open();
 
 private:
     std::string window_Name;

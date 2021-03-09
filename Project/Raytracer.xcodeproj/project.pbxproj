@@ -19,6 +19,7 @@
 		BE23B82A25F57E41000BFAD9 /* sfml-window.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE23B81B25F57E33000BFAD9 /* sfml-window.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BE23B83325F5802A000BFAD9 /* App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE23B83125F5802A000BFAD9 /* App.cpp */; };
 		BE23B83725F582A3000BFAD9 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE23B83525F582A3000BFAD9 /* Window.cpp */; };
+		BE3CBF7425F80426008D5A9B /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE3CBF7225F80426008D5A9B /* Renderer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,6 +56,8 @@
 		BE23B83425F58040000BFAD9 /* main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
 		BE23B83525F582A3000BFAD9 /* Window.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
 		BE23B83625F582A3000BFAD9 /* Window.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Window.hpp; sourceTree = "<group>"; };
+		BE3CBF7225F80426008D5A9B /* Renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
+		BE3CBF7325F80426008D5A9B /* Renderer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Renderer.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +149,8 @@
 		BE3CBF7125F7B950008D5A9B /* Renderer */ = {
 			isa = PBXGroup;
 			children = (
+				BE3CBF7225F80426008D5A9B /* Renderer.cpp */,
+				BE3CBF7325F80426008D5A9B /* Renderer.hpp */,
 			);
 			path = Renderer;
 			sourceTree = "<group>";
@@ -240,6 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE23B83325F5802A000BFAD9 /* App.cpp in Sources */,
+				BE3CBF7425F80426008D5A9B /* Renderer.cpp in Sources */,
 				BE23B80425F57DAD000BFAD9 /* main.cpp in Sources */,
 				BE23B80125F57DAD000BFAD9 /* ResourcePath.mm in Sources */,
 				BE23B83725F582A3000BFAD9 /* Window.cpp in Sources */,

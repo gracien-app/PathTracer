@@ -10,7 +10,7 @@
 
 int main()
 {
-    App Raytracer(1600,1600); //maximum height for my resolution
+    App Raytracer(1534,1534); //maximum height for my resolution
     Raytracer.Run();
     return 0;
 }

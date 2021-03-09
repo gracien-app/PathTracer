@@ -10,6 +10,7 @@
 #define App_hpp
 
 #include "Window.hpp"
+#include "Renderer.hpp"
 
 class App {
 public:
@@ -17,7 +18,7 @@ public:
     App(int width, int height);
     ~App();
     
-    void Initialise();
+    void Initialise(int width, int height);
     void Run();
     void Stop();
     
@@ -25,10 +26,7 @@ private:
     bool is_Open;
     
     std::unique_ptr<Window> app_Window;
-    std::unique_ptr<sf::Sprite> app_Sprite;
-    std::unique_ptr<sf::Texture> app_Texture;
-    std::unique_ptr<sf::Vector2u> app_Resolution;
-    
+    std::unique_ptr<Renderer> app_Renderer;
     
 };
 

@@ -9,25 +9,12 @@
 #include "App.hpp"
 
 App::App() {
-    app_Resolution.reset(new sf::Vector2u(1000,1000));
-    try {
-        Initialise();
-    }
-    catch (const char* err) {
-        std::cerr << "[C] ERROR: "<< err << std::endl;
-    }
+    Initialise(1000, 1000);
     std::cout << "[C] Application:\n Resolution: 1000x1000\n Antialiasing: 0x" << std::endl;
 }
 
 App::App(int width, int height) {
-    app_Resolution.reset(new sf::Vector2u(width,height));
-    
-    try {
-        Initialise();
-    }
-    catch (const char* err) {
-        std::cerr << "[C] ERROR: "<< err << std::endl;
-    }
+    Initialise(width, height);
     std::cout << "[C] Application:\n Resolution: "<<width<<"x"<<height<<"\n Antialiasing: 0x" << std::endl;
 }
 
@@ -35,48 +22,25 @@ App::~App() {
     std::cout << "\n[D] Application: Terminated"<< std::endl;
 }
 
-void App::Initialise() {
-    app_Window.reset(new Window(app_Resolution.get()));
-    app_Sprite.reset(new sf::Sprite);
-    if (!app_Window) throw "Can't create application window.";
-    if (!app_Sprite) throw "Can't create window sprite.";
+void App::Initialise(int width, int height) {
+    app_Window.reset(new Window(width,height));
+    app_Renderer.reset(new Renderer());
+    
+    try {
+        app_Renderer->Initialise(app_Window->getResolution());
+    }
+    catch(const char* err){
+        std::cerr << "\n[!] FATAL: " << err << "\n\n";
+    }
 }
 
 void App::Run() {
-    app_Texture.reset(new sf::Texture);
-    
-    if (app_Texture->create(app_Resolution->x, app_Resolution->y)) {
-        
-        std::cout << "[M] Application: Running" <<std::endl;
-        int area = app_Resolution->x*app_Resolution->y;
-        int width = app_Resolution->x;
-        int height = app_Resolution->y;
-        std::vector<sf::Uint8> pixels(area*4);
-        
-        for (int j=0; j<height; j++) {
-            for (int i=0; i<width; i++) {
-                
-                auto r = float(i) / width;
-                auto g = float(j) / height;
-                auto b = 0.5;
-                
-                int gridPos = i+(j*height);
-                pixels[4*gridPos+0] = int(r*255);
-                pixels[4*gridPos+1] = int(g*255);
-                pixels[4*gridPos+2] = int(b*255);
-                pixels[4*gridPos+3] = int(255);
-                //4* because one pixel consists of RGBA color components
-                //+x to access specific component
-            }
-        }
-        app_Texture->update(&pixels[0]);
-        app_Sprite->setTexture(*app_Texture);
-        
-        while (app_Window->is_Open()) {
-            app_Window->Display(app_Sprite.get());
-        }
+    std::cout << "[M] Application: Running" <<std::endl;
+   
+    while (app_Window->isOpen()) {
+        app_Window->Display(app_Renderer->getSprite());
     }
-    else std::cout << "[M] Texture: Creation Failed" << std::endl;
+    
     Stop();
 }
 

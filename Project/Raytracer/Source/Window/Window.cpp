@@ -8,7 +8,7 @@
 
 #include "Window.hpp"
 
-Window::Window(sf::Vector2u *resolution) {
+Window::Window(uint width, uint height) {
     
     window_Name = "Raytracer";
     event.reset(new sf::Event);
@@ -16,7 +16,7 @@ Window::Window(sf::Vector2u *resolution) {
     render_Window.reset(new sf::RenderWindow);
     
     settings->antialiasingLevel = 0;
-    render_Window->create(sf::VideoMode(resolution->x, resolution->y), window_Name, sf::Style::Default, *settings);
+    render_Window->create(sf::VideoMode(width, height), window_Name, sf::Style::Default, *settings);
     render_Window->setFramerateLimit(60);
     
     std::cout << "[C] Window: Created" << std::endl;
@@ -39,7 +39,15 @@ void Window::Display(sf::Sprite* drawable_Sprite) {
     }
 }
 
-bool Window::is_Open() {
+bool Window::isOpen() {
     return render_Window->isOpen();
+}
+
+sf::Vector2u Window::getResolution() {
+    return render_Window->getSize();
+}
+
+sf::Event* Window::getEvent() {
+    return event.get();
 }
 
