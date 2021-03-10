@@ -9,28 +9,32 @@
 #ifndef Vectors_hpp
 #define Vectors_hpp
 
-#include "main.h"
-
 class vect3D {
 public:
-    //Constructors
+    // MARK: Constructors
     vect3D();
     vect3D(double x, double y, double z);
 
-    //Operators
+    // MARK: Operators
     vect3D& operator += (const vect3D &rhs); // += to not make a copy
     vect3D& operator -= (const vect3D &rhs); // as above
     
-    vect3D& operator *= (const vect3D &rhs);
-    vect3D& operator /= (const vect3D &rhs);
+    vect3D& operator *= (const vect3D &rhs); //for future colour class possibly
+    vect3D& operator /= (const vect3D &rhs); //for future colour class possibly
     vect3D& operator *= (const double multiplier);
     vect3D& operator /= (const double divider);
     
+    // MARK: Private data access
     double x() const;
     double y() const;
     double z() const;
     
+    // MARK: Utility methods
     double Length() const;
+    double Dot(const vect3D &rhs) const;
+    
+    // MARK: Debug methods
+    void printInfo();
     
 private:
     double _data[3];

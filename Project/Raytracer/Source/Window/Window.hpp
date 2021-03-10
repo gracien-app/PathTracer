@@ -13,6 +13,8 @@
 
 class Window {
 public:
+    
+    // MARK: Constructors & Destructor
     Window(uint width, uint height);
     ~Window();
     

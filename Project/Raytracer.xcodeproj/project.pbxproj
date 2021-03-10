@@ -21,6 +21,8 @@
 		BE23B83725F582A3000BFAD9 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE23B83525F582A3000BFAD9 /* Window.cpp */; };
 		BE3CBF7425F80426008D5A9B /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE3CBF7225F80426008D5A9B /* Renderer.cpp */; };
 		BE3CBF7925F842D8008D5A9B /* Vectors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE3CBF7725F842D8008D5A9B /* Vectors.cpp */; };
+		BE4CB76E25F97C210072DAE1 /* Ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE4CB76C25F97C210072DAE1 /* Ray.cpp */; };
+		BE4CB77125F97C5B0072DAE1 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE4CB76F25F97C5B0072DAE1 /* Camera.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -61,6 +63,10 @@
 		BE3CBF7325F80426008D5A9B /* Renderer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Renderer.hpp; sourceTree = "<group>"; };
 		BE3CBF7725F842D8008D5A9B /* Vectors.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Vectors.cpp; sourceTree = "<group>"; };
 		BE3CBF7825F842D8008D5A9B /* Vectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Vectors.hpp; sourceTree = "<group>"; };
+		BE4CB76C25F97C210072DAE1 /* Ray.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Ray.cpp; sourceTree = "<group>"; };
+		BE4CB76D25F97C210072DAE1 /* Ray.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Ray.hpp; sourceTree = "<group>"; };
+		BE4CB76F25F97C5B0072DAE1 /* Camera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
+		BE4CB77025F97C5B0072DAE1 /* Camera.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Camera.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +159,8 @@
 			isa = PBXGroup;
 			children = (
 				BE3CBF7625F842CC008D5A9B /* Utilities */,
+				BE4CB76B25F97C100072DAE1 /* Camera */,
+				BE4CB76A25F97C090072DAE1 /* Ray */,
 				BE3CBF7225F80426008D5A9B /* Renderer.cpp */,
 				BE3CBF7325F80426008D5A9B /* Renderer.hpp */,
 			);
@@ -166,6 +174,24 @@
 				BE3CBF7825F842D8008D5A9B /* Vectors.hpp */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		BE4CB76A25F97C090072DAE1 /* Ray */ = {
+			isa = PBXGroup;
+			children = (
+				BE4CB76C25F97C210072DAE1 /* Ray.cpp */,
+				BE4CB76D25F97C210072DAE1 /* Ray.hpp */,
+			);
+			name = Ray;
+			sourceTree = "<group>";
+		};
+		BE4CB76B25F97C100072DAE1 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				BE4CB76F25F97C5B0072DAE1 /* Camera.cpp */,
+				BE4CB77025F97C5B0072DAE1 /* Camera.hpp */,
+			);
+			name = Camera;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,6 +287,8 @@
 				BE3CBF7425F80426008D5A9B /* Renderer.cpp in Sources */,
 				BE23B80425F57DAD000BFAD9 /* main.cpp in Sources */,
 				BE23B80125F57DAD000BFAD9 /* ResourcePath.mm in Sources */,
+				BE4CB77125F97C5B0072DAE1 /* Camera.cpp in Sources */,
+				BE4CB76E25F97C210072DAE1 /* Ray.cpp in Sources */,
 				BE3CBF7925F842D8008D5A9B /* Vectors.cpp in Sources */,
 				BE23B83725F582A3000BFAD9 /* Window.cpp in Sources */,
 			);

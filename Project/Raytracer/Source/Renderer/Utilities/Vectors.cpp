@@ -7,13 +7,14 @@
 //
 
 #include "Vectors.hpp"
+#include <iostream>
 #include <cmath>
 
-//Constructors
+// MARK: Constructors
 vect3D::vect3D() : _data{0,0,0} {};
 vect3D::vect3D(double x, double y, double z) : _data{x,y,z} {};
 
-//Operators
+// MARK: Operators
 vect3D& vect3D::operator += (const vect3D &rhs) {
     _data[0] += rhs._data[0];
     _data[1] += rhs._data[1];
@@ -56,7 +57,7 @@ vect3D& vect3D::operator /= (const double divider) {
     return *this;
 }
 
-//Data methods
+// MARK: Private data access
 double vect3D::x() const {
     return _data[0];
 }
@@ -67,7 +68,19 @@ double vect3D::z() const {
     return _data[2];
 }
 
-//Utilities
+// MARK: Utility methods
 double vect3D::Length() const {
     return sqrt(_data[0]*_data[0] + _data[1]*_data[1] + _data[2]*_data[2]);
 }
+
+double vect3D::Dot(const vect3D &rhs) const {
+    return _data[0]*rhs._data[0] + _data[1]*rhs._data[1] + _data[2]*rhs._data[2];
+}
+
+// MARK: Debug methods
+void vect3D::printInfo() {
+    std::cout << "Vector: " << this->x() << " " << this->y() << " " << this->z();
+    std::cout << " Length: " << this->Length() << std::endl;
+}
+
+
