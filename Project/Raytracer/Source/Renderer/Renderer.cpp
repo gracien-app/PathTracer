@@ -18,7 +18,7 @@ Renderer::~Renderer() {
     std::cout << "[D] Renderer: Terminated" << std::endl;
 }
 
-void Renderer::Initialise(sf::Vector2u resolution) {
+void Renderer::init(sf::Vector2u resolution) {
     res.reset(new sf::Vector2u(resolution.x, resolution.y));
     if (!res) throw "Can't inherit resolution to Renderer";
     

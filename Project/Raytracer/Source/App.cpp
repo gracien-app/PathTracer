@@ -27,7 +27,7 @@ void App::Initialise(int width, int height) {
     app_Renderer.reset(new Renderer());
     
     try {
-        app_Renderer->Initialise(app_Window->getResolution());
+        app_Renderer->init(app_Window->getResolution());
     }
     catch(const char* err){
         std::cerr << "\n[!] FATAL: " << err << "\n\n";

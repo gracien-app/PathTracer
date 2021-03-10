@@ -20,6 +20,7 @@
 		BE23B83325F5802A000BFAD9 /* App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE23B83125F5802A000BFAD9 /* App.cpp */; };
 		BE23B83725F582A3000BFAD9 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE23B83525F582A3000BFAD9 /* Window.cpp */; };
 		BE3CBF7425F80426008D5A9B /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE3CBF7225F80426008D5A9B /* Renderer.cpp */; };
+		BE3CBF7925F842D8008D5A9B /* Vectors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE3CBF7725F842D8008D5A9B /* Vectors.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,6 +59,8 @@
 		BE23B83625F582A3000BFAD9 /* Window.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Window.hpp; sourceTree = "<group>"; };
 		BE3CBF7225F80426008D5A9B /* Renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
 		BE3CBF7325F80426008D5A9B /* Renderer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Renderer.hpp; sourceTree = "<group>"; };
+		BE3CBF7725F842D8008D5A9B /* Vectors.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Vectors.cpp; sourceTree = "<group>"; };
+		BE3CBF7825F842D8008D5A9B /* Vectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Vectors.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +120,7 @@
 		BE23B82D25F57F9F000BFAD9 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				BE23B82E25F57FA8000BFAD9 /* Utilities */,
+				BE23B82E25F57FA8000BFAD9 /* Resources */,
 				BE3CBF7125F7B950008D5A9B /* Renderer */,
 				BE23B82F25F57FE8000BFAD9 /* Window */,
 				BE23B83125F5802A000BFAD9 /* App.cpp */,
@@ -126,7 +129,7 @@
 			path = Source;
 			sourceTree = "<group>";
 		};
-		BE23B82E25F57FA8000BFAD9 /* Utilities */ = {
+		BE23B82E25F57FA8000BFAD9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				BE23B7FF25F57DAD000BFAD9 /* Raytracer-Info.plist */,
@@ -134,7 +137,7 @@
 				BE23B80025F57DAD000BFAD9 /* ResourcePath.mm */,
 				BE23B80225F57DAD000BFAD9 /* ResourcePath.hpp */,
 			);
-			path = Utilities;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		BE23B82F25F57FE8000BFAD9 /* Window */ = {
@@ -149,10 +152,20 @@
 		BE3CBF7125F7B950008D5A9B /* Renderer */ = {
 			isa = PBXGroup;
 			children = (
+				BE3CBF7625F842CC008D5A9B /* Utilities */,
 				BE3CBF7225F80426008D5A9B /* Renderer.cpp */,
 				BE3CBF7325F80426008D5A9B /* Renderer.hpp */,
 			);
 			path = Renderer;
+			sourceTree = "<group>";
+		};
+		BE3CBF7625F842CC008D5A9B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				BE3CBF7725F842D8008D5A9B /* Vectors.cpp */,
+				BE3CBF7825F842D8008D5A9B /* Vectors.hpp */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -248,6 +261,7 @@
 				BE3CBF7425F80426008D5A9B /* Renderer.cpp in Sources */,
 				BE23B80425F57DAD000BFAD9 /* main.cpp in Sources */,
 				BE23B80125F57DAD000BFAD9 /* ResourcePath.mm in Sources */,
+				BE3CBF7925F842D8008D5A9B /* Vectors.cpp in Sources */,
 				BE23B83725F582A3000BFAD9 /* Window.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -347,7 +361,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				CODE_SIGN_ENTITLEMENTS = Raytracer/Source/Utilities/Raytracer.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Raytracer/Source/Resources/Raytracer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 35X65N86W4;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -355,7 +369,7 @@
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = "Raytracer/Source/Utilities/Raytracer-Info.plist";
+				INFOPLIST_FILE = "Raytracer/Source/Resources/Raytracer-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@loader_path/../Frameworks",
 					"@executable_path/../Frameworks",
@@ -371,7 +385,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
-				CODE_SIGN_ENTITLEMENTS = Raytracer/Source/Utilities/Raytracer.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Raytracer/Source/Resources/Raytracer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 35X65N86W4;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -379,7 +393,7 @@
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = "Raytracer/Source/Utilities/Raytracer-Info.plist";
+				INFOPLIST_FILE = "Raytracer/Source/Resources/Raytracer-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@loader_path/../Frameworks",
 					"@executable_path/../Frameworks",

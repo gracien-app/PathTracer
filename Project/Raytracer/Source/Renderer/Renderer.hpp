@@ -16,7 +16,7 @@ public:
     Renderer();
     ~Renderer();
     
-    void Initialise(sf::Vector2u resolution);
+    void init(sf::Vector2u resolution);
     sf::Sprite* getSprite();
     
     
