@@ -24,8 +24,6 @@ public:
     vect3D& operator *= (const double multiplier);
     vect3D& operator /= (const double divider);
     
-//    vect3D operator + (const vect3D& lhs, const vect3D& rhs);
-    
     // MARK: Private data access
     double x() const;
     double y() const;
@@ -42,17 +40,17 @@ private:
     double _data[3];
 };
 
-//MARK: Utility functions
+    //MARK: Utility functions
 inline vect3D operator+(const vect3D &lhs, const vect3D &rhs) {
     return vect3D(lhs.x()+rhs.x(),
                   lhs.y()+rhs.y(),
                   lhs.z()+rhs.z());
 }
 
-inline vect3D operator*(const vect3D &v, const double multiplier) {
-    return vect3D(v.x()*multiplier,
-                  v.y()*multiplier,
-                  v.z()*multiplier);
+inline vect3D operator*(const vect3D &lhs, const double multiplier) {
+    return vect3D(lhs.x()*multiplier,
+                  lhs.y()*multiplier,
+                  lhs.z()*multiplier);
 }
 
 //TODO: Check if inline is necessary, inline functions apparently MUST be here due to c++ specific, can't define them in .cpp, ask on classes if possible.

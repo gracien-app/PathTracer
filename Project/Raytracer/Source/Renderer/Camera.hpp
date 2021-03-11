@@ -14,8 +14,9 @@
 class Camera {
 public:
     
+    vect3D& getPos() const;
 private:
-    
+    vect3D position;
 };
 
 #endif /* Camera_hpp */
