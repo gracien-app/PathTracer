@@ -30,13 +30,8 @@ vect3D Ray::getDest() const {
 
 // MARK: Utility methods
 vect3D Ray::pos(double time) const {
-    vect3D toReturn;
-    vect3D temp = dest;
-    temp*=time;
-    toReturn+=temp;
-    return toReturn;
+    return dest*time + orig;
     //MARK: Initial idea - Ax+B where A is destination, x is time, B is origin, so it goes towards dest with time t, i can multiply dest by constant thanks to operator.
-    //FIXME: Proper operators to handle it in one line
 }
 
 // MARK: Debug
