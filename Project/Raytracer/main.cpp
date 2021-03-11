@@ -22,10 +22,13 @@ int main()
     
     vect3D test1 = ray1.pos(0); // should be origin (1 2 3) + (0*4 0*5 0*6) so 1 2 3
     
-    test1 = ray1.pos(-1); //should be past destination, and (1 2 3) + (1*4 1*5 1*6) so 5 7 9
-    test1.printInfo();
+    test1 = ray1.pos(1); //should be past destination, and (1 2 3) + (1*4 1*5 1*6) so 5 7 9
     auto test = Normalize(test1);
-    test.printInfo();
+    
+    vect3D colourtest(41,128,185);
+    colourtest.printInfo();
+    colourtest.normRGB();
+    colourtest.printInfo();
     
     
     return 0;

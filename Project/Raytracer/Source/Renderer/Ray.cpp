@@ -13,6 +13,7 @@
 // MARK: Constructors
 Ray::Ray() {
     //No need to pre-initialise, vect3D default constructor sets each vect3D to be 0,0,0
+    //for both, origin and destination.
 }
 
 Ray::Ray(const vect3D& origin, const vect3D& destination) : orig(origin), dest(destination) {
@@ -41,9 +42,14 @@ void Ray::printInfo() {
     
 }
 
-vect3D colourRay(const Ray& r)  {
+vect3D skyColour(const Ray& r)  {
     auto unit_R = Normalize(r.getDest()); // vector is of length 1 now and xyz are <0,1>
-    return vect3D(1.0, 1.0, 1.0)*(1-abs(unit_R.y()));
-    // MARK: The bigger the |Y coordinate|, the darker the colour, gradient should look like black-white-black if no mistakes are here.
+    double height = (unit_R.y()+1) * 0.5; //To get the height, 0 for upper part, 1 for bottom
+    //For -1 the output is 0, for 1 its 1 so fits, maybe change it later
+    
+    return vect3D(41, 128, 185)*(1-height) + vect3D(255, 255, 255)*height;
+    // MARK: Linear interpolation formula for sky gradient: blend = (1-h) x colour_up + h x colour_down
+    // MARK: Colours set acordingly to the sky colour, goes from dark blue to very light blue
+    // MARK: https://uigradients.com/#CoolSky
 }
 

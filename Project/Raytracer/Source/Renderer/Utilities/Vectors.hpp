@@ -33,6 +33,9 @@ public:
     double Length() const;
     double Dot(const vect3D &rhs) const;
     
+    //FIXME: Make some colour class for this, might add rgb->cmyk
+    vect3D& normRGB();
+    
     // MARK: Debug methods
     void printInfo();
     

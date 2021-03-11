@@ -14,7 +14,9 @@
 #include <iostream>
 #include <memory>
 #include "Vectors.hpp"
-
+#include "Ray.hpp"
+#include "Renderer.hpp"
+#include "Camera.hpp"
 
 
 #endif /* main_h */

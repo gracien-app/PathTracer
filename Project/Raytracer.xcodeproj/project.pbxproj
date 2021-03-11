@@ -23,6 +23,7 @@
 		BE3CBF7925F842D8008D5A9B /* Vectors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE3CBF7725F842D8008D5A9B /* Vectors.cpp */; };
 		BE4CB76E25F97C210072DAE1 /* Ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE4CB76C25F97C210072DAE1 /* Ray.cpp */; };
 		BE4CB77125F97C5B0072DAE1 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE4CB76F25F97C5B0072DAE1 /* Camera.cpp */; };
+		BECBB28F25FAB6B200D6554E /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BECBB28D25FAB6B200D6554E /* Scene.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -67,6 +68,8 @@
 		BE4CB76D25F97C210072DAE1 /* Ray.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Ray.hpp; sourceTree = "<group>"; };
 		BE4CB76F25F97C5B0072DAE1 /* Camera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		BE4CB77025F97C5B0072DAE1 /* Camera.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Camera.hpp; sourceTree = "<group>"; };
+		BECBB28D25FAB6B200D6554E /* Scene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
+		BECBB28E25FAB6B200D6554E /* Scene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Scene.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +161,7 @@
 		BE3CBF7125F7B950008D5A9B /* Renderer */ = {
 			isa = PBXGroup;
 			children = (
+				BECBB28C25FAB68F00D6554E /* Scene */,
 				BE3CBF7625F842CC008D5A9B /* Utilities */,
 				BE4CB76B25F97C100072DAE1 /* Camera */,
 				BE4CB76A25F97C090072DAE1 /* Ray */,
@@ -192,6 +196,15 @@
 				BE4CB77025F97C5B0072DAE1 /* Camera.hpp */,
 			);
 			name = Camera;
+			sourceTree = "<group>";
+		};
+		BECBB28C25FAB68F00D6554E /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				BECBB28D25FAB6B200D6554E /* Scene.cpp */,
+				BECBB28E25FAB6B200D6554E /* Scene.hpp */,
+			);
+			path = Scene;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,6 +302,7 @@
 				BE23B80125F57DAD000BFAD9 /* ResourcePath.mm in Sources */,
 				BE4CB77125F97C5B0072DAE1 /* Camera.cpp in Sources */,
 				BE4CB76E25F97C210072DAE1 /* Ray.cpp in Sources */,
+				BECBB28F25FAB6B200D6554E /* Scene.cpp in Sources */,
 				BE3CBF7925F842D8008D5A9B /* Vectors.cpp in Sources */,
 				BE23B83725F582A3000BFAD9 /* Window.cpp in Sources */,
 			);

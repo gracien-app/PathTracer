@@ -21,11 +21,16 @@ public:
     
     
 private:
+    
     std::vector<sf::Uint8> outPixels;
     
     std::unique_ptr<sf::Vector2u> res;
     std::unique_ptr<sf::Sprite> outSprite;
     std::unique_ptr<sf::Texture> outTexture;
+    
+    vect3D origin;
+    
+    
     
 };
 

@@ -15,8 +15,9 @@ class Camera {
 public:
     
     vect3D& getPos() const;
+    
 private:
-    vect3D position;
+    vect3D pos3D;
     double focalLenght;
 };
 
