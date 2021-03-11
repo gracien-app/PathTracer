@@ -8,6 +8,3 @@
 
 #include "Camera.hpp"
 
-vect3D& Camera::getPos() const {
-    return 
-}

@@ -11,8 +11,8 @@
 
 int main()
 {
-//    App Raytracer(1534,1534); //maximum height for my resolution
-//    Raytracer.Run();
+    App Raytracer(1534,1534); //maximum height for my resolution
+    Raytracer.Run();
     
     //testing pos
     vect3D origin(1,2,3);
