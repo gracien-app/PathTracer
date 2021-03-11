@@ -7,6 +7,8 @@
 //
 
 #include "Ray.hpp"
+#include <iostream>
+#include "Vectors.hpp"
 
 // MARK: Constructors
 Ray::Ray() {
@@ -24,4 +26,22 @@ vect3D Ray::getOrigin() const {
 
 vect3D Ray::getDest() const {
     return dest;
+}
+
+// MARK: Utility methods
+vect3D Ray::pos(double time) const {
+    vect3D toReturn;
+    vect3D temp = dest;
+    temp*=time;
+    toReturn+=temp;
+    return toReturn;
+    //MARK: Initial idea - Ax+B where A is destination, x is time, B is origin, so it goes towards dest with time t, i can multiply dest by constant thanks to operator.
+    //FIXME: Proper operators to handle it in one line
+}
+
+// MARK: Debug
+void Ray::printInfo() {
+    std::cout << "\nRAY Origin: "<< orig.x()<< " "<< orig.y()<< " "<< orig.z();
+    std::cout << " Dest: "<< dest.x()<< " "<< dest.y()<< " "<< dest.z()<<"\n";
+    
 }

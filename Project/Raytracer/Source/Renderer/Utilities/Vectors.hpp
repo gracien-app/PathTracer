@@ -24,6 +24,8 @@ public:
     vect3D& operator *= (const double multiplier);
     vect3D& operator /= (const double divider);
     
+//    vect3D operator + (const vect3D& lhs, const vect3D& rhs);
+    
     // MARK: Private data access
     double x() const;
     double y() const;
@@ -39,5 +41,6 @@ public:
 private:
     double _data[3];
 };
+
 
 #endif /* Vectors_hpp */

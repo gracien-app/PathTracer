@@ -22,6 +22,11 @@ public:
     vect3D getOrigin() const;
     vect3D getDest() const;
 
+    // MARK: Utility methods
+    vect3D pos(double time) const;
+    
+    // MARK: Debug
+    void printInfo();
     
 private:
     vect3D orig;
