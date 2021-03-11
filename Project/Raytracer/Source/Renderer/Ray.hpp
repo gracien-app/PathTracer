@@ -33,4 +33,6 @@ private:
     vect3D dest;
 };
 
+vect3D colourRay(const Ray& r); //to not alter the ray in any way
+
 #endif /* Ray_hpp */

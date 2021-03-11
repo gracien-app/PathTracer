@@ -53,7 +53,16 @@ inline vect3D operator*(const vect3D &lhs, const double multiplier) {
                   lhs.z()*multiplier);
 }
 
-//TODO: Check if inline is necessary, inline functions apparently MUST be here due to c++ specific, can't define them in .cpp, ask on classes if possible.
+inline vect3D operator/(const vect3D &lhs, const double divider) {
+    return vect3D(lhs.x()*(1/divider),
+                  lhs.y()*(1/divider),
+                  lhs.z()*(1/divider));
+}
+
+inline vect3D Normalize(const vect3D &vector) {
+    return vector / vector.Length();
+}
+
 
 
 #endif /* Vectors_hpp */

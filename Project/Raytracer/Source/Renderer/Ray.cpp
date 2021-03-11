@@ -40,3 +40,10 @@ void Ray::printInfo() {
     std::cout << " Dest: "<< dest.x()<< " "<< dest.y()<< " "<< dest.z()<<"\n";
     
 }
+
+vect3D colourRay(const Ray& r)  {
+    auto unit_R = Normalize(r.getDest()); // vector is of length 1 now and xyz are <0,1>
+    return vect3D(1.0, 1.0, 1.0)*(1-abs(unit_R.y()));
+    // MARK: The bigger the |Y coordinate|, the darker the colour, gradient should look like black-white-black if no mistakes are here.
+}
+

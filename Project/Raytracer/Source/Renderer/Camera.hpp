@@ -17,6 +17,7 @@ public:
     vect3D& getPos() const;
 private:
     vect3D position;
+    double focalLenght;
 };
 
 #endif /* Camera_hpp */
