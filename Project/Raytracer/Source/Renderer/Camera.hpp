@@ -14,11 +14,17 @@
 class Camera {
 public:
     
-    vect3D& getPos() const;
+    Camera& operator+=(const vect3D &rhs);
+    
+    void setFocal(const double focalLength);
+    vect3D getPosition() const;
+    
+    double _focalLenght;
+    double _projectionHeight;
+    double _projectionWidth;
     
 private:
-    vect3D pos3D;
-    double focalLenght;
+    vect3D _origin;
 };
 
 #endif /* Camera_hpp */

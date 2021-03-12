@@ -14,13 +14,14 @@
 class Scene {
 public:
     Scene();
+    Scene(const vect3D &pointOfView, const vect3D &spaceColour, const double focalLength);
+    
+    vect3D spaceColour(const Ray& r); //to not alter the ray in any way
+    Camera& getCamera();
     
 private:
-    
-    vect3D _skyColour;
-    vect3D _origin;
-    
-    Camera _eye;
+    vect3D _space;
+    Camera _pov; //Point-of-view
     
 };
 

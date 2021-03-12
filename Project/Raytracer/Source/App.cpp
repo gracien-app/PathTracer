@@ -29,8 +29,11 @@ void App::Initialise(int width, int height) {
     try {
         app_Renderer->init(app_Window->getResolution());
     }
-    catch(const char* err){
+    catch(const char* err) {
         std::cerr << "\n[!] FATAL: " << err << "\n\n";
+    }
+    catch (std::bad_alloc) {
+        std::cerr << "\n[!] FATAL: Can't allocate space for output pixel vector.\n\n";
     }
 }
 

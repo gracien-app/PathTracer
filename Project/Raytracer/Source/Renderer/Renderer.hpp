@@ -16,21 +16,28 @@ public:
     Renderer();
     ~Renderer();
     
-    void init(sf::Vector2u resolution);
+    void init(const sf::Vector2u &resolution);
+    void render();
+    void updateTexture();
+    
     sf::Sprite* getSprite();
     
     
 private:
     
-    std::vector<sf::Uint8> outPixels;
+    double _width;
+    double _height;
+    double _aspect_ratio; // Width/Height
     
-    std::unique_ptr<sf::Vector2u> res;
+    double _projection_Width;
+    double _projection_Height;
+    double _focal_Length;
+    
+    vect3D _origin;
+    
+    std::vector<sf::Uint8> outPixels;
     std::unique_ptr<sf::Sprite> outSprite;
     std::unique_ptr<sf::Texture> outTexture;
-    
-    vect3D origin;
-    
-    
     
 };
 

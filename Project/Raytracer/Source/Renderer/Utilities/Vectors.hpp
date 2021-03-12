@@ -34,7 +34,7 @@ public:
     double Dot(const vect3D &rhs) const;
     
     //FIXME: Make some colour class for this, might add rgb->cmyk
-    vect3D& normRGB();
+    vect3D& normRGB(); //to transfer RGB vector xyz values to normalised <0,1> for renderer. 
     
     // MARK: Debug methods
     void printInfo();
@@ -50,10 +50,20 @@ inline vect3D operator+(const vect3D &lhs, const vect3D &rhs) {
                   lhs.z()+rhs.z());
 }
 
-inline vect3D operator*(const vect3D &lhs, const double multiplier) {
+inline vect3D operator-(const vect3D &lhs, const vect3D &rhs) {
+    return vect3D(lhs.x()-rhs.x(),
+                  lhs.y()-rhs.y(),
+                  lhs.z()-rhs.z());
+}
+
+inline vect3D operator*(const double multiplier, const vect3D &lhs) {
     return vect3D(lhs.x()*multiplier,
                   lhs.y()*multiplier,
                   lhs.z()*multiplier);
+}
+
+inline vect3D operator*(const vect3D &lhs, const double multiplier ) {
+    return multiplier*lhs; //Using the above;
 }
 
 inline vect3D operator/(const vect3D &lhs, const double divider) {
