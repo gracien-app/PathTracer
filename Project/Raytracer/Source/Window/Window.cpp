@@ -8,16 +8,14 @@
 
 #include "Window.hpp"
 
-Window::Window(uint width, uint height) {
+Window::Window(const uint &width, const uint &height) {
     
-    window_Name = "Raytracer";
-    event.reset(new sf::Event);
-    settings.reset(new sf::ContextSettings);
-    render_Window.reset(new sf::RenderWindow);
+    _event.reset(new sf::Event);
+    _renderWindow.reset(new sf::RenderWindow);
+    _videoMode.reset(new sf::VideoMode(width,height,32));
     
-    settings->antialiasingLevel = 0;
-    render_Window->create(sf::VideoMode(width, height), window_Name, sf::Style::Default, *settings);
-    render_Window->setFramerateLimit(60);
+    _renderWindow->create(*_videoMode, "RAYTRACER", sf::Style::Default);
+    _renderWindow->setVerticalSyncEnabled(true);
     
     std::cout << "[C] Window: Created" << std::endl;
 }
@@ -26,28 +24,24 @@ Window::~Window() {
     std::cout << "[D] Window: Terminated" << std::endl;
 }
 
-void Window::Display(sf::Sprite* drawable_Sprite) {
-    while (render_Window->isOpen()) {
-        while (render_Window->pollEvent(*event)) {
-            if (event->type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-                render_Window->close();
+void Window::Display(const sf::Sprite &drawable_Sprite) {
+    while (_renderWindow->isOpen()) {
+        while (_renderWindow->pollEvent(*_event)) {
+            if (_event->type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                _renderWindow->close();
             }
         }
-        render_Window->clear(sf::Color(0, 0, 0));
-        render_Window->draw(*drawable_Sprite);
-        render_Window->display();
+        _renderWindow->clear(sf::Color(0, 0, 0));
+        _renderWindow->draw(drawable_Sprite);
+        _renderWindow->display();
     }
 }
 
 bool Window::isOpen() {
-    return render_Window->isOpen();
+    return _renderWindow->isOpen();
 }
 
 sf::Vector2u Window::getResolution() {
-    return render_Window->getSize();
-}
-
-sf::Event* Window::getEvent() {
-    return event.get();
+    return _renderWindow->getSize();
 }
 

@@ -22,7 +22,6 @@ public:
 private:
     vect3D _sky[2];
     Camera _camera; //Point-of-view
-    
 };
 
 #endif /* Scene_hpp */

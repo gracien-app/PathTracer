@@ -15,19 +15,20 @@ class Window {
 public:
     
     // MARK: Constructors & Destructor
-    Window(uint width, uint height);
+    
+    Window(const uint &width, const uint &height);
     ~Window();
     
+    // MARK: Utilities
+    
     bool isOpen();
-    sf::Event* getEvent();
     sf::Vector2u getResolution();
-    void Display(sf::Sprite* drawable_Sprite);
+    void Display(const sf::Sprite &drawable_Sprite);
 
 private:
-    std::string window_Name;
-    std::unique_ptr<sf::Event> event;
-    std::unique_ptr<sf::ContextSettings> settings;
-    std::unique_ptr<sf::RenderWindow> render_Window;
+    std::unique_ptr<sf::Event> _event;
+    std::unique_ptr<sf::VideoMode> _videoMode;
+    std::unique_ptr<sf::RenderWindow> _renderWindow;
 };
 
 #endif /* Window_hpp */

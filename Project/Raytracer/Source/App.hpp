@@ -14,17 +14,20 @@
 
 class App {
 public:
+    
+    // MARK: Constructors & Destructor
     App();
-    App(int width, int height);
+    App(const int &width, const int &height);
     ~App();
     
-    void Initialise(int width, int height);
+    // MARK: State methods
     void Run();
     void Stop();
+    void Initialise(const int &width, const int &height);
     
 private:
-    bool is_Open;
     
+    bool is_Open;
     std::unique_ptr<Window> app_Window;
     std::unique_ptr<Renderer> app_Renderer;
     

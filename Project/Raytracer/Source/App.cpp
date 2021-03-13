@@ -8,21 +8,24 @@
 
 #include "App.hpp"
 
+// MARK: Constructors
 App::App() {
     Initialise(1000, 1000);
-    std::cout << "[C] Application:\n Resolution: 1000x1000\n Antialiasing: 0x" << std::endl;
+    std::cout << "[C] Application:\n Resolution: 1000x1000" << std::endl;
 }
 
-App::App(int width, int height) {
+App::App(const int &width, const int &height) {
     Initialise(width, height);
-    std::cout << "[C] Application:\n Resolution: "<<width<<"x"<<height<<"\n Antialiasing: 0x" << std::endl;
+    std::cout << "[C] Application:\n    Resolution: "<<width<<"x"<<height<< std::endl;
 }
 
 App::~App() {
     std::cout << "\n[D] Application: Terminated"<< std::endl;
 }
 
-void App::Initialise(int width, int height) {
+// MARK: State methods
+void App::Initialise(const int &width, const int &height) {
+    
     app_Window.reset(new Window(width,height));
     app_Renderer.reset(new Renderer());
     
@@ -41,7 +44,7 @@ void App::Run() {
     std::cout << "[M] Application: Running" <<std::endl;
    
     while (app_Window->isOpen()) {
-        app_Window->Display(app_Renderer->getSprite());
+        app_Window->Display(*app_Renderer->getSprite());
     }
     
     Stop();

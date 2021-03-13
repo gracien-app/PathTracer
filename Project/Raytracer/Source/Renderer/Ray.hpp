@@ -26,7 +26,7 @@ public:
     vect3D pos(double time) const;
     
     // MARK: Debug
-    void printInfo();
+    void printInfo() const;
     
 private:
     vect3D orig;

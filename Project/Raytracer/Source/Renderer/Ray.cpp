@@ -36,9 +36,9 @@ vect3D Ray::pos(double time) const {
 }
 
 // MARK: Debug
-void Ray::printInfo() {
-    std::cout << "\nRAY Origin: "<< orig.x()<< " "<< orig.y()<< " "<< orig.z();
-    std::cout << " Dest: "<< dest.x()<< " "<< dest.y()<< " "<< dest.z()<<"\n";
+void Ray::printInfo() const {
+    std::cout << "  Origin: "<< orig;
+    std::cout << "  Dest:   "<< dest <<std::endl;
     
 }
 

@@ -12,6 +12,7 @@ Renderer::Renderer() {
     outTexture.reset(new sf::Texture);
     outSprite.reset(new sf::Sprite);
     std::cout << "[C] Renderer: Created" << std::endl;
+    outTexture->setSmooth(false);
 };
 Renderer::~Renderer() {
     std::cout << "[D] Renderer: Terminated" << std::endl;
@@ -59,23 +60,19 @@ void Renderer::render() {
 
             auto x = double(i) / (_width-1);
             auto y = double(j) / (_height-1);
-            //MARK: x and y are to multiply the vertical and horizontal projection vectors to point to the correct pixel
+            //MARK: x and y are to multiply the vertical and horizontal projection vectors to the correct pixel.
 
-            Ray testRay( _origin, upperLeft + x*X - y*Y);
+            Ray testRay( _origin, (upperLeft + x*X - y*Y) );
             //MARK: FIXED Initial idea: Go from upper left, then add partials of X and Y vectors to go in such way:
             //MARK: Upper Left -> Go right to pixel at width x -> Go down to pixel at height y. Starting always at _origin of renderer so from camera.
             
             auto colour = coolSky.spaceColour(testRay);
-            //MARK: spaceColour returns normalized RGB, no corrections needed.
 
             outPixels[4*gridPos+0] = int(colour.x()*255.999);
             outPixels[4*gridPos+1] = int(colour.y()*255.999);
             outPixels[4*gridPos+2] = int(colour.z()*255.999);
             outPixels[4*gridPos+3] = int(255);
-            
-            //4* because one pixel consists of RGBA color components
-            //+x to access specific component
-            //.999 to compensate lack of <= width, height
+            //.999 to compensate < width, height
         }
     }
     

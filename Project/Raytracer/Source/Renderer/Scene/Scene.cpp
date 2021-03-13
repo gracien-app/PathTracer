@@ -9,8 +9,10 @@
 #include "Scene.hpp"
 
 Scene::Scene() {
-    _sky[0] += vect3D(43,50,178);
-    _sky[1] += vect3D(20,136,204);
+    _sky[0] += vect3D(45,50,172);
+    _sky[1] += vect3D(65,135,200);
+    
+    //https://uigradients.com/#Skyline
     
     _sky[0].normRGB();
     _sky[1].normRGB();
@@ -33,9 +35,8 @@ Camera& Scene::getCamera() {
 }
 
 vect3D Scene::spaceColour(const Ray& r)  {
-    auto unit_R = Normalize(r.getDest()); // vector is of length 1 now and xyz are <0,1>
-    double height = (unit_R.y()+1) * 0.5; //To get the height, 0 for upper part, 1 for bottom
-    //For -1 the output is 0, for 1 its 1 so fits, maybe change it later
+    auto unit_R = r.getDest(); // Y can be between <-1,1> because of constant projectionHeight=2
+    double height = (unit_R.y()+1) * 0.5; // To make it go from <0, 1>
     
     return _sky[1]*(1-height) + _sky[0]*height;
     
