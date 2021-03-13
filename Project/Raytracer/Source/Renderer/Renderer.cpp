@@ -52,30 +52,52 @@ void Renderer::render() {
     vect3D upperLeft(origin+Y/2-X/2+Depth);
     //MARK:: Transformation of origin to get to upper left corner of projection plane so to (-1,1,1) which is normalised coordinate system.
     
-    for (int j=0; j<(_height); j++) {
-        for (int i=0; i<(_width); i++) {
-            
-            int gridPos = i+(j*_height);
-            
-            auto x = double(i) / (_width-1);
-            auto y = double(j) / (_height-1);
-            //MARK: x and y are to multiply the vertical and horizontal projection vectors to point to the correct pixel
-            
-            Ray testRay( _origin, upperLeft + (x*X) + (y*Y) );
-            //MARK: Initial idea: Go from upper left, add hor and vert vectors with respect to x and y which indicate
-            //MARK: for which pixel it works, so i need to add X vector multiplied by x and Y by y.
-            auto colour = coolSky.spaceColour(testRay);
-            //MARK: spaceColour returns normalized RGB, no corrections needed.
-            
-            outPixels[4*gridPos+0] = int(colour.x()*255.999);
-            outPixels[4*gridPos+1] = int(colour.y()*255.999);
-            outPixels[4*gridPos+2] = int(colour.z()*255.999);
+//    for (int j=0; j<(_height); j++) {
+//        for (int i=0; i<(_width); i++) {
+//
+//            int gridPos = i+(j*_height);
+//
+//            auto x = double(i) / (_width-1);
+//            auto y = double(j) / (_height-1);
+//            //MARK: x and y are to multiply the vertical and horizontal projection vectors to point to the correct pixel
+//
+//            Ray testRay( _origin, upperLeft + (x*X) + (y*Y) );
+//            //MARK: Initial idea: Go from upper left, add hor and vert vectors with respect to x and y which indicate
+//            //MARK: for which pixel it works, so i need to add X vector multiplied by x and Y by y.
+//            auto colour = coolSky.spaceColour(testRay);
+//            //MARK: spaceColour returns normalized RGB, no corrections needed.
+//
+//            outPixels[4*gridPos+0] = int(colour.x()*255.999);
+//            outPixels[4*gridPos+1] = int(colour.y()*255.999);
+//            outPixels[4*gridPos+2] = int(colour.z()*255.999);
+//            outPixels[4*gridPos+3] = int(255);
+//            //4* because one pixel consists of RGBA color components
+//            //+x to access specific component
+//            //.999 to compensate lack of <= width, height
+//        }
+//    }
+    
+    for (int j=0; j<_height; j++) {
+        for (int i=0; i<_width; i++) {
+
+            auto r = float(i) / _width;
+            auto g = float(j) / _height;
+            auto b = 0.8;
+            // MARK: Data from renderer will come normalised, keep the 255.999
+            int gridPos = i+(j*_width);
+            outPixels[4*gridPos+0] = int(r*255.999);
+            outPixels[4*gridPos+1] = int(g*255.999);
+            outPixels[4*gridPos+2] = int(b*255.999);
             outPixels[4*gridPos+3] = int(255);
             //4* because one pixel consists of RGBA color components
             //+x to access specific component
             //.999 to compensate lack of <= width, height
+            
+            //MARK: CRUCIAL CUSTOM RESOLUTION FIX - gridPos = i+(j x width) not height, pixels
+            //MARK: are transfered from continuous stream of data, not by coordinates!
         }
     }
+    
     updateTexture();
 }
 
@@ -88,21 +110,5 @@ sf::Sprite* Renderer::getSprite() {
 }
 
 /* Test Rainbow function
- for (int j=0; j<_height; j++) {
-     for (int i=0; i<_width; i++) {
 
-         auto r = float(i) / _width;
-         auto g = float(j) / _height;
-         auto b = 0.8;
-         // MARK: Data from renderer will come normalised, keep the 255.999
-         int gridPos = i+(j*_height);
-         outPixels[4*gridPos+0] = int(r*255.999);
-         outPixels[4*gridPos+1] = int(g*255.999);
-         outPixels[4*gridPos+2] = int(b*255.999);
-         outPixels[4*gridPos+3] = int(255);
-         //4* because one pixel consists of RGBA color components
-         //+x to access specific component
-         //.999 to compensate lack of <= width, height
-     }
- }
  */
