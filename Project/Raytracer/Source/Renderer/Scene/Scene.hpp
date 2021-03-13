@@ -20,8 +20,8 @@ public:
     Camera& getCamera();
     
 private:
-    vect3D _space;
-    Camera _pov; //Point-of-view
+    vect3D _sky[2];
+    Camera _camera; //Point-of-view
     
 };
 

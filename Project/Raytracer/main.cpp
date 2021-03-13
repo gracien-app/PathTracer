@@ -11,7 +11,7 @@
 
 int main()
 {
-    App Raytracer(1200,1000); //maximum height for my resolution 1534
+    App Raytracer(1000,1000); //maximum height for my resolution 1534
     Raytracer.Run();
     
     //testing pos

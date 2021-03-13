@@ -9,6 +9,8 @@
 #ifndef Vectors_hpp
 #define Vectors_hpp
 
+#include <iostream>
+
 class vect3D {
 public:
     // MARK: Constructors
@@ -76,6 +78,8 @@ inline vect3D Normalize(const vect3D &vector) {
     return vector / vector.Length();
 }
 
-
+inline std::ostream& operator << (std::ostream &output, const vect3D &vector) {
+    return output << "[ " << vector.x() << " " << vector.y() << " " << vector.z() << " ]\n";
+}
 
 #endif /* Vectors_hpp */

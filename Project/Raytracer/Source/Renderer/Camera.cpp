@@ -17,6 +17,10 @@ void Camera::setFocal(const double focalLength) {
     _focalLenght = focalLength;
 }
 
+double Camera::getFocal() const {
+    return _focalLenght;
+}
+
 vect3D Camera::getPosition() const {
     return _origin;
 }
