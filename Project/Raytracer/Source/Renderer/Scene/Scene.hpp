@@ -10,18 +10,20 @@
 #define Scene_hpp
 
 #include "main.h"
+#include "Solid.hpp"
 
 class Scene {
 public:
     Scene();
     Scene(const vect3D &pointOfView, const vect3D &spaceColour, const double focalLength);
     
-    vect3D spaceColour(const Ray& r); //to not alter the ray in any way
+    vect3D colourRay(const Ray& r); //to not alter the ray in any way
     Camera& getCamera();
     
 private:
     vect3D _sky[2];
     Camera _camera; //Point-of-view
+    Sphere* sphere1;
 };
 
 #endif /* Scene_hpp */

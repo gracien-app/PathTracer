@@ -23,6 +23,7 @@
 		BE3CBF7925F842D8008D5A9B /* Vectors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE3CBF7725F842D8008D5A9B /* Vectors.cpp */; };
 		BE4CB76E25F97C210072DAE1 /* Ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE4CB76C25F97C210072DAE1 /* Ray.cpp */; };
 		BE4CB77125F97C5B0072DAE1 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE4CB76F25F97C5B0072DAE1 /* Camera.cpp */; };
+		BE5FA03525FD3D0600AEC4F5 /* Solid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE5FA03325FD3D0600AEC4F5 /* Solid.cpp */; };
 		BECBB28F25FAB6B200D6554E /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BECBB28D25FAB6B200D6554E /* Scene.cpp */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,8 @@
 		BE4CB76D25F97C210072DAE1 /* Ray.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Ray.hpp; sourceTree = "<group>"; };
 		BE4CB76F25F97C5B0072DAE1 /* Camera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		BE4CB77025F97C5B0072DAE1 /* Camera.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Camera.hpp; sourceTree = "<group>"; };
+		BE5FA03325FD3D0600AEC4F5 /* Solid.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Solid.cpp; sourceTree = "<group>"; };
+		BE5FA03425FD3D0600AEC4F5 /* Solid.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Solid.hpp; sourceTree = "<group>"; };
 		BECBB28D25FAB6B200D6554E /* Scene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
 		BECBB28E25FAB6B200D6554E /* Scene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Scene.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -129,11 +132,11 @@
 		BE23B82D25F57F9F000BFAD9 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				BE23B82E25F57FA8000BFAD9 /* Resources */,
-				BE3CBF7125F7B950008D5A9B /* Renderer */,
-				BE23B82F25F57FE8000BFAD9 /* Window */,
 				BE23B83125F5802A000BFAD9 /* App.cpp */,
 				BE23B83225F5802A000BFAD9 /* App.hpp */,
+				BE23B82E25F57FA8000BFAD9 /* Resources */,
+				BE23B82F25F57FE8000BFAD9 /* Window */,
+				BE3CBF7125F7B950008D5A9B /* Renderer */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -161,12 +164,11 @@
 		BE3CBF7125F7B950008D5A9B /* Renderer */ = {
 			isa = PBXGroup;
 			children = (
+				BE3CBF7225F80426008D5A9B /* Renderer.cpp */,
+				BE3CBF7325F80426008D5A9B /* Renderer.hpp */,
 				BE3CBF7625F842CC008D5A9B /* Utilities */,
 				BE4CB76B25F97C100072DAE1 /* Camera */,
 				BECBB28C25FAB68F00D6554E /* Scene */,
-				BE4CB76A25F97C090072DAE1 /* Ray */,
-				BE3CBF7225F80426008D5A9B /* Renderer.cpp */,
-				BE3CBF7325F80426008D5A9B /* Renderer.hpp */,
 			);
 			path = Renderer;
 			sourceTree = "<group>";
@@ -176,6 +178,7 @@
 			children = (
 				BE3CBF7725F842D8008D5A9B /* Vectors.cpp */,
 				BE3CBF7825F842D8008D5A9B /* Vectors.hpp */,
+				BE4CB76A25F97C090072DAE1 /* Ray */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 				BE4CB76D25F97C210072DAE1 /* Ray.hpp */,
 			);
 			name = Ray;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		BE4CB76B25F97C100072DAE1 /* Camera */ = {
@@ -198,11 +202,21 @@
 			name = Camera;
 			sourceTree = "<group>";
 		};
+		BE5FA03225FD3CEC00AEC4F5 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				BE5FA03325FD3D0600AEC4F5 /* Solid.cpp */,
+				BE5FA03425FD3D0600AEC4F5 /* Solid.hpp */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
 		BECBB28C25FAB68F00D6554E /* Scene */ = {
 			isa = PBXGroup;
 			children = (
 				BECBB28D25FAB6B200D6554E /* Scene.cpp */,
 				BECBB28E25FAB6B200D6554E /* Scene.hpp */,
+				BE5FA03225FD3CEC00AEC4F5 /* Objects */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -305,6 +319,7 @@
 				BECBB28F25FAB6B200D6554E /* Scene.cpp in Sources */,
 				BE3CBF7925F842D8008D5A9B /* Vectors.cpp in Sources */,
 				BE23B83725F582A3000BFAD9 /* Window.cpp in Sources */,
+				BE5FA03525FD3D0600AEC4F5 /* Solid.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

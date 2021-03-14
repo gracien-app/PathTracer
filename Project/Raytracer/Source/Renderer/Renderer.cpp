@@ -66,7 +66,7 @@ void Renderer::render() {
             //MARK: FIXED Initial idea: Go from upper left, then add partials of X and Y vectors to go in such way:
             //MARK: Upper Left -> Go right to pixel at width x -> Go down to pixel at height y. Starting always at _origin of renderer so from camera.
             
-            auto colour = coolSky.spaceColour(testRay);
+            auto colour = coolSky.colourRay(testRay);
 
             outPixels[4*gridPos+0] = int(colour.x()*255.999);
             outPixels[4*gridPos+1] = int(colour.y()*255.999);
@@ -75,7 +75,6 @@ void Renderer::render() {
             //.999 to compensate < width, height
         }
     }
-    
     updateTexture();
 }
 

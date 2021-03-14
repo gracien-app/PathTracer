@@ -18,6 +18,8 @@ public:
     vect3D(double x, double y, double z);
 
     // MARK: Operators
+    double& operator[] (const int &index);
+    
     vect3D& operator += (const vect3D &rhs); // += to not make a copy
     vect3D& operator -= (const vect3D &rhs); // as above
     

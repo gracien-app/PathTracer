@@ -7,12 +7,12 @@
 //
 
 #include "App.hpp"
-#include "Ray.hpp"
+#include "main.h"
 
 int main()
 {
-    App Raytracer(1400,700); //maximum height for my resolution 1534
+    App Raytracer(1534,1534); //maximum height for my resolution 1534
     Raytracer.Run();
-    
+
     return 0;
 }

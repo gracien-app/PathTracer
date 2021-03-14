@@ -15,6 +15,11 @@ vect3D::vect3D() : _data{0,0,0} {};
 vect3D::vect3D(double x, double y, double z) : _data{x,y,z} {};
 
 // MARK: Operators
+
+double& vect3D::operator[] (const int &index) {
+    return _data[index];
+}
+
 vect3D& vect3D::operator += (const vect3D &rhs) {
     _data[0] += rhs._data[0];
     _data[1] += rhs._data[1];
@@ -88,7 +93,3 @@ void vect3D::printInfo() {
     std::cout << "Vector: " << this->x() << " " << this->y() << " " << this->z();
     std::cout << " Length: " << this->Length() << std::endl;
 }
-
-
-
-
