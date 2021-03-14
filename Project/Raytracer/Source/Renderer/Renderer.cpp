@@ -22,7 +22,7 @@ void Renderer::init(const sf::Vector2u &resolution) {
     _width = resolution.x;
     _height = resolution.y;
     
-    _projectionHeight = 2.0; //MARK: Height coorinates go from -1,1 so the total length is 2.
+    _projectionHeight = 2.0; //MARK: Height coordinates go from -1,1 so the total length is 2.
     _aspectRatio = _width / _height; //MARK: Aspect to see how height defines width
     _projectionWidth = _projectionHeight*_aspectRatio; //MARK: Defining the width of coordinate system based on height.
     
