@@ -74,11 +74,15 @@ double vect3D::z() const {
 }
 
 // MARK: Utility methods
-double vect3D::Length() const {
+double vect3D::length() const {
     return sqrt(_data[0]*_data[0] + _data[1]*_data[1] + _data[2]*_data[2]);
 }
 
-double vect3D::Dot(const vect3D &rhs) const {
+double vect3D::lengthSquared() const {
+    return (_data[0]*_data[0] + _data[1]*_data[1] + _data[2]*_data[2]);
+}
+
+double vect3D::dot(const vect3D &rhs) const {
     return _data[0]*rhs._data[0] + _data[1]*rhs._data[1] + _data[2]*rhs._data[2];
 }
 
@@ -91,5 +95,5 @@ vect3D& vect3D::normRGB() {
 // MARK: Debug
 void vect3D::printInfo() {
     std::cout << "Vector: " << this->x() << " " << this->y() << " " << this->z();
-    std::cout << " Length: " << this->Length() << std::endl;
+    std::cout << " Length: " << this->length() << std::endl;
 }

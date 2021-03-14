@@ -34,11 +34,13 @@ public:
     double z() const;
     
     // MARK: Utility methods
-    double Length() const;
-    double Dot(const vect3D &rhs) const;
+    double length() const;
+    double lengthSquared() const;
+    double dot(const vect3D &rhs) const;
     
-    //FIXME: Make some colour class for this, might add rgb->cmyk
-    vect3D& normRGB(); //to transfer RGB vector xyz values to normalised <0,1> for renderer. 
+    /// Method for transforming standard RGB values of vector to normalized values ranging from <0,1> used by the renderer.
+    /// @warning Make sure that vector is not already normalized, no checks are performed.
+    vect3D& normRGB();
     
     // MARK: Debug methods
     void printInfo();
@@ -77,7 +79,7 @@ inline vect3D operator/(const vect3D &lhs, const double divider) {
 }
 
 inline vect3D Normalize(const vect3D &vector) {
-    return vector / vector.Length();
+    return vector / vector.length();
 }
 
 inline std::ostream& operator << (std::ostream &output, const vect3D &vector) {
