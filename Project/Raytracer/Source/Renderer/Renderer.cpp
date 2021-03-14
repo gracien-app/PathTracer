@@ -66,6 +66,7 @@ void Renderer::render() {
             //MARK: FIXED Initial idea: Go from upper left, then add partials of X and Y vectors to go in such way:
             //MARK: Upper Left -> Go right to pixel at width x -> Go down to pixel at height y. Starting always at _origin of renderer so from camera.
             
+            
             auto colour = coolSky.colourRay(testRay);
 
             outPixels[4*gridPos+0] = int(colour.x()*255.999);
@@ -85,27 +86,3 @@ void Renderer::updateTexture() {
 sf::Sprite* Renderer::getSprite() {
     return outSprite.get();
 }
-
-/* Test Rainbow function for debugging
- 
- for (int j=0; j<_height; j++) {
-     for (int i=0; i<_width; i++) {
-
-         auto r = float(i) / _width;
-         auto g = float(j) / _height;
-         auto b = 0.8;
-         // MARK: Data from renderer will come normalised, keep the 255.999
-         int gridPos = i+(j*_width);
-         outPixels[4*gridPos+0] = int(r*255.999);
-         outPixels[4*gridPos+1] = int(g*255.999);
-         outPixels[4*gridPos+2] = int(b*255.999);
-         outPixels[4*gridPos+3] = int(255);
-         //4* because one pixel consists of RGBA color components
-         //+x to access specific component
-         //.999 to compensate lack of <= width, height
-         
-    
-     }
- }
- 
- */

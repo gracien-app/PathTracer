@@ -23,7 +23,7 @@ public:
 private:
     vect3D _sky[2];
     Camera _camera; //Point-of-view
-    Sphere* sphere1;
+    std::vector<Sphere> spheres;
 };
 
 #endif /* Scene_hpp */
