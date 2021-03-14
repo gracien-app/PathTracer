@@ -10,7 +10,7 @@
 #define Scene_hpp
 
 #include "main.h"
-#include "Solid.hpp"
+#include "Sphere.hpp"
 
 class Scene {
 public:

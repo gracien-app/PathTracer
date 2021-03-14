@@ -7,8 +7,6 @@
 //
 
 #include "Ray.hpp"
-#include <iostream>
-#include "Vectors.hpp"
 
 // MARK: Constructors
 Ray::Ray() {

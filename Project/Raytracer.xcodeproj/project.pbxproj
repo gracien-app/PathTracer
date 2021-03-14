@@ -25,6 +25,7 @@
 		BE4CB77125F97C5B0072DAE1 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE4CB76F25F97C5B0072DAE1 /* Camera.cpp */; };
 		BE5FA03525FD3D0600AEC4F5 /* Solid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE5FA03325FD3D0600AEC4F5 /* Solid.cpp */; };
 		BECBB28F25FAB6B200D6554E /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BECBB28D25FAB6B200D6554E /* Scene.cpp */; };
+		BEDF18E525FE73EE00E52FD2 /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BEDF18E325FE73EE00E52FD2 /* Sphere.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -73,6 +74,8 @@
 		BE5FA03425FD3D0600AEC4F5 /* Solid.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Solid.hpp; sourceTree = "<group>"; };
 		BECBB28D25FAB6B200D6554E /* Scene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
 		BECBB28E25FAB6B200D6554E /* Scene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Scene.hpp; sourceTree = "<group>"; };
+		BEDF18E325FE73EE00E52FD2 /* Sphere.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
+		BEDF18E425FE73EE00E52FD2 /* Sphere.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sphere.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +210,7 @@
 			children = (
 				BE5FA03325FD3D0600AEC4F5 /* Solid.cpp */,
 				BE5FA03425FD3D0600AEC4F5 /* Solid.hpp */,
+				BEDF18E225FE73DD00E52FD2 /* Sphere */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -219,6 +223,15 @@
 				BE5FA03225FD3CEC00AEC4F5 /* Objects */,
 			);
 			path = Scene;
+			sourceTree = "<group>";
+		};
+		BEDF18E225FE73DD00E52FD2 /* Sphere */ = {
+			isa = PBXGroup;
+			children = (
+				BEDF18E325FE73EE00E52FD2 /* Sphere.cpp */,
+				BEDF18E425FE73EE00E52FD2 /* Sphere.hpp */,
+			);
+			name = Sphere;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -317,6 +330,7 @@
 				BE4CB77125F97C5B0072DAE1 /* Camera.cpp in Sources */,
 				BE4CB76E25F97C210072DAE1 /* Ray.cpp in Sources */,
 				BECBB28F25FAB6B200D6554E /* Scene.cpp in Sources */,
+				BEDF18E525FE73EE00E52FD2 /* Sphere.cpp in Sources */,
 				BE3CBF7925F842D8008D5A9B /* Vectors.cpp in Sources */,
 				BE23B83725F582A3000BFAD9 /* Window.cpp in Sources */,
 				BE5FA03525FD3D0600AEC4F5 /* Solid.cpp in Sources */,

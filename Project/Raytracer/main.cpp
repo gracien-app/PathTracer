@@ -19,8 +19,6 @@ int main()
 
 // TODO: Make the window open before renderer finishes initial render, so that the window is already visible when rendering.
 
-// TODO: Split Solid and Sphere into separate files, or maybe make Geometry file for all geometrical figures
-
 // TODO: Cube class with intersection.
 
 // TODO: Calculating normals
