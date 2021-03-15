@@ -16,7 +16,7 @@ App::App() {
 
 App::App(const int &width, const int &height) {
     Initialise(width, height);
-    std::cout << "[C] Application:\n    Resolution: "<<width<<"x"<<height<< std::endl;
+    std::cout << "[C] Application:\n    Resolution: "<<width<<"x"<<height<< "\n\n";
 }
 
 App::~App() {

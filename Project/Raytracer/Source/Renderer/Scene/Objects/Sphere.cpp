@@ -22,5 +22,13 @@ bool Sphere::Intersects(const Ray &ray) const {
     auto c = OriginC.lengthSquared()-(_radius*_radius);
     
     auto delta = b*b - 4*a*c;
-    return (delta > 0);
+    
+    if (delta >= 0) {
+//        return ( -b-sqrt(delta) ) / (2*a);
+        return true;
+    }
+    else {
+        return false;
+    }
+    
 }
