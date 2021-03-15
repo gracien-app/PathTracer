@@ -25,3 +25,7 @@ vect3D& Solid::getColour() {
     return _colour;
 }
 
+vect3D& Solid::getCenter() {
+    return _center;
+}
+

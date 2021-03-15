@@ -33,7 +33,7 @@ public:
     /// @note Ray is a P(time) = Origin + time * Destination
     /// @note Final formula F(t) = t^2*Destination^2 + t*2*Destination*(Origin-C)+ Origin^2-R^2 = 0
     /// @warning Multiplication of vectors - Dot product!
-    virtual bool Intersects(const Ray &ray) const;
+    virtual double Intersects(const Ray &ray) const;
     
     
 private:

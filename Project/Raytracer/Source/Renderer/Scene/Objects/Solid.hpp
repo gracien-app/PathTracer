@@ -21,6 +21,7 @@ public:
     void setColour(const vect3D &rgb);
     
     vect3D& getColour();
+    vect3D& getCenter();
     
 protected:
     vect3D _colour;
