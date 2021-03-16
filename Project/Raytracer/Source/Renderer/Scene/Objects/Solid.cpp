@@ -30,6 +30,6 @@ vect3D& Solid::getCenter() {
     return _center;
 }
 
-bool Solid::Intersect (const Ray &ray, recent &recent_Intersect, double timeMin, double timeMax) const {
+bool Solid::Intersect (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const {
     return false;
 }

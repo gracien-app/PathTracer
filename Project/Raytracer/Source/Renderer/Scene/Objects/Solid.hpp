@@ -37,14 +37,7 @@ public:
     vect3D& getColour();
     vect3D& getCenter();
     
-    
-    /// Virtual method used to check if ray with determined origin and destination direction intersects with the geometry.
-    /// @param ray Reference to object of type Ray
-    /// @param recent_Intersect Reference to Recent structure which keeps track of recent intersections performed.
-    /// @param timeMin Specifies minimum time when the intersection can occur.
-    /// @param timeMax Specifies maximum time when the intersection can occur.
-    /// @returns FALSE. Solid is a base class of geometries, not geometry itself.
-    virtual bool Intersect (const Ray &ray, recent &recent_Intersect, double timeMin, double timeMax) const;
+    virtual bool Intersect (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const;
     
 protected:
     colour _colour;
