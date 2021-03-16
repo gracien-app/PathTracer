@@ -21,4 +21,6 @@ int main()
 
 // TODO: Cube class with intersection.
 
-// TODO: Basic shadows
+// TODO: Basic shadows using calculated normals
+
+// TODO: (IDEA) Make volumes where intersection function, is simply random generator where probability is dependent on density, the denser the volume, the more particles are hit and so it will maybe look like clouds.

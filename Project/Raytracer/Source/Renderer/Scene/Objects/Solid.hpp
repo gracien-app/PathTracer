@@ -18,6 +18,11 @@
 /// @note [HITABLE]
 class Solid {
 public:
+    
+    
+    /// Sets the position according to the XYZ of vect3D object passed.
+    /// @param vector Reference to vect3D object
+    /// @warning Inverts Z to compensate the right handed coordinate system, so that objects with positive Z are in front of "camera".
     void setPosition(const vect3D &vector);
     void setColour(const colour &rgb);
     
