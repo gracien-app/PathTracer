@@ -10,6 +10,7 @@
 #define Vectors_hpp
 
 #include <iostream>
+#include <cmath>
 
 class vect3D {
 public:
@@ -23,8 +24,6 @@ public:
     vect3D& operator += (const vect3D &rhs); // += to not make a copy
     vect3D& operator -= (const vect3D &rhs); // as above
     
-    vect3D& operator *= (const vect3D &rhs); //for future colour class possibly
-    vect3D& operator /= (const vect3D &rhs); //for future colour class possibly
     vect3D& operator *= (const double multiplier);
     vect3D& operator /= (const double divider);
     
@@ -38,14 +37,10 @@ public:
     double lengthSquared() const;
     double dot(const vect3D &rhs) const;
     
-    /// Method for transforming standard RGB values of vector to normalized values ranging from <0,1> used by the renderer.
-    /// @warning Make sure that vector is not already normalized, no checks are performed.
-    vect3D& normRGB();
-    
     // MARK: Debug methods
-    void printInfo();
+    virtual void printInfo();
     
-private:
+protected:
     double _data[3];
 };
 

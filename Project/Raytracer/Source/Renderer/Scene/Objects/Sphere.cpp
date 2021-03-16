@@ -8,7 +8,7 @@
 
 #include "Sphere.hpp"
 
-Sphere::Sphere(const vect3D &center, const double radius, const vect3D &colour) {
+Sphere::Sphere(const vect3D &center, const double radius, const colour &colour) {
     this->setColour(colour);
     this->setPosition(center);
     this->_radius = radius;

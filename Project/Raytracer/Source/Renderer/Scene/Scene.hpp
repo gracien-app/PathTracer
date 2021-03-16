@@ -15,13 +15,13 @@
 class Scene {
 public:
     Scene();
-    Scene(const vect3D &pointOfView, const vect3D &spaceColour, const double focalLength);
+    Scene(const vect3D &pointOfView, const colour &skyColour, const double focalLength);
     
     vect3D colourRay(const Ray& r); //to not alter the ray in any way
     Camera& getCamera();
     
 private:
-    vect3D _sky[2];
+    colour _sky[2];
     Camera _camera; //Point-of-view
     std::vector<Sphere> spheres;
 };

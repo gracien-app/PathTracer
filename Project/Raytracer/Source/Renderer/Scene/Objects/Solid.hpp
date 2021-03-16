@@ -11,6 +11,7 @@
 
 #include "Vectors.hpp"
 #include "Ray.hpp"
+#include "Colour.hpp"
 
 
 /// Base class for all Solid (hitable by rays) objects.
@@ -18,13 +19,13 @@
 class Solid {
 public:
     void setPosition(const vect3D &vector);
-    void setColour(const vect3D &rgb);
+    void setColour(const colour &rgb);
     
     vect3D& getColour();
     vect3D& getCenter();
     
 protected:
-    vect3D _colour;
+    colour _colour;
     vect3D _center;
 };
 

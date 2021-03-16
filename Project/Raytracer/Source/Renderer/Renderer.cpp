@@ -47,7 +47,7 @@ void Renderer::render() {
     vect3D Y        (0,_projectionHeight,0); //MARK: Vector defining the direction of rendering in Y axis.
     vect3D Depth    (0,0,focal_length); //MARK: Vector defining the depth (Z coordinate) for the render.
     
-    vect3D upperLeft(_origin + Depth + Y/2 - X/2);
+    vect3D upperLeft(_origin - Depth + Y/2 - X/2);
     //MARK: FIXED Rendering starts from upper left corner, so its origin+depth-half_of_with+ half_of_height
     //MARK: For Origin at (0,0,0) and aspect ratio of 2 its (-2,1,1)
     
@@ -66,14 +66,9 @@ void Renderer::render() {
             //MARK: FIXED Initial idea: Go from upper left, then add partials of X and Y vectors to go in such way:
             //MARK: Upper Left -> Go right to pixel at width x -> Go down to pixel at height y. Starting always at _origin of renderer so from camera.
             
-            
-            auto colour = coolSky.colourRay(testRay);
-
-            outPixels[4*gridPos+0] = int(colour.x()*255.999);
-            outPixels[4*gridPos+1] = int(colour.y()*255.999);
-            outPixels[4*gridPos+2] = int(colour.z()*255.999);
-            outPixels[4*gridPos+3] = int(255);
-            //.999 to compensate < width, height
+            colour colour = coolSky.colourRay(testRay);
+            colour.standardizeOutput(outPixels, gridPos);
+           
         }
     }
     updateTexture();

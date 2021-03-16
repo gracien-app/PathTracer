@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE15F1EC2600378E00A0BCF8 /* Colour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE15F1EA2600378E00A0BCF8 /* Colour.cpp */; };
 		BE23B80125F57DAD000BFAD9 /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE23B80025F57DAD000BFAD9 /* ResourcePath.mm */; };
 		BE23B80425F57DAD000BFAD9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE23B80325F57DAD000BFAD9 /* main.cpp */; };
 		BE23B82225F57E3D000BFAD9 /* freetype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE23B81825F57E33000BFAD9 /* freetype.framework */; };
@@ -46,6 +47,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BE15F1EA2600378E00A0BCF8 /* Colour.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Colour.cpp; sourceTree = "<group>"; };
+		BE15F1EB2600378E00A0BCF8 /* Colour.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Colour.hpp; sourceTree = "<group>"; };
 		BE23B7FB25F57DAD000BFAD9 /* Raytracer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Raytracer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE23B7FF25F57DAD000BFAD9 /* Raytracer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Raytracer-Info.plist"; sourceTree = "<group>"; };
 		BE23B80025F57DAD000BFAD9 /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
@@ -93,6 +96,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BE15F1E92600377E00A0BCF8 /* Colour */ = {
+			isa = PBXGroup;
+			children = (
+				BE15F1EA2600378E00A0BCF8 /* Colour.cpp */,
+				BE15F1EB2600378E00A0BCF8 /* Colour.hpp */,
+			);
+			path = Colour;
+			sourceTree = "<group>";
+		};
+		BE15F1ED26003E9800A0BCF8 /* Vectors */ = {
+			isa = PBXGroup;
+			children = (
+				BE3CBF7725F842D8008D5A9B /* Vectors.cpp */,
+				BE3CBF7825F842D8008D5A9B /* Vectors.hpp */,
+			);
+			name = Vectors;
+			sourceTree = "<group>";
+		};
 		BE23B7F125F57DAD000BFAD9 = {
 			isa = PBXGroup;
 			children = (
@@ -179,8 +200,8 @@
 		BE3CBF7625F842CC008D5A9B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				BE3CBF7725F842D8008D5A9B /* Vectors.cpp */,
-				BE3CBF7825F842D8008D5A9B /* Vectors.hpp */,
+				BE15F1E92600377E00A0BCF8 /* Colour */,
+				BE15F1ED26003E9800A0BCF8 /* Vectors */,
 				BE4CB76A25F97C090072DAE1 /* Ray */,
 			);
 			path = Utilities;
@@ -330,6 +351,7 @@
 				BE4CB77125F97C5B0072DAE1 /* Camera.cpp in Sources */,
 				BE4CB76E25F97C210072DAE1 /* Ray.cpp in Sources */,
 				BECBB28F25FAB6B200D6554E /* Scene.cpp in Sources */,
+				BE15F1EC2600378E00A0BCF8 /* Colour.cpp in Sources */,
 				BEDF18E525FE73EE00E52FD2 /* Sphere.cpp in Sources */,
 				BE3CBF7925F842D8008D5A9B /* Vectors.cpp in Sources */,
 				BE23B83725F582A3000BFAD9 /* Window.cpp in Sources */,

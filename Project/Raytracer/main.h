@@ -18,6 +18,7 @@
 #include "Renderer.hpp"
 #include "Camera.hpp"
 #include "Scene.hpp"
+#include "Colour.hpp"
 
 
 #endif /* main_h */

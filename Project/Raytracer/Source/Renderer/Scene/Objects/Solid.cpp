@@ -14,11 +14,11 @@ void Solid::setPosition(const vect3D &vector) {
     _center[2] = vector.z();
 }
 
-void Solid::setColour(const vect3D &rgb) {
+void Solid::setColour(const colour &rgb) {
     _colour[0] = rgb.x();
     _colour[1] = rgb.y();
     _colour[2] = rgb.z();
-    _colour.normRGB();
+    _colour.normalizeRGB();
 }
 
 vect3D& Solid::getColour() {

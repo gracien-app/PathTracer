@@ -7,8 +7,6 @@
 //
 
 #include "Vectors.hpp"
-#include <iostream>
-#include <cmath>
 
 // MARK: Constructors
 vect3D::vect3D() : _data{0,0,0} {};
@@ -31,20 +29,6 @@ vect3D& vect3D::operator -= (const vect3D &rhs) {
     _data[0] -= rhs._data[0];
     _data[1] -= rhs._data[1];
     _data[2] -= rhs._data[2];
-    return *this;
-}
-
-vect3D& vect3D::operator *= (const vect3D &rhs) {
-    _data[0] *= rhs._data[0];
-    _data[1] *= rhs._data[1];
-    _data[2] *= rhs._data[2];
-    return *this;
-}
-
-vect3D& vect3D::operator /= (const vect3D &rhs) {
-    _data[0] /= rhs._data[0];
-    _data[1] /= rhs._data[1];
-    _data[2] /= rhs._data[2];
     return *this;
 }
 
@@ -84,12 +68,6 @@ double vect3D::lengthSquared() const {
 
 double vect3D::dot(const vect3D &rhs) const {
     return _data[0]*rhs._data[0] + _data[1]*rhs._data[1] + _data[2]*rhs._data[2];
-}
-
-//FIXME: Make some colour class for this, might add rgb->cmyk
-vect3D& vect3D::normRGB() {
-    *this/=255;
-    return *this;
 }
 
 // MARK: Debug
