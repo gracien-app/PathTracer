@@ -21,6 +21,4 @@ int main()
 
 // TODO: Cube class with intersection.
 
-// TODO: Calculating normals
-
 // TODO: Basic shadows

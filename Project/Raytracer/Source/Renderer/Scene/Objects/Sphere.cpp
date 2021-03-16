@@ -18,16 +18,16 @@ double Sphere::Intersects(const Ray &ray) const {
     
     auto OriginC = ray.getOrigin()-_center;
     auto a = ray.getDest().lengthSquared();
-    auto b = 2*ray.getDest().dot(OriginC);
+    auto simpler_b = ray.getDest().dot(OriginC); //simplification, b is always 2* so some 2's cancel in the delta and solution
     auto c = OriginC.lengthSquared()-(_radius*_radius);
     
-    auto delta = b*b - 4*a*c;
+    auto delta = simpler_b*simpler_b - a*c;
     
     if (delta < 0) {
         return -1;
     }
     else {
-        return ( -b-sqrt(delta) ) / (2*a); //Find SMALLER time t for which intersection occurs (the bigger one is on the back of the sphere if ray goes through the sphere
+        return ( -simpler_b-sqrt(delta) ) / a; //Find SMALLER time t for which intersection occurs (the bigger one is on the back of the sphere if ray goes through the sphere
     }
     
 }
