@@ -8,6 +8,7 @@
 
 #include "Solid.hpp"
 
+
 void Solid::setPosition(const vect3D &vector) {
     _center[0] = vector.x();
     _center[1] = vector.y();
@@ -29,3 +30,6 @@ vect3D& Solid::getCenter() {
     return _center;
 }
 
+bool Solid::Intersect (const Ray &ray, recent &recent_Intersect, double timeMin, double timeMax) const {
+    return false;
+}

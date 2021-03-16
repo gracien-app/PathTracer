@@ -26,6 +26,9 @@ public:
     
     /// Checks if passed ray intersects with the geometrical figure of type Sphere.
     /// @param ray Reference to object of type Ray
+    /// @param recent_Intersect Reference to Recent structure which keeps track of recent intersections performed.
+    /// @param timeMin Specifies minimum time when the intersection can occur.
+    /// @param timeMax Specifies maximum time when the intersection can occur.
     /// @return - True if ray intersects with object at least once.
     /// @return - False if no intersections occur.
     /// @discussion To obtain the final intersection formula, transform the (x-Cx)+(y-Cy)+(z-Cz) = r^2
@@ -33,8 +36,7 @@ public:
     /// @note Ray is a P(time) = Origin + time * Destination
     /// @note Final formula F(t) = t^2*Destination^2 + t*2*Destination*(Origin-C)+ Origin^2-R^2 = 0
     /// @warning Multiplication of vectors - Dot product!
-    virtual double Intersects(const Ray &ray) const;
-    
+    bool Intersect (const Ray &ray, recent &recent_Intersect, double timeMin, double timeMax) const override;
     
 private:
     double _radius;

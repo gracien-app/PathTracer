@@ -20,7 +20,7 @@ Scene::Scene() {
     
     _camera.setFocal(1);
 
-    spheres.push_back(Sphere(vect3D(0,0,-1), 0.5, colour(241,123,21)));
+    spheres.push_back(Sphere(vect3D(0,0,1), 0.5, colour(241,123,21)));
     //MARK: Default scene, nice deep sky gradient ([0] is top, [1] bottom), camera at (0,0,0), with focal of 1.0
 }
 
@@ -39,7 +39,7 @@ Camera& Scene::getCamera() {
 
 vect3D Scene::colourRay(const Ray& r) {
     
-    auto t = spheres[0].Intersects(r); //Get the time of intersection
+    auto t = spheres[0].Intersect(r); //Get the time of intersection
     if (t > 0) { //If time is positive then hit happened in front of camera, not behind, rays go to projection plane
         vect3D Normal = Normalize( r.pos(t) - spheres[0].getCenter() ); //Normal vector (perpendicular to the surface) for sphere is simply inverted vector from intersection point p(t) to sphere center -(C-P) = P-C.
         return vect3D ( Normal.x()+1, Normal.y()+1, Normal.z()+1 ) * 0.5 ; //same trick as below, to have <0,1> range, z is already <0,1> (front of camera and its normalised) so no need for +1 correction.

@@ -35,4 +35,7 @@ private:
 
 
 
+
+
+
 #endif /* Ray_hpp */

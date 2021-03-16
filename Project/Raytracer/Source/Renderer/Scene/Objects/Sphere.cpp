@@ -14,7 +14,7 @@ Sphere::Sphere(const vect3D &center, const double radius, const colour &colour) 
     this->_radius = radius;
 }
 
-double Sphere::Intersects(const Ray &ray) const {
+bool Sphere::Intersect (const Ray &ray, recent &recent_Intersect, double timeMin, double timeMax) const {
     
     auto OriginC = ray.getOrigin()-_center;
     auto a = ray.getDest().lengthSquared();
@@ -29,5 +29,4 @@ double Sphere::Intersects(const Ray &ray) const {
     else {
         return ( -simpler_b-sqrt(delta) ) / a; //Find SMALLER time t for which intersection occurs (the bigger one is on the back of the sphere if ray goes through the sphere
     }
-    
 }
