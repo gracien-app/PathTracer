@@ -9,36 +9,16 @@
 #include "Scene.hpp"
 
 Scene::Scene() {
-    //https://uigradients.com/#Skyline
-//    _sky[0] += vect3D(45,50,172);
-//    _sky[1] += vect3D(65,135,200);
-    _sky[0] += vect3D(30,30,30);
-    _sky[1] += vect3D(30,30,30);
+    skyGradient.push_back( ( colour(26, 41, 128) ).normalizeRGB() );
+    skyGradient.push_back( ( colour(38, 208, 206) ).normalizeRGB() );
     
-    _sky[0].normalizeRGB();
-    _sky[1].normalizeRGB();
+    sceneCamera = std::make_shared<Camera>(1, vect3D(0,0,0));
     
-    _camera.setFocal(1);
-
-    spheres.push_back(Sphere(vect3D(0,0,1), 0.5, colour(241,123,21)));
-    //MARK: Default scene, nice deep sky gradient ([0] is top, [1] bottom), camera at (0,0,0), with focal of 1.0
-}
-
-Scene::Scene(const vect3D &pointOfView, const colour &skyColour, const double focalLength) {
-    _sky[0] += skyColour;
-    _sky[1] += _sky[0];
-    //FIXME: Maybe another constructor allowing for gradient input, right now its plain colour.
-    
-    _camera += pointOfView;
-    _camera.setFocal(focalLength);
-}
-
-Camera& Scene::getCamera() {
-    return _camera;
+    sceneObjects.push_back( std::unique_ptr<Sphere>( new Sphere( vect3D(0, 0, 1), 0.5, colour(30, 30, 30) ) ) );    
 }
 
 vect3D Scene::colourRay(const Ray& r) {
-    
+ /*
     auto t = spheres[0].Intersect(r); //Get the time of intersection
     if (t > 0) { //If time is positive then hit happened in front of camera, not behind, rays go to projection plane
         vect3D Normal = Normalize( r.pos(t) - spheres[0].getCenter() ); //Normal vector (perpendicular to the surface) for sphere is simply inverted vector from intersection point p(t) to sphere center -(C-P) = P-C.
@@ -51,4 +31,6 @@ vect3D Scene::colourRay(const Ray& r) {
     return vect3D ( _sky[1]*(1-t) + _sky[0]*t );
     
     // MARK: Linear interpolation formula for sky gradient: (1-h) x colour_bottom + h x colour_top
-}
+  */
+  }
+

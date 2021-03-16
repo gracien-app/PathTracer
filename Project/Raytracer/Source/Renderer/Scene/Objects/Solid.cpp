@@ -12,7 +12,7 @@
 void Solid::setPosition(const vect3D &vector) {
     _center[0] = vector.x();
     _center[1] = vector.y();
-    _center[2] = -vector.z();
+    _center[2] = -vector.z(); //Inverted to compensate right handed cooridinates system.
 }
 
 void Solid::setColour(const colour &rgb) {

@@ -8,6 +8,10 @@
 
 #include "Camera.hpp"
 
+Camera::Camera() : _focalLenght(1), _origin(0, 0, 0) {};
+
+Camera::Camera(const double &focal, const vect3D &position) : _focalLenght(focal), _origin(position) {};
+
 Camera& Camera::operator+=(const vect3D &rhs) {
     this->_origin += rhs;
     return *this;

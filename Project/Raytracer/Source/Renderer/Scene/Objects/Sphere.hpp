@@ -12,7 +12,7 @@
 #include "Solid.hpp"
 
 /// Sphere object which inherits from Solid (is hitable by ray)
-/// @note [POLYMORPHIC] [HITABLE]
+/// @discussion [POLYMORPHIC] [COLLISIONS]
 class Sphere : public Solid {
 public:
     
@@ -31,8 +31,9 @@ public:
     /// @param timeMax Specifies maximum time when the intersection can occur.
     /// @return - True if ray intersects with object at least once.
     /// @return - False if no intersections occur.
-    /// @discussion To obtain the final intersection formula, transform the (x-Cx)+(y-Cy)+(z-Cz) = r^2
-    /// \n For point P, and center of sphere C, the difference is (Px-Cx)+(Py-Cy)+(Pz-Cz)
+    ///
+    /// @discussion To obtain the final intersection formula, transform the (x-Cx)+(y-Cy)+(z-Cz) = r^2.
+    /// @discussion For point P, and center of sphere C, the difference is (Px-Cx)+(Py-Cy)+(Pz-Cz)
     /// @note Ray is a P(time) = Origin + time * Destination
     /// @note Final formula F(t) = t^2*Destination^2 + t*2*Destination*(Origin-C)+ Origin^2-R^2 = 0
     /// @warning Multiplication of vectors - Dot product!

@@ -16,11 +16,11 @@
 struct recent {
     double time;
     vect3D position;
-    vect3D normal;
+    vect3D outNormal; //MARK: Normal is always outward (points from center of sphere to position of collision)
 };
 
 /// Base class for all Solid (hitable by rays) objects.
-/// @note [HITABLE]
+/// @discussion [POLYMORPHIC] [COLLISIONS]
 class Solid {
 public:
     

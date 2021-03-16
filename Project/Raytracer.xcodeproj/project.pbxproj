@@ -191,7 +191,6 @@
 				BE3CBF7225F80426008D5A9B /* Renderer.cpp */,
 				BE3CBF7325F80426008D5A9B /* Renderer.hpp */,
 				BE3CBF7625F842CC008D5A9B /* Utilities */,
-				BE4CB76B25F97C100072DAE1 /* Camera */,
 				BECBB28C25FAB68F00D6554E /* Scene */,
 			);
 			path = Renderer;
@@ -224,6 +223,7 @@
 				BE4CB77025F97C5B0072DAE1 /* Camera.hpp */,
 			);
 			name = Camera;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		BE5FA03225FD3CEC00AEC4F5 /* Objects */ = {
@@ -241,6 +241,7 @@
 			children = (
 				BECBB28D25FAB6B200D6554E /* Scene.cpp */,
 				BECBB28E25FAB6B200D6554E /* Scene.hpp */,
+				BE4CB76B25F97C100072DAE1 /* Camera */,
 				BE5FA03225FD3CEC00AEC4F5 /* Objects */,
 			);
 			path = Scene;

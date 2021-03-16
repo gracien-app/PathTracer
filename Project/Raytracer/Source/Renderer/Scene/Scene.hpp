@@ -9,21 +9,25 @@
 #ifndef Scene_hpp
 #define Scene_hpp
 
-#include "main.h"
+#include <memory>
+#include "Colour.hpp"
 #include "Sphere.hpp"
+#include "Camera.hpp"
 
 class Scene {
 public:
-    Scene();
-    Scene(const vect3D &pointOfView, const colour &skyColour, const double focalLength);
     
-    vect3D colourRay(const Ray& r); //to not alter the ray in any way
-    Camera& getCamera();
+    /// Default scene constructor, pre-loaded with blue sky gradient and one grey spherical object in the middle of the scene.
+    /// @discussion https://uigradients.com/#AquaMarine
+    Scene();
+    
+    vect3D colourRay(const Ray& r);
     
 private:
-    colour _sky[2];
-    Camera _camera; //Point-of-view
-    std::vector<Sphere> spheres;
+    
+    std::vector<colour> skyGradient;
+    std::shared_ptr<Camera> sceneCamera;
+    std::vector<std::unique_ptr<Solid>> sceneObjects;
 };
 
 #endif /* Scene_hpp */

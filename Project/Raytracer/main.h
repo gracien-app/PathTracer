@@ -12,7 +12,6 @@
 #include "ResourcePath.hpp"
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <memory>
 #include "Vectors.hpp"
 #include "Ray.hpp"
 #include "Renderer.hpp"

@@ -14,8 +14,10 @@
 class Camera {
 public:
     
-    Camera& operator+=(const vect3D &rhs);
+    Camera();
+    Camera(const double &focal, const vect3D &position);
     
+    Camera& operator+=(const vect3D &rhs);
     void setFocal(const double focalLength);
     double getFocal() const;
     vect3D getPosition() const;

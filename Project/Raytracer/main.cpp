@@ -13,11 +13,13 @@ int main()
 {
     App Raytracer(1534,1534); //maximum height for my resolution 1534
     Raytracer.Run();
+    
+    // FIXME: Fix dumb pointer usage in Renderer::getSprite()
 
     return 0;
 }
 
-// TODO: Make the window open before renderer finishes initial render, so that the window is already visible when rendering.
+// TODO: Make the window open before renderer finishes initial render, so that the window is already visible when rendering. <- Current goal, Scene needs rework, use pointer to wait with scene making till window is open.
 
 // TODO: Cube class with intersection.
 
@@ -25,7 +27,8 @@ int main()
 
 // TODO: (IDEA) Make volumes where intersection function, is simply random generator where probability is dependent on density, the denser the volume, the more particles are hit and so it will maybe look like clouds.
 
-// TODO: https://medium.com/csharp-architects/whats-faster-in-c-a-struct-or-a-class-99e4761a7b76
 // TODO: Maybe use struct somewhere where class it not really needed?
 
-// TODO: Keep record of recent collisions to optimise intersection code
+// TODO: Implements normal differentation between inside and outside in pixel colouring methods
+
+

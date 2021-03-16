@@ -8,10 +8,9 @@
 
 #include "Sphere.hpp"
 
-Sphere::Sphere(const vect3D &center, const double radius, const colour &colour) {
+Sphere::Sphere(const vect3D &center, const double radius, const colour &colour) : _radius(radius) {
     this->setColour(colour);
     this->setPosition(center);
-    this->_radius = radius;
 }
 
 bool Sphere::Intersect (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const {
@@ -37,7 +36,7 @@ bool Sphere::Intersect (const Ray &ray, recent &recent_Inter, double timeMin, do
         
         recent_Inter.time = root;
         recent_Inter.position = ray.pos(root);
-        recent_Inter.normal = ( recent_Inter.position - _center ) / _radius;
+        recent_Inter.outNormal = ( recent_Inter.position - _center ) / _radius;
         return true;
     }
 
