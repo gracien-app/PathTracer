@@ -10,18 +10,25 @@
 #define Scene_hpp
 
 #include <memory>
+#include <limits>
 #include "Colour.hpp"
 #include "Sphere.hpp"
 #include "Camera.hpp"
 
-class Scene {
+const double infinity = std::numeric_limits<double>::infinity();
+
+class Scene : public Solid {
 public:
     
     /// Default scene constructor, pre-loaded with blue sky gradient and one grey spherical object in the middle of the scene.
     /// @discussion https://uigradients.com/#AquaMarine
     Scene();
     
+    std::shared_ptr<Camera> camera();
+    
     vect3D colourRay(const Ray& r);
+    
+    virtual bool Intersect (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const override;
     
 private:
     

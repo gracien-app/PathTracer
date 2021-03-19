@@ -14,6 +14,7 @@ Renderer::Renderer() {
     std::cout << "[C] Renderer: Created" << std::endl;
     outTexture->setSmooth(false);
 };
+
 Renderer::~Renderer() {
     std::cout << "[D] Renderer: Terminated" << std::endl;
 }
@@ -37,19 +38,19 @@ void Renderer::init(const sf::Vector2u &resolution) {
 }
 
 void Renderer::render() {
-    Scene coolSky;
-    auto camera = coolSky.getCamera();
-    auto focal_length = camera.getFocal();
+    Scene baseScene;
+    auto pov = baseScene.camera();
+    auto povFocal = pov->getFocal();
     
-    _origin = camera.getPosition(); //MARK: Origin of renderer = camera position from which we see the scene
+    _origin = pov->getPosition(); //MARK: Origin of renderer = camera position from which we see the scene
     
-    vect3D X        (_projectionWidth,0,0); //MARK: Vector defining the direction of rendering in X axis.
-    vect3D Y        (0,_projectionHeight,0); //MARK: Vector defining the direction of rendering in Y axis.
-    vect3D Depth    (0,0,focal_length); //MARK: Vector defining the depth (Z coordinate) for the render.
+    vect3D X        (_projectionWidth, 0, 0); //MARK: Vector defining the direction of rendering in X axis.
+    vect3D Y        (0, _projectionHeight, 0); //MARK: Vector defining the direction of rendering in Y axis.
+    vect3D Depth    (0, 0, povFocal); //MARK: Vector defining the depth (Z coordinate) for the render.
     
     vect3D upperLeft(_origin - Depth + Y/2 - X/2);
     //MARK: FIXED Rendering starts from upper left corner, so its origin+depth-half_of_with+ half_of_height
-    //MARK: For Origin at (0,0,0) and aspect ratio of 2 its (-2,1,1)
+    //MARK: For Origin at (0,0,0) and aspect ratio of 2 its (-2,1,-1)
     
     for (int j=0; j<(_height); j++) {
         for (int i=0; i<(_width); i++) {
@@ -62,13 +63,12 @@ void Renderer::render() {
             auto y = double(j) / (_height-1);
             //MARK: x and y are to multiply the vertical and horizontal projection vectors to the correct pixel.
 
-            Ray testRay( _origin, (upperLeft + x*X - y*Y) );
+            Ray pixelRay( _origin, (upperLeft + x*X - y*Y) );
             //MARK: FIXED Initial idea: Go from upper left, then add partials of X and Y vectors to go in such way:
             //MARK: Upper Left -> Go right to pixel at width x -> Go down to pixel at height y. Starting always at _origin of renderer so from camera.
             
-            colour colour = coolSky.colourRay(testRay);
+            colour colour = baseScene.colourRay(pixelRay);
             colour.standardizeOutput(outPixels, gridPos);
-           
         }
     }
     updateTexture();
