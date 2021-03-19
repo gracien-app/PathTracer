@@ -39,14 +39,14 @@ void Renderer::init(const sf::Vector2u &resolution) {
 
 void Renderer::render() {
     Scene baseScene;
-    auto pov = baseScene.camera();
-    auto povFocal = pov->getFocal();
+    auto POV = baseScene.camPos();
+    auto cameraFocal = baseScene.camFocal();
     
-    _origin = pov->getPosition(); //MARK: Origin of renderer = camera position from which we see the scene
+    _origin = POV; //MARK: Origin of renderer = camera position from which we see the scene
     
     vect3D X        (_projectionWidth, 0, 0); //MARK: Vector defining the direction of rendering in X axis.
     vect3D Y        (0, _projectionHeight, 0); //MARK: Vector defining the direction of rendering in Y axis.
-    vect3D Depth    (0, 0, povFocal); //MARK: Vector defining the depth (Z coordinate) for the render.
+    vect3D Depth    (0, 0, cameraFocal); //MARK: Vector defining the depth (Z coordinate) for the render.
     
     vect3D upperLeft(_origin - Depth + Y/2 - X/2);
     //MARK: FIXED Rendering starts from upper left corner, so its origin+depth-half_of_with+ half_of_height

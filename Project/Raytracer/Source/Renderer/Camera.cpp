@@ -8,23 +8,23 @@
 
 #include "Camera.hpp"
 
-Camera::Camera() : _focalLenght(1), _origin(0, 0, 0) {};
-
+Camera::Camera() : _focalLenght(1), _origin(0, 0, 0) { std::cout << "[C] Camera" << std::endl;};
 Camera::Camera(const double &focal, const vect3D &position) : _focalLenght(focal), _origin(position) {};
 
-Camera& Camera::operator+=(const vect3D &rhs) {
-    this->_origin += rhs;
-    return *this;
-}
-
-void Camera::setFocal(const double focalLength) {
+void Camera::setFocal(const double &focalLength) {
     _focalLenght = focalLength;
 }
 
-double Camera::getFocal() const {
+void Camera::setFocal(vect3D &position) {
+    _origin[0] = position[0];
+    _origin[1] = position[1];
+    _origin[2] = -position[2];
+}
+
+double Camera::camFocal() const {
     return _focalLenght;
 }
 
-vect3D Camera::getPosition() const {
+vect3D Camera::camPos() const {
     return _origin;
 }

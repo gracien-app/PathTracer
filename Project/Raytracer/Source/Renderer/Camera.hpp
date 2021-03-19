@@ -16,11 +16,12 @@ public:
     
     Camera();
     Camera(const double &focal, const vect3D &position);
+
+    void setFocal(const double &focalLength);
+    void setFocal(vect3D &position);
     
-    Camera& operator+=(const vect3D &rhs);
-    void setFocal(const double focalLength);
-    double getFocal() const;
-    vect3D getPosition() const;
+    double camFocal() const;
+    vect3D camPos() const;
 
 private:
     double _focalLenght;

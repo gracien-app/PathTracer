@@ -17,23 +17,20 @@
 
 const double infinity = std::numeric_limits<double>::infinity();
 
-class Scene : public Solid {
+class Scene : public Camera {
 public:
     
     /// Default scene constructor, pre-loaded with blue sky gradient and one grey spherical object in the middle of the scene.
     /// @discussion https://uigradients.com/#AquaMarine
     Scene();
     
-    std::shared_ptr<Camera> camera();
-    
     vect3D colourRay(const Ray& r);
     
-    virtual bool Intersect (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const override;
+    bool intersectScene (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const;
     
 private:
     
     std::vector<colour> skyGradient;
-    std::shared_ptr<Camera> sceneCamera;
     std::vector<std::unique_ptr<Solid>> sceneObjects;
 };
 
