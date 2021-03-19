@@ -9,22 +9,25 @@
 #include "Scene.hpp"
 
 Scene::Scene() : Camera() {
+    std::cout << "[C] Scene" << std::endl;
     skyGradient.push_back( ( colour(30, 30, 30) ).normalizeRGB() );
     skyGradient.push_back( ( colour(35, 35, 35) ).normalizeRGB() );
     
     sceneObjects.push_back( std::unique_ptr<Sphere>( new Sphere( vect3D(0.0f, 0.0f, 1.0f), 0.5f, colour(30, 30, 30) ) ) );
+    sceneObjects.push_back( std::unique_ptr<Sphere>( new Sphere( vect3D(0.0f, 0.0f, 0.5f), 0.2f, colour(30, 30, 30) ) ) );
 //    sceneObjects.push_back( std::unique_ptr<Sphere>( new Sphere( vect3D(0, -100.5, 1), 100, colour(0, 0, 0) ) ) );
 }
 
 bool Scene::intersectScene (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const {
     recent tempRecent;
     bool didIntersect = false;
-    auto closest_so_far = timeMax;
+    auto closestIntersect = timeMax;
 
     for (const auto& object : sceneObjects) {
-        if ( object->Intersect(ray, tempRecent, timeMin, closest_so_far) ) {
+        if ( object->Intersect(ray, tempRecent, timeMin, closestIntersect) ) {
             didIntersect = true;
-            closest_so_far = tempRecent.time;
+            closestIntersect = tempRecent.time;
+            std::cout << closestIntersect << std::endl;
             recent_Inter = tempRecent;
         }
     }
