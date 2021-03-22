@@ -27,8 +27,6 @@ int main()
 
 // TODO: (IDEA) Make volumes where intersection function, is simply random generator where probability is dependent on density, the denser the volume, the more particles are hit and so it will maybe look like clouds.
 
-// TODO: Maybe use struct somewhere where class it not really needed?
-
-// TODO: Implements normal differentation between inside and outside in pixel colouring methods
+// TODO: Implement normal differentation between inside and outside in pixel colouring methods
 
 

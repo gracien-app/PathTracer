@@ -14,8 +14,7 @@
 #include "Colour.hpp"
 #include "Sphere.hpp"
 #include "Camera.hpp"
-
-const double infinity = std::numeric_limits<double>::infinity();
+#include "Utilities.h"
 
 class Scene : public Camera {
 public:
@@ -25,7 +24,6 @@ public:
     Scene();
     
     vect3D colourRay(const Ray& r);
-    
     bool intersectScene (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const;
     
 private:
