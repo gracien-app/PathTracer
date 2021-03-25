@@ -21,7 +21,7 @@ public:
     
     /// Default scene constructor, pre-loaded with blue sky gradient and one grey spherical object in the middle of the scene.
     /// @discussion https://uigradients.com/#AquaMarine
-    Scene();
+    Scene(const int &width, const int &height);
     
     vect3D colourRay(const Ray& r);
     bool intersectScene (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const;

@@ -10,22 +10,26 @@
 #define Camera_hpp
 
 #include "Vectors.hpp"
+#include "Ray.hpp"
+#include <vector>
+#include <memory>
 
 class Camera {
 public:
     
-    Camera();
-    Camera(const double &focal, const vect3D &position);
-
-    void setFocal(const double &focalLength);
-    void setFocal(vect3D &position);
-    
-    double camFocal() const;
-    vect3D camPos() const;
+    Camera( const vect3D &position, const double &focal, const int &resWidth, const int &resHeight);
+    Ray prepRay(double X, double Y);
 
 private:
+    
     double _focalLenght;
+    double _aspectRatio; // Resolution Width/Height
+    double _projectionHeight;
+    double _projectionWidth;
+
     vect3D _origin;
+    std::vector<vect3D> _viewport;
+    
 };
 
 #endif /* Camera_hpp */

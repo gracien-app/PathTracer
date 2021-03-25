@@ -27,11 +27,6 @@ private:
     
     double _width;
     double _height;
-    double _aspectRatio; // Width/Height
-    
-    double _projectionWidth;
-    double _projectionHeight;
-    double _focal_Length;
     
     vect3D _origin;
     

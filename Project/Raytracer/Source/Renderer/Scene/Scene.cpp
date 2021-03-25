@@ -8,7 +8,7 @@
 
 #include "Scene.hpp"
 
-Scene::Scene() : Camera() {
+Scene::Scene(const int &width, const int &height) : Camera(vect3D(0,0,0), 1.0, width, height) {
     std::cout << "[C] Scene" << std::endl;
     skyGradient.push_back( ( colour(30, 30, 30) ).normalizeRGB() );
     skyGradient.push_back( ( colour(35, 35, 35) ).normalizeRGB() );
