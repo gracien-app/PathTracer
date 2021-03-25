@@ -10,13 +10,13 @@
 
 Scene::Scene(const int &width, const int &height) : Camera(vect3D(0,0,0), 1.0, width, height) {
     std::cout << "[C] Scene" << std::endl;
-    skyGradient.push_back( ( colour(30, 30, 30) ).normalizeRGB() );
-    skyGradient.push_back( ( colour(35, 35, 35) ).normalizeRGB() );
+    skyGradient.push_back( ( colour(255, 255, 255) ).normalizeRGB() );
+    skyGradient.push_back( ( colour(101, 199, 247) ).normalizeRGB() );
     
     
-//    sceneObjects.push_back( std::unique_ptr<Sphere>( new Sphere( vect3D(0, -100.5, 1), 100, colour(0, 0, 0) ) ) );
-    sceneObjects.push_back( std::unique_ptr<Sphere>( new Sphere( vect3D(0.0f, 0.0f, 1.0f), 0.5f, colour(30, 30, 30) ) ) );
-    sceneObjects.push_back( std::unique_ptr<Sphere>( new Sphere( vect3D(0.0f, 0.0f, 0.5f), 0.2f, colour(30, 30, 30) ) ) );
+    sceneObjects.push_back( std::unique_ptr<Sphere>( new Sphere( vect3D(0, -100.5, 1), 100.0f, colour(0, 0, 0) ) ) );
+    sceneObjects.push_back( std::unique_ptr<Sphere>( new Sphere( vect3D(0.0f, 0.0f, 1.5f), 0.5f, colour(30, 30, 30) ) ) );
+
 }
 
 bool Scene::intersectScene (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const {
@@ -35,12 +35,17 @@ bool Scene::intersectScene (const Ray &ray, recent &recent_Inter, double timeMin
     return didIntersect;
 }
 
-vect3D Scene::colourRay(const Ray& r) {
-    recent RecentIntersection;
+vect3D Scene::colourRay(const Ray& r, int rayBounces) {
     
-    if ( intersectScene ( r, RecentIntersection, 0, infinity ) ) {
-        return ( RecentIntersection.outNormal + vect3D(1, 1, 1) ) * 0.5 ;
+    recent recInter;
+    
+    if (rayBounces == 0) return vect3D(0,0,0);
+    
+    if ( intersectScene ( r, recInter, 0, infinity ) ) {
+        auto nextDir = recInter.position + recInter.outNormal + randInSphere();
+        return colourRay(Ray(recInter.position, nextDir - recInter.position), rayBounces-1) * 0.5 ;
     }
+    
     else {
         auto unit_R = r.getDest(); // Y can be between <-1,1> because of constant projectionHeight=2
         auto t = (unit_R.y()+1) * 0.5; // To make it go from <0, 1>

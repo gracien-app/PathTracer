@@ -23,7 +23,7 @@ public:
     /// @discussion https://uigradients.com/#AquaMarine
     Scene(const int &width, const int &height);
     
-    vect3D colourRay(const Ray& r);
+    vect3D colourRay(const Ray& r, int rayBounces);
     bool intersectScene (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const;
     
 private:

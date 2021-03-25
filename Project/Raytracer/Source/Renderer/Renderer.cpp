@@ -38,6 +38,7 @@ void Renderer::render() {
     Scene baseScene(_width, _height);
     
     int samplesPerPixel = 10;
+    int rayBounces = 3;
     
     //MARK: Origin of renderer = camera position from which we see the scene
     
@@ -57,10 +58,11 @@ void Renderer::render() {
                 //MARK: x and y are to multiply the vertical and horizontal projection vectors to the correct pixel.
                 
                 auto pixelRay = baseScene.prepRay(x, y);
-                outputPixel += baseScene.colourRay(pixelRay);
+                outputPixel += baseScene.colourRay(pixelRay, rayBounces);
             }
             outputPixel.standardizeOutput(outPixels, gridPos, samplesPerPixel);
         }
+        if (j%100 == 0) std::cout << "PROGRESS: " << int((j/(_height-1))*100) << "%" << std::endl;
     }
     updateTexture();
 }

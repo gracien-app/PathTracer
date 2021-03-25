@@ -90,6 +90,13 @@ inline static vect3D randomize(double min, double max) {
         return vect3D( randomDouble(min, max), randomDouble(min, max), randomDouble(min, max) );
 }
 
+inline vect3D randInSphere() {
+    while (true) {
+        auto gen = randomize(-1,1);
+        if (gen.lengthSquared() >= 1) continue;
+        return gen;
+    }
+}
 
 
 #endif /* Vectors_hpp */
