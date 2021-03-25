@@ -21,10 +21,17 @@ colour& colour::normalizeRGB() {
     return *this;
 }
 
-void colour::standardizeOutput(std::vector<sf::Uint8> &outPixels, const int &gridPos) const {
-    outPixels[4*gridPos+0] = int(this->x()*255.999);
-    outPixels[4*gridPos+1] = int(this->y()*255.999);
-    outPixels[4*gridPos+2] = int(this->z()*255.999);
+void colour::standardizeOutput(std::vector<sf::Uint8> &outPixels, const int &gridPos, const int &samples) {
+    
+    auto samplingScale = 1.0 / samples;
+    
+    auto R = this->x() * samplingScale;
+    auto G = this->y() * samplingScale;
+    auto B = this->z() * samplingScale;
+    
+    outPixels[4*gridPos+0] = int(R*255.999);
+    outPixels[4*gridPos+1] = int(G*255.999);
+    outPixels[4*gridPos+2] = int(B*255.999);
     outPixels[4*gridPos+3] = int(this->Alpha*255.999);
     //.999 to compensate < width, height
 }

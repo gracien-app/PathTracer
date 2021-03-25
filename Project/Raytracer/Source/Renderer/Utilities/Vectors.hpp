@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <cmath>
+#include "Utilities.h"
 
 class vect3D {
 public:
@@ -80,5 +81,15 @@ inline vect3D Normalize(const vect3D &vector) {
 inline std::ostream& operator << (std::ostream &output, const vect3D &vector) {
     return output << "[ " << vector.x() << " " << vector.y() << " " << vector.z() << " ]\n";
 }
+
+inline static vect3D randomize() {
+        return vect3D( randomDouble(), randomDouble(), randomDouble() );
+}
+
+inline static vect3D randomize(double min, double max) {
+        return vect3D( randomDouble(min, max), randomDouble(min, max), randomDouble(min, max) );
+}
+
+
 
 #endif /* Vectors_hpp */

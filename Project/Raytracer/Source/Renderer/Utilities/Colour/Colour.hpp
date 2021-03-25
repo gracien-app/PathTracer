@@ -25,9 +25,8 @@ public:
     /// @warning Make sure that vector is not already normalized, no checks are performed.
     colour& normalizeRGB();
     
-    void standardizeOutput(std::vector<sf::Uint8> &outPixels, const int &gridPos) const;
+    void standardizeOutput(std::vector<sf::Uint8> &outPixels, const int &gridPos, const int &samples);
     void printInfo() override;
-
     
 private:
     double Alpha;

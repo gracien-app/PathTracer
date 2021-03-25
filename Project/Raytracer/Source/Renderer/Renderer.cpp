@@ -37,27 +37,29 @@ void Renderer::render() {
     
     Scene baseScene(_width, _height);
     
+    int samplesPerPixel = 10;
+    
     //MARK: Origin of renderer = camera position from which we see the scene
     
     for (int j=0; j<(_height); j++) {
         for (int i=0; i<(_width); i++) {
-
+            
             int gridPos = i+(j*_width);
             //MARK: CRUCIAL CUSTOM RESOLUTION FIX - gridPos = i+(j x width) not (j x height)
             //MARK: Pixels are transfered from continuous array of data, not by coordinates
 
-            auto x = double(i) / (_width-1);
-            auto y = double(j) / (_height-1);
-            //MARK: x and y are to multiply the vertical and horizontal projection vectors to the correct pixel.
-
+            auto outputPixel = colour(0, 0, 0);
             
-            //MARK: FIXED Initial idea: Go from upper left, then add partials of X and Y vectors to go in such way:
-            //MARK: Upper Left -> Go right to pixel at width x -> Go down to pixel at height y. Starting always at _origin of renderer so from camera.
-            
-            auto pixelRay = baseScene.prepRay(x, y);
-            
-            colour colour = baseScene.colourRay(pixelRay);
-            colour.standardizeOutput(outPixels, gridPos);
+            for (int s=0; s<samplesPerPixel; s++) {
+                
+                auto x = ( double(i)+randomDouble() ) / (_width-1);
+                auto y = ( double(j)+randomDouble() ) / (_height-1);
+                //MARK: x and y are to multiply the vertical and horizontal projection vectors to the correct pixel.
+                
+                auto pixelRay = baseScene.prepRay(x, y);
+                outputPixel += baseScene.colourRay(pixelRay);
+            }
+            outputPixel.standardizeOutput(outPixels, gridPos, samplesPerPixel);
         }
     }
     updateTexture();
