@@ -27,8 +27,11 @@ private:
     double _projectionHeight;
     double _projectionWidth;
 
+    vect3D _X;
+    vect3D _Y;
+    vect3D _LUC;
+    vect3D _Depth;
     vect3D _origin;
-    std::vector<vect3D> _viewport;
     
 };
 
