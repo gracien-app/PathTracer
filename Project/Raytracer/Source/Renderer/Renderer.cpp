@@ -11,8 +11,8 @@
 Renderer::Renderer() {
     outTexture.reset(new sf::Texture);
     outSprite.reset(new sf::Sprite);
-    std::cout << "[C] Renderer: Created" << std::endl;
     outTexture->setSmooth(false);
+    std::cout << "[C] Renderer: Created" << std::endl;
 };
 
 Renderer::~Renderer() {
@@ -53,8 +53,8 @@ void Renderer::render() {
             
             for (int s=0; s<samplesPerPixel; s++) {
                 
-                auto x = ( double(i)+randomDouble() ) / (_width-1);
-                auto y = ( double(j)+randomDouble() ) / (_height-1);
+                auto x = ( double(i)+randomNumber<double>() ) / (_width-1);
+                auto y = ( double(j)+randomNumber<double>() ) / (_height-1);
                 //MARK: x and y are to multiply the vertical and horizontal projection vectors to the correct pixel.
                 
                 auto pixelRay = baseScene.prepRay(x, y);

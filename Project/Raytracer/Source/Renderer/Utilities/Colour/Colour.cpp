@@ -29,9 +29,9 @@ void colour::standardizeOutput(std::vector<sf::Uint8> &outPixels, const int &gri
     auto G = sqrt ((this->y() * samplingScale));
     auto B = sqrt ((this->z() * samplingScale));
     
-    outPixels[4*gridPos+0] = int(256 * clamp(R, 0.0, 0.999));
-    outPixels[4*gridPos+1] = int(256 * clamp(G, 0.0, 0.999));
-    outPixels[4*gridPos+2] = int(256 * clamp(B, 0.0, 0.999));
+    outPixels[4*gridPos+0] = int(256 * clamp<double>(R, 0.0, 0.999));
+    outPixels[4*gridPos+1] = int(256 * clamp<double>(G, 0.0, 0.999));
+    outPixels[4*gridPos+2] = int(256 * clamp<double>(B, 0.0, 0.999));
     outPixels[4*gridPos+3] = int(this->Alpha*255.999);
     //.999 to compensate < width, height
 }

@@ -11,28 +11,27 @@
 
 #include <random>
 
-inline double randomDouble() {
-    static std::uniform_real_distribution<double> distribution(0.0, 1.0);
+template <typename T>
+inline double randomNumber() {
+    static std::uniform_real_distribution<T> distribution(0.0, 1.0);
     static std::mt19937 generator;
     return distribution(generator);
 }
 
-inline double randomDouble(double min, double max) {
-    static std::uniform_real_distribution<double> distribution(min, max);
+template <typename T>
+inline double randomNumber(double min, double max) {
+    static std::uniform_real_distribution<T> distribution(min, max);
     static std::mt19937 generator;
     return distribution(generator);
 }
 
-inline double clamp(double x, double min, double max) {
+template <typename T>
+inline double clamp(T x, T min, T max) {
     if (x > max) return max;
     if (x < min) return min;
     return x;
 }
 
 const double infinity = std::numeric_limits<double>::infinity();
-
-
-
-
 
 #endif /* Utilities_h */

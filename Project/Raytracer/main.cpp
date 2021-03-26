@@ -23,10 +23,10 @@ int main()
 
 // TODO: Cube class with intersection.
 
-// TODO: Basic shadows using calculated normals
-
 // TODO: (IDEA) Make volumes where intersection function, is simply random generator where probability is dependent on density, the denser the volume, the more particles are hit and so it will maybe look like clouds.
 
 // TODO: Implement normal differentation between inside and outside in pixel colouring methods
+
+// TODO: IDEA track mouse location on the screen, then use this location as a middle point of projection plane, and calculate left upper corner and render direction vectors based on that, pointer will be always at the middle, and how far it is is defined by the focal length of camera, use scroll to change the focal length
 
 

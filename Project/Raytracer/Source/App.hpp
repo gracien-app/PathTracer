@@ -16,7 +16,6 @@ class App {
 public:
     
     // MARK: Constructors & Destructor
-    App();
     App(const int &width, const int &height);
     ~App();
     

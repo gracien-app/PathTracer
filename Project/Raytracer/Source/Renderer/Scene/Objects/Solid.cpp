@@ -22,14 +22,6 @@ void Solid::setColour(const colour &rgb) {
     _colour.normalizeRGB();
 }
 
-vect3D& Solid::getColour() {
-    return _colour;
-}
-
-vect3D& Solid::getCenter() {
-    return _center;
-}
-
 bool Solid::Intersect (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const {
     return false;
 }

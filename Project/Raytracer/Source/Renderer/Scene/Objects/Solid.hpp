@@ -34,9 +34,6 @@ public:
     /// @warning Provided object should contain standard RGB parameter values (0-255). Normalization is performed by the method itself.
     void setColour(const colour &rgb);
     
-    vect3D& getColour();
-    vect3D& getCenter();
-    
     virtual bool Intersect (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const;
     
 protected:

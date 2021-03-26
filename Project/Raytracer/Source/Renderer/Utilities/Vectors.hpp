@@ -22,11 +22,9 @@ public:
     // MARK: Operators
     double& operator[] (const int &index);
     
-    vect3D& operator += (const vect3D &rhs); // += to not make a copy
-    vect3D& operator -= (const vect3D &rhs); // as above
+    vect3D operator - ();
     
-    vect3D& operator *= (const double multiplier);
-    vect3D& operator /= (const double divider);
+    vect3D& operator += (const vect3D &rhs);
     
     // MARK: Private data access
     double x() const;
@@ -83,19 +81,30 @@ inline std::ostream& operator << (std::ostream &output, const vect3D &vector) {
 }
 
 inline static vect3D randomize() {
-        return vect3D( randomDouble(), randomDouble(), randomDouble() );
+        return vect3D(randomNumber<double>(),
+                      randomNumber<double>(),
+                      randomNumber<double>());
 }
 
 inline static vect3D randomize(double min, double max) {
-        return vect3D( randomDouble(min, max), randomDouble(min, max), randomDouble(min, max) );
+        return vect3D(randomNumber<double>(min, max),
+                      randomNumber<double>(min, max),
+                      randomNumber<double>(min, max));
 }
 
-inline vect3D randInSphere() {
+inline vect3D randUnitVector() {
     while (true) {
-        auto gen = randomize(-1,1);
-        if (gen.lengthSquared() >= 1) continue;
-        return gen;
+        auto vec = randomize(-1,1);
+        if (vec.lengthSquared() >= 1) continue;
+        return vec;
     }
+}
+
+inline vect3D randUnitDir(const vect3D &normal) {
+    vect3D unitVec = randUnitVector();
+    
+    if (unitVec.dot(normal) > 0.0) return unitVec; //If dot is positive then they are on the same side
+    else return -unitVec; //If not then negate the vector to correct it
 }
 
 

@@ -9,10 +9,6 @@
 #include "App.hpp"
 
 // MARK: Constructors
-App::App() {
-    Initialise(1000, 1000);
-    std::cout << "[C] Application:\n Resolution: 1000x1000" << std::endl;
-}
 
 App::App(const int &width, const int &height) {
     Initialise(width, height);
@@ -24,6 +20,7 @@ App::~App() {
 }
 
 // MARK: State methods
+
 void App::Initialise(const int &width, const int &height) {
     
     app_Window.reset(new Window(width,height));
@@ -41,15 +38,7 @@ void App::Initialise(const int &width, const int &height) {
 }
 
 void App::Run() {
-    std::cout << "[M] Application: Running" <<std::endl;
-   
     while (app_Window->isOpen()) {
         app_Window->Display(*app_Renderer->getSprite());
     }
-    
-    Stop();
-}
-
-void App::Stop() {
-    std::cout << "[M] Application: Stopping" << std::endl;
 }

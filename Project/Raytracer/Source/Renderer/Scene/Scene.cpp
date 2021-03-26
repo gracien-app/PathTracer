@@ -13,9 +13,8 @@ Scene::Scene(const int &width, const int &height) : Camera(vect3D(0,0,0), 1.0, w
     skyGradient.push_back( ( colour(255, 255, 255) ).normalizeRGB() );
     skyGradient.push_back( ( colour(101, 199, 247) ).normalizeRGB() );
     
-    
     sceneObjects.push_back( std::unique_ptr<Sphere>( new Sphere( vect3D(0, -100.5, 1), 100.0f, colour(0, 0, 0) ) ) );
-    sceneObjects.push_back( std::unique_ptr<Sphere>( new Sphere( vect3D(0.0f, 0.0f, 1.5f), 0.5f, colour(30, 30, 30) ) ) );
+    sceneObjects.push_back( std::unique_ptr<Sphere>( new Sphere( vect3D(0.0f, 0.0f, 1.0f), 0.5f, colour(30, 30, 30) ) ) );
 
 }
 
@@ -28,7 +27,6 @@ bool Scene::intersectScene (const Ray &ray, recent &recent_Inter, double timeMin
         if ( object->Intersect(ray, tempRecent, timeMin, closestIntersect) ) {
             didIntersect = true;
             closestIntersect = tempRecent.time;
-//            std::cout << closestIntersect << std::endl;
             recent_Inter = tempRecent;
         }
     }
@@ -41,8 +39,8 @@ vect3D Scene::colourRay(const Ray& r, int rayBounces) {
     
     if (rayBounces == 0) return vect3D(0,0,0);
     
-    if ( intersectScene ( r, recInter, 0, infinity ) ) {
-        auto nextDir = recInter.position + recInter.outNormal + randInSphere();
+    if ( intersectScene ( r, recInter, 0.0001, infinity ) ) { //MARK: Small numbers error correction
+        auto nextDir = recInter.position + randUnitDir(recInter.outNormal);
         return colourRay(Ray(recInter.position, nextDir - recInter.position), rayBounces-1) * 0.5 ;
     }
     

@@ -15,7 +15,6 @@ class Ray {
 public:
     
     // MARK: Constructors
-    Ray();
     Ray(const vect3D& origin, const vect3D& destination);
     
     // MARK: Private data access
