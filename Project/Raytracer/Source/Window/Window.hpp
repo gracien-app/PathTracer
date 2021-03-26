@@ -10,6 +10,7 @@
 #define Window_hpp
 
 #include "main.h"
+#include <memory>
 
 class Window {
 public:
@@ -22,10 +23,11 @@ public:
     // MARK: Utilities
     
     bool isOpen();
-    sf::Vector2u getResolution();
-    void Display(const sf::Sprite &drawable_Sprite);
+    void Display(const std::shared_ptr<Renderer> &ptr);
 
 private:
+    
+    bool rendering;
     std::unique_ptr<sf::Event> _event;
     std::unique_ptr<sf::VideoMode> _videoMode;
     std::unique_ptr<sf::RenderWindow> _renderWindow;

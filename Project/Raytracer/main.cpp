@@ -13,13 +13,9 @@ int main()
 {
     App Raytracer(1534,1534); //maximum height for my resolution 1534
     Raytracer.Run();
-    
-    // FIXME: Fix dumb pointer usage in Renderer::getSprite()
 
     return 0;
 }
-
-// TODO: Make the window open before renderer finishes initial render, so that the window is already visible when rendering. <- Current goal, Scene needs rework, use pointer to wait with scene making till window is open.
 
 // TODO: Cube class with intersection.
 
@@ -28,5 +24,3 @@ int main()
 // TODO: Implement normal differentation between inside and outside in pixel colouring methods
 
 // TODO: IDEA track mouse location on the screen, then use this location as a middle point of projection plane, and calculate left upper corner and render direction vectors based on that, pointer will be always at the middle, and how far it is is defined by the focal length of camera, use scroll to change the focal length
-
-

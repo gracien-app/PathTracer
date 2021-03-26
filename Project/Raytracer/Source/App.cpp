@@ -10,7 +10,7 @@
 
 // MARK: Constructors
 
-App::App(const int &width, const int &height) {
+App::App(const uint &width, const uint &height) {
     Initialise(width, height);
     std::cout << "[C] Application:\n    Resolution: "<<width<<"x"<<height<< "\n\n";
 }
@@ -21,13 +21,15 @@ App::~App() {
 
 // MARK: State methods
 
-void App::Initialise(const int &width, const int &height) {
+void App::Initialise(const uint &width, const uint &height) {
     
     app_Window.reset(new Window(width,height));
-    app_Renderer.reset(new Renderer());
+    app_Renderer.reset(new Renderer(width, height));
     
     try {
-        app_Renderer->init(app_Window->getResolution());
+        if (!app_Window) throw "App couldn't create Window object.";
+        if (!app_Renderer) throw "App couldn't create Window object.";
+        app_Renderer->init();
     }
     catch(const char* err) {
         std::cerr << "\n[!] FATAL: " << err << "\n\n";
@@ -39,6 +41,6 @@ void App::Initialise(const int &width, const int &height) {
 
 void App::Run() {
     while (app_Window->isOpen()) {
-        app_Window->Display(*app_Renderer->getSprite());
+        app_Window->Display(app_Renderer);
     }
 }

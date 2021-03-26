@@ -24,16 +24,28 @@ Window::~Window() {
     std::cout << "[D] Window: Terminated" << std::endl;
 }
 
-void Window::Display(const sf::Sprite &drawable_Sprite) {
+void Window::Display(const std::shared_ptr<Renderer> &ptr) {
+    
+    auto rendererPtr = ptr;
+    auto renderSprite = rendererPtr->Sprite();
+    rendering = false;
+    
     while (_renderWindow->isOpen()) {
+        
         while (_renderWindow->pollEvent(*_event)) {
             if (_event->type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                 _renderWindow->close();
             }
+            if (_event->type == sf::Event::KeyReleased && _event->key.code == sf::Keyboard::Space) {
+                rendering = !rendering;
+            }
         }
+        
         _renderWindow->clear(sf::Color(0, 0, 0));
-        _renderWindow->draw(drawable_Sprite);
+        _renderWindow->draw(*renderSprite);
         _renderWindow->display();
+        if ( !rendererPtr->isBusy() && rendering ) rendererPtr->render();
+        
     }
 }
 
@@ -41,7 +53,4 @@ bool Window::isOpen() {
     return _renderWindow->isOpen();
 }
 
-sf::Vector2u Window::getResolution() {
-    return _renderWindow->getSize();
-}
 

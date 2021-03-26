@@ -10,29 +10,31 @@
 #define Renderer_hpp
 
 #include "main.h"
+#include "Scene.hpp"
 
 class Renderer {
 public:
-    Renderer();
+    Renderer(const uint &width, const uint &height);
     ~Renderer();
     
-    void init(const sf::Vector2u &resolution);
+    void init();
     void render();
     void updateTexture();
     
-    sf::Sprite* getSprite();
+    bool isBusy() const;
     
+    std::shared_ptr<sf::Sprite> &Sprite ();
     
 private:
     
+    bool busy;
     double _width;
     double _height;
     
-    vect3D _origin;
-    
     std::vector<sf::Uint8> outPixels;
-    std::unique_ptr<sf::Sprite> outSprite;
+    std::shared_ptr<sf::Sprite> outSprite;
     std::unique_ptr<sf::Texture> outTexture;
+    std::vector<std::shared_ptr<Scene>> preScenes;
     
 };
 

@@ -39,7 +39,7 @@ vect3D Scene::colourRay(const Ray& r, int rayBounces) {
     
     if (rayBounces == 0) return vect3D(0,0,0);
     
-    if ( intersectScene ( r, recInter, 0.0001, infinity ) ) { //MARK: Small numbers error correction
+    if ( intersectScene ( r, recInter, 0.0001, infinity<double> ) ) { //MARK: Small numbers error correction
         auto nextDir = recInter.position + randUnitDir(recInter.outNormal);
         return colourRay(Ray(recInter.position, nextDir - recInter.position), rayBounces-1) * 0.5 ;
     }
@@ -49,6 +49,7 @@ vect3D Scene::colourRay(const Ray& r, int rayBounces) {
         auto t = (unit_R.y()+1) * 0.5; // To make it go from <0, 1>
         return vect3D ( skyGradient[1]*(1-t) + skyGradient[0]*t );
     }
+    
     // MARK: Linear interpolation formula for sky gradient: (1-h) x colour_bottom + h x colour_top
   }
 

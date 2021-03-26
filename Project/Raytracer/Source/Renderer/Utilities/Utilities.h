@@ -32,6 +32,7 @@ inline double clamp(T x, T min, T max) {
     return x;
 }
 
-const double infinity = std::numeric_limits<double>::infinity();
+template <typename T>
+const T infinity = std::numeric_limits<T>::infinity();
 
 #endif /* Utilities_h */
