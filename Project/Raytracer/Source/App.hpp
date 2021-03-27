@@ -22,7 +22,7 @@ public:
     // MARK: State methods
     void Run();
     void Stop();
-    void Initialise(const uint &width, const uint &height);
+    void Initialise();
     
 private:
     

@@ -8,13 +8,57 @@
 
 #include "Scene.hpp"
 
-Scene::Scene(const int &width, const int &height) : Camera(vect3D(0,0,0), 1.0, width, height) {
+Scene::Scene(const int &width, const int &height) : Camera(vect3D(0,0,0), 1, width, height) {
     std::cout << "[C] Scene" << std::endl;
-    skyGradient.push_back( ( colour(255, 255, 255) ).normalizeRGB() );
-    skyGradient.push_back( ( colour(101, 199, 247) ).normalizeRGB() );
     
-    sceneObjects.push_back( std::unique_ptr<Sphere>( new Sphere( vect3D(0, -100.5, 1), 100.0f, colour(0, 0, 0) ) ) );
-    sceneObjects.push_back( std::unique_ptr<Sphere>( new Sphere( vect3D(0.0f, 0.0f, 1.0f), 0.5f, colour(30, 30, 30) ) ) );
+    //https://uigradients.com/#Portrait
+    skyGradient.push_back( ( colour(238, 242, 243) ).normalizeRGB() );
+    skyGradient.push_back( ( colour(142, 158, 171) ).normalizeRGB() );
+    
+    /* BASIC SPHERE SCENE
+    sceneObjects.push_back(
+                 std::unique_ptr<Sphere>( new Sphere( vect3D(0, -100.5, 1),
+                                                     100.0f,
+                                                     colour(0, 0, 0))) ); //Floor
+    
+    sceneObjects.push_back(
+                 std::unique_ptr<Sphere>( new Sphere( vect3D(0.0f, 0.0f, 1.0f),
+                                                      0.5f,
+                                                      colour(30, 30, 30))) ); //Sphere
+    */
+    
+    // BOX FROM DISCS
+    sceneObjects.push_back(
+                 std::unique_ptr<Disc>( new Disc( vect3D(0, -0.5, 1),
+                                                  vect3D(0, 1, 0),
+                                                     2.5,
+                                                     colour(0, 0, 0))) ); //Floor
+    
+    sceneObjects.push_back(
+                 std::unique_ptr<Disc>( new Disc( vect3D(0, 0, 1.5),
+                                                  vect3D(0, 0, 1),
+                                                     2.5,
+                                                     colour(0, 0, 0))) ); //Front
+    
+    sceneObjects.push_back(
+                 std::unique_ptr<Disc>( new Disc( vect3D(-0.5, 0, 1),
+                                                  vect3D(1, 0, 0),
+                                                     2.5,
+                                                     colour(0, 0, 0))) ); //Left
+    
+    sceneObjects.push_back(
+                 std::unique_ptr<Disc>( new Disc( vect3D(0.5, 0, 1),
+                                                  vect3D(-1, 0, 0),
+                                                     2.5,
+                                                     colour(0, 0, 0))) ); //Right
+    
+    sceneObjects.push_back(
+                 std::unique_ptr<Disc>( new Disc( vect3D(0, 0.5, 1),
+                                                  vect3D(0, -1, 0),
+                                                     2.5,
+                                                     colour(0, 0, 0))) ); //Top
+    
+    
 
 }
 
@@ -49,7 +93,5 @@ vect3D Scene::colourRay(const Ray& r, int rayBounces) {
         auto t = (unit_R.y()+1) * 0.5; // To make it go from <0, 1>
         return vect3D ( skyGradient[1]*(1-t) + skyGradient[0]*t );
     }
-    
-    // MARK: Linear interpolation formula for sky gradient: (1-h) x colour_bottom + h x colour_top
   }
-
+// MARK: Linear interpolation formula for sky gradient: (1-h) x colour_bottom + h x colour_top

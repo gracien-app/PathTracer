@@ -18,7 +18,7 @@ double& vect3D::operator[] (const int &index) {
     return _data[index];
 }
 
-vect3D vect3D::operator - () {
+vect3D vect3D::operator - () const {
     return vect3D( -_data[0], -_data[1], -_data[2] );
 }
 

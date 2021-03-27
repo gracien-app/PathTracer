@@ -22,7 +22,7 @@ public:
     /// @param colour RGB colour of the sphere
     /// @discussion Careful when initialising, choose radius and center point with respect
     /// to the world size (<1). Remember to specify colour as RGB, it's going to be normalized.
-    Sphere(const vect3D& center, const double radius, const colour &colour);
+    Sphere(const vect3D& centerPoint, const double radius, const colour &colour);
     
     /// Checks if passed ray intersects with the geometrical figure of type Sphere.
     /// @param ray Reference to object of type Ray

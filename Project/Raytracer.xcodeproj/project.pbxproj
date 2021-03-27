@@ -25,6 +25,7 @@
 		BE4CB76E25F97C210072DAE1 /* Ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE4CB76C25F97C210072DAE1 /* Ray.cpp */; };
 		BE4CB77125F97C5B0072DAE1 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE4CB76F25F97C5B0072DAE1 /* Camera.cpp */; };
 		BE5FA03525FD3D0600AEC4F5 /* Solid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE5FA03325FD3D0600AEC4F5 /* Solid.cpp */; };
+		BEAD4D87260EB87C0074EC28 /* Disc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BEAD4D85260EB87C0074EC28 /* Disc.cpp */; };
 		BECBB28F25FAB6B200D6554E /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BECBB28D25FAB6B200D6554E /* Scene.cpp */; };
 		BEDF18E525FE73EE00E52FD2 /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BEDF18E325FE73EE00E52FD2 /* Sphere.cpp */; };
 /* End PBXBuildFile section */
@@ -76,6 +77,8 @@
 		BE4CB77025F97C5B0072DAE1 /* Camera.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Camera.hpp; sourceTree = "<group>"; };
 		BE5FA03325FD3D0600AEC4F5 /* Solid.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Solid.cpp; sourceTree = "<group>"; };
 		BE5FA03425FD3D0600AEC4F5 /* Solid.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Solid.hpp; sourceTree = "<group>"; };
+		BEAD4D85260EB87C0074EC28 /* Disc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Disc.cpp; sourceTree = "<group>"; };
+		BEAD4D86260EB87C0074EC28 /* Disc.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Disc.hpp; sourceTree = "<group>"; };
 		BECBB28D25FAB6B200D6554E /* Scene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
 		BECBB28E25FAB6B200D6554E /* Scene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Scene.hpp; sourceTree = "<group>"; };
 		BEDF18E325FE73EE00E52FD2 /* Sphere.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
@@ -234,8 +237,18 @@
 				BE5FA03325FD3D0600AEC4F5 /* Solid.cpp */,
 				BE5FA03425FD3D0600AEC4F5 /* Solid.hpp */,
 				BEDF18E225FE73DD00E52FD2 /* Sphere */,
+				BEAD4D84260EB8630074EC28 /* Disc */,
 			);
 			path = Objects;
+			sourceTree = "<group>";
+		};
+		BEAD4D84260EB8630074EC28 /* Disc */ = {
+			isa = PBXGroup;
+			children = (
+				BEAD4D85260EB87C0074EC28 /* Disc.cpp */,
+				BEAD4D86260EB87C0074EC28 /* Disc.hpp */,
+			);
+			path = Disc;
 			sourceTree = "<group>";
 		};
 		BECBB28C25FAB68F00D6554E /* Scene */ = {
@@ -349,6 +362,7 @@
 			files = (
 				BE23B83325F5802A000BFAD9 /* App.cpp in Sources */,
 				BE3CBF7425F80426008D5A9B /* Renderer.cpp in Sources */,
+				BEAD4D87260EB87C0074EC28 /* Disc.cpp in Sources */,
 				BE23B80425F57DAD000BFAD9 /* main.cpp in Sources */,
 				BE23B80125F57DAD000BFAD9 /* ResourcePath.mm in Sources */,
 				BE4CB77125F97C5B0072DAE1 /* Camera.cpp in Sources */,

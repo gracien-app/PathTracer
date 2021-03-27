@@ -22,8 +22,7 @@ public:
     // MARK: Operators
     double& operator[] (const int &index);
     
-    vect3D operator - ();
-    
+    vect3D operator - () const;
     vect3D& operator += (const vect3D &rhs);
     
     // MARK: Private data access
@@ -76,10 +75,6 @@ inline vect3D Normalize(const vect3D &vector) {
     return vector / vector.length();
 }
 
-inline std::ostream& operator << (std::ostream &output, const vect3D &vector) {
-    return output << "[ " << vector.x() << " " << vector.y() << " " << vector.z() << " ]\n";
-}
-
 inline static vect3D randomize() {
         return vect3D(randomNumber<double>(),
                       randomNumber<double>(),
@@ -96,6 +91,7 @@ inline vect3D randUnitVector() {
     while (true) {
         auto vec = randomize(-1,1);
         if (vec.lengthSquared() >= 1) continue;
+//        auto unitVec = Normalize(vec); //Just an idea, difference is just 1 sec faster but more noise.
         return vec;
     }
 }
@@ -107,5 +103,8 @@ inline vect3D randUnitDir(const vect3D &normal) {
     else return -unitVec; //If not then negate the vector to correct it
 }
 
+inline std::ostream& operator << (std::ostream &output, const vect3D &vector) {
+    return output << "[ " << vector.x() << " " << vector.y() << " " << vector.z() << " ]\n";
+}
 
 #endif /* Vectors_hpp */

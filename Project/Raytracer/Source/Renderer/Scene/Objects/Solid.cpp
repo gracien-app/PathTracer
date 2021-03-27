@@ -8,6 +8,10 @@
 
 #include "Solid.hpp"
 
+Solid::Solid(const vect3D &centerPoint, const colour &colour) {
+    setPosition(centerPoint);
+    setColour(colour);
+}
 
 void Solid::setPosition(const vect3D &vector) {
     _center[0] = vector.x();

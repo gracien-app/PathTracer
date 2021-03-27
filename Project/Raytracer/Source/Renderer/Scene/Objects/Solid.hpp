@@ -24,6 +24,8 @@ struct recent {
 class Solid {
 public:
     
+    Solid(const vect3D &centerPoint, const colour &colour);
+    
     /// Sets the position according to the XYZ of vect3D object passed.
     /// @param vector Reference to vect3D object
     /// @warning Inverts Z to compensate the right handed coordinate system, so that objects with positive Z are in front of "camera".
@@ -34,6 +36,13 @@ public:
     /// @warning Provided object should contain standard RGB parameter values (0-255). Normalization is performed by the method itself.
     void setColour(const colour &rgb);
     
+    
+    /// Virtual empty method for Deriving classes.
+    /// @param ray Ray object with specified origin and destination direction.
+    /// @param recent_Inter Structure containing information about recent intersection.
+    /// @param timeMin Value defining minimum time at which intersection can occur.
+    /// @param timeMax Value defining maximum time at which intersection can occur.
+    /// @warning [ NEEDS TO BE OVERLOADED ]
     virtual bool Intersect (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const;
     
 protected:

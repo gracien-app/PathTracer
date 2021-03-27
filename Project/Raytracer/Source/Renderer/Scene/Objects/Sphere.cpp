@@ -8,10 +8,9 @@
 
 #include "Sphere.hpp"
 
-Sphere::Sphere(const vect3D &center, const double radius, const colour &colour) : _radius(radius) {
-    this->setColour(colour);
-    this->setPosition(center);
-}
+Sphere::Sphere(const vect3D &centerPoint,
+               const double radius,
+               const colour &colour) : _radius(radius), Solid(centerPoint, colour) {}
 
 bool Sphere::Intersect (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const {
     
@@ -39,7 +38,7 @@ bool Sphere::Intersect (const Ray &ray, recent &recent_Inter, double timeMin, do
         recent_Inter.outNormal = ( recent_Inter.position - _center ) / _radius;
         return true;
     }
-
+}
     // MARK: Optimisations performed:
     //      - Simplification of delta, b and roots. B was always 2* so some 2's canceled in the delta and solution,
     //        leaving optim_b = 1/2b
@@ -47,4 +46,4 @@ bool Sphere::Intersect (const Ray &ray, recent &recent_Inter, double timeMin, do
     //      - Square root of Delta calculated only if necessary: when there is/are roots
     //      - First checking smaller root, if fails the check, ONLY then the bigger root is calculated.
     //      - Instead of Normalize() method of vect3D, radius of the sphere is used to normalize the normal vector.
-}
+

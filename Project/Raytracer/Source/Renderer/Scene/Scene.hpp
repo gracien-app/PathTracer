@@ -13,6 +13,7 @@
 #include <limits>
 #include "Colour.hpp"
 #include "Sphere.hpp"
+#include "Disc.hpp"
 #include "Camera.hpp"
 #include "Utilities.h"
 

@@ -8,14 +8,11 @@
 
 #include "Renderer.hpp"
 
-Renderer::Renderer(const uint &width, const uint &height) {
+Renderer::Renderer(const uint &width, const uint &height) : _width(width), _height(height) {
     
     outTexture.reset(new sf::Texture);
     outSprite.reset(new sf::Sprite);
     outTexture->setSmooth(false);
-    
-    _width = width;
-    _height = height;
     
     preScenes.push_back(std::shared_ptr<Scene>(new Scene(width,height)));
     
@@ -44,7 +41,7 @@ void Renderer::render() {
     
     auto currentScene = preScenes.at(0);
     
-    int samplesPerPixel = 10;
+    int samplesPerPixel = 100;
     int rayBounces = 3;
     sf::Clock clock;
     sf::Time timeElapsed;

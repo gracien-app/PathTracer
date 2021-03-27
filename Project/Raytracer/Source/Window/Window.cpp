@@ -24,11 +24,10 @@ Window::~Window() {
     std::cout << "[D] Window: Terminated" << std::endl;
 }
 
-void Window::Display(const std::shared_ptr<Renderer> &ptr) {
+void Window::Display(const std::shared_ptr<Renderer> &renderEngine) {
     
-    auto rendererPtr = ptr;
-    auto renderSprite = rendererPtr->Sprite();
-    rendering = false;
+    auto renderSprite = renderEngine->Sprite();
+    rendering = true;
     
     while (_renderWindow->isOpen()) {
         
@@ -44,8 +43,8 @@ void Window::Display(const std::shared_ptr<Renderer> &ptr) {
         _renderWindow->clear(sf::Color(0, 0, 0));
         _renderWindow->draw(*renderSprite);
         _renderWindow->display();
-        if ( !rendererPtr->isBusy() && rendering ) rendererPtr->render();
         
+        if ( !renderEngine->isBusy() && rendering ) renderEngine->render();
     }
 }
 
