@@ -12,6 +12,7 @@
 #include <memory>
 #include <limits>
 #include "Colour.hpp"
+#include "Plane.hpp"
 #include "Sphere.hpp"
 #include "Disc.hpp"
 #include "Camera.hpp"

@@ -1,5 +1,5 @@
 //
-//  Disc.hpp
+//  Plane.hpp
 //  Raytracer
 //
 //  Created by Gracjan Jeżewski on 27/03/2021.
@@ -11,17 +11,16 @@
 
 #include "Solid.hpp"
 
-class Disc : public Solid {
+
+class Plane : public Solid {
 public:
     
-    Disc(const vect3D &centerPoint, const vect3D &normalDirection, const double sideLength, const colour &colour);
+    Plane(const vect3D &centerPoint, const vect3D &normalDirection, const colour &colour);
     
     bool Intersect (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const override;
     
 private:
-    double _side;
     vect3D _normal;
 };
-
 
 #endif /* Plane_hpp */
