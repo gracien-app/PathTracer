@@ -32,7 +32,7 @@ public:
     /// @discussion Disc intersection function is Plane intersection function, with one additional if statement.
     /// @discussion For more in-depth explanation, one shoud refer to the infinite Plane intersection first.
     /// @discussion Additional statement: Length of vector defined as vector from center of geometry to the point of intersection, cannot be greater than radius.
-    bool Intersect (const Ray &ray, recent &recent_Inter, const double &timeMin, const double &timeMax) const override;
+    bool Intersect (const Ray &ray, collision &recent_Inter, const double &timeMin, const double &timeMax) const override;
     
 private:
     double _radius;

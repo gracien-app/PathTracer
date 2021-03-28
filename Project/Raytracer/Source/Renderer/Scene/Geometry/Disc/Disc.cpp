@@ -13,7 +13,7 @@ Disc::Disc(const vect3D &centerPoint,
              const double discRadius,
              const colour &colour) : _radius(discRadius), _normal(normalDirection), Solid(centerPoint, colour) {}
 
-bool Disc::Intersect (const Ray &ray, recent &recent_Inter, const double &timeMin, const double &timeMax) const {
+bool Disc::Intersect (const Ray &ray, collision &recent_Inter, const double &timeMin, const double &timeMax) const {
     
     auto nominator = (_center - ray.getOrigin()).dot(_normal);
     auto denominator = ray.getDest().dot(_normal);

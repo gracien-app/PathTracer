@@ -10,7 +10,6 @@
 #define Window_hpp
 
 #include "main.h"
-#include <memory>
 
 class Window {
 public:

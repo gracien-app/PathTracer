@@ -7,3 +7,7 @@
 //
 
 #include "Material.hpp"
+
+Material::Material() {
+    int a;
+}

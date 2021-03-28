@@ -10,6 +10,14 @@
 #define Ray_hpp
 
 #include "Vectors.hpp"
+#include "Material.hpp"
+
+struct collision {
+    double time;
+    vect3D position;
+    vect3D outNormal; //MARK: Normal is always outward (points from center of sphere to position of collision)
+    std::shared_ptr<Material> material;
+};
 
 class Ray {
 public:

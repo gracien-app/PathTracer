@@ -9,10 +9,7 @@
 #ifndef Camera_hpp
 #define Camera_hpp
 
-#include "Vectors.hpp"
 #include "Ray.hpp"
-#include <vector>
-#include <memory>
 
 class Camera {
 public:

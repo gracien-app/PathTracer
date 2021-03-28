@@ -9,7 +9,6 @@
 #ifndef Renderer_hpp
 #define Renderer_hpp
 
-#include "main.h"
 #include "Scene.hpp"
 
 class Renderer {

@@ -9,14 +9,10 @@
 #ifndef Scene_hpp
 #define Scene_hpp
 
-#include <memory>
-#include <limits>
-#include "Colour.hpp"
 #include "Plane.hpp"
 #include "Sphere.hpp"
 #include "Disc.hpp"
 #include "Camera.hpp"
-#include "Utilities.h"
 
 class Scene : public Camera {
 public:
@@ -26,7 +22,7 @@ public:
     Scene(const int &width, const int &height);
     
     vect3D colourRay(const Ray& r, int rayBounces);
-    bool intersectScene (const Ray &ray, recent &recent_Inter, const double &timeMin, const double &timeMax) const;
+    bool intersectScene (const Ray &ray, collision &recent_Inter, const double &timeMin, const double &timeMax) const;
     
 private:
     

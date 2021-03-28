@@ -10,7 +10,6 @@
 #define App_hpp
 
 #include "Window.hpp"
-#include "Renderer.hpp"
 
 class App {
 public:

@@ -9,15 +9,8 @@
 #ifndef Solid_hpp
 #define Solid_hpp
 
-#include "Vectors.hpp"
 #include "Ray.hpp"
 #include "Colour.hpp"
-
-struct recent {
-    double time;
-    vect3D position;
-    vect3D outNormal; //MARK: Normal is always outward (points from center of sphere to position of collision)
-};
 
 /// Base class for all Solid (hitable by rays) objects.
 /// @discussion [POLYMORPHIC] [COLLISIONS]
@@ -45,11 +38,12 @@ public:
     /// @param timeMin Value defining minimum time at which intersection can occur.
     /// @param timeMax Value defining maximum time at which intersection can occur.
     /// @warning [ NEEDS TO BE OVERLOADED ]
-    virtual bool Intersect (const Ray &ray, recent &recent_Inter, const double &timeMin, const double &timeMax) const;
+    virtual bool Intersect (const Ray &ray, collision &recent_Inter, const double &timeMin, const double &timeMax) const;
     
 protected:
     colour _colour;
     vect3D _center;
+    std::shared_ptr<Material> _material;
 };
 
 #endif /* Solid_hpp */

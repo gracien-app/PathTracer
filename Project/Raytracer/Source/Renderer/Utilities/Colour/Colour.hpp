@@ -10,7 +10,6 @@
 #define Colour_hpp
 
 #include "Vectors.hpp"
-#include <vector>
 #include <SFML/Graphics.hpp>
 
 class colour : public vect3D{

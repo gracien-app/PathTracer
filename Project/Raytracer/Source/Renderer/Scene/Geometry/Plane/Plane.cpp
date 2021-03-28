@@ -12,7 +12,7 @@ Plane::Plane(const vect3D &centerPoint,
              const vect3D &normalDirection,
              const colour &colour) : _normal(normalDirection), Solid(centerPoint, colour) {}
 
-bool Plane::Intersect (const Ray &ray, recent &recent_Inter, const double &timeMin, const double &timeMax) const {
+bool Plane::Intersect (const Ray &ray, collision &recent_Inter, const double &timeMin, const double &timeMax) const {
     
     auto nominator = (_center - ray.getOrigin()).dot(_normal);
     auto denominator = ray.getDest().dot(_normal);

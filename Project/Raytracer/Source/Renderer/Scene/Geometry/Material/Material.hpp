@@ -9,7 +9,6 @@
 #ifndef Material_hpp
 #define Material_hpp
 
-
 /// Base class for all custom materials.
 class Material {
 public:
@@ -17,5 +16,21 @@ public:
 private:
     
 };
+
+class Diffused : public Material {
+public:
+    Diffused();
+private:
+    
+};
+
+class Metallic : public Material {
+public:
+    Metallic();
+private:
+    
+};
+
+
 
 #endif /* Material_hpp */
