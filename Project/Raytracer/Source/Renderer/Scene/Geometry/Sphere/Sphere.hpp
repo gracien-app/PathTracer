@@ -37,7 +37,7 @@ public:
     /// @note Ray is a P(time) = Origin + time * Destination
     /// @note Final formula F(t) = t^2*Destination^2 + t*2*Destination*(Origin-C)+ Origin^2-R^2 = 0
     /// @warning Multiplication of vectors - Dot product!
-    bool Intersect (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const override;
+    bool Intersect (const Ray &ray, recent &recent_Inter, const double &timeMin, const double &timeMax) const override;
     
 private:
     double _radius;

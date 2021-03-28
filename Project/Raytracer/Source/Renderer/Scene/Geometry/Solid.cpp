@@ -26,6 +26,6 @@ void Solid::setColour(const colour &rgb) {
     _colour.normalizeRGB();
 }
 
-bool Solid::Intersect (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const {
+bool Solid::Intersect (const Ray &ray, recent &recent_Inter, const double &timeMin, const double &timeMax) const {
     return false;
 }

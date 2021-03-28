@@ -12,7 +12,7 @@ Sphere::Sphere(const vect3D &centerPoint,
                const double radius,
                const colour &colour) : _radius(radius), Solid(centerPoint, colour) {}
 
-bool Sphere::Intersect (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const {
+bool Sphere::Intersect (const Ray &ray, recent &recent_Inter, const double &timeMin, const double &timeMax) const {
     
     auto OriginC = ray.getOrigin()-_center;
     auto a = ray.getDest().lengthSquared();

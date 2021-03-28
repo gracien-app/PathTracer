@@ -23,7 +23,7 @@ public:
     /// @param colour Colour object defining colour of the geometry
     Plane(const vect3D &centerPoint, const vect3D &normalDirection, const colour &colour);
     
-    /// Overloaded function checing if passed ray can intersect with infinite plane geometry.
+    /// Overloaded method checking if passed ray can intersect with infinite plane geometry.
     /// @param ray Reference to object of type Ray
     /// @param recent_Inter Reference to Recent structure which keeps track of recent intersections performed.
     /// @param timeMin Specifies minimum time when the intersection can occur.
@@ -34,7 +34,7 @@ public:
     /// @discussion Normal vector is what defines the geometry. All vectors which have their dot product with normal vector equal 0, lie on the plane.
     /// @discussion That is because if dot product is 0, it means that two vectors are perpendicular.
     /// @discussion Function tries to find time t in range (timeMin, timeMax) where ray.pos(t) is perpendicular to Normal vector of the geometry.
-    bool Intersect (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const override;
+    bool Intersect (const Ray &ray, recent &recent_Inter, const double &timeMin, const double &timeMax) const override;
     
 private:
     vect3D _normal;

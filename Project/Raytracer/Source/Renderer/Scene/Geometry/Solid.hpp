@@ -45,7 +45,7 @@ public:
     /// @param timeMin Value defining minimum time at which intersection can occur.
     /// @param timeMax Value defining maximum time at which intersection can occur.
     /// @warning [ NEEDS TO BE OVERLOADED ]
-    virtual bool Intersect (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const;
+    virtual bool Intersect (const Ray &ray, recent &recent_Inter, const double &timeMin, const double &timeMax) const;
     
 protected:
     colour _colour;

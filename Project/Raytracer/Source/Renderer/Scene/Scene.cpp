@@ -20,8 +20,6 @@ Scene::Scene(const int &width, const int &height) : Camera(vect3D(0,0,0), 0.5, w
                  std::unique_ptr<Sphere>( new Sphere( vect3D(0, -100.5, 1),
                                                      100.0f,
                                                      colour(0, 0, 0))) ); //Floor
-    
-    
     */
     
     // Simple sphere with planar ground
@@ -42,21 +40,6 @@ Scene::Scene(const int &width, const int &height) : Camera(vect3D(0,0,0), 0.5, w
 
 }
 
-bool Scene::intersectScene (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const {
-    recent tempRecent;
-    bool didIntersect = false;
-    auto closestIntersect = timeMax;
-
-    for (const auto& object : sceneObjects) {
-        if ( object->Intersect(ray, tempRecent, timeMin, closestIntersect) ) {
-            didIntersect = true;
-            closestIntersect = tempRecent.time;
-            recent_Inter = tempRecent;
-        }
-    }
-    return didIntersect;
-}
-
 vect3D Scene::colourRay(const Ray& r, int rayBounces) {
     
     recent recInter;
@@ -75,3 +58,20 @@ vect3D Scene::colourRay(const Ray& r, int rayBounces) {
     }
   }
 // MARK: Linear interpolation formula for sky gradient: (1-h) x colour_bottom + h x colour_top
+
+
+bool Scene::intersectScene (const Ray &ray, recent &recent_Inter, const double &timeMin, const double &timeMax) const {
+    recent tempRecent;
+    bool didIntersect = false;
+    auto closestIntersect = timeMax;
+
+    for (const auto& object : sceneObjects) {
+        if ( object->Intersect(ray, tempRecent, timeMin, closestIntersect) ) {
+            didIntersect = true;
+            closestIntersect = tempRecent.time;
+            recent_Inter = tempRecent;
+        }
+    }
+    return didIntersect;
+}
+

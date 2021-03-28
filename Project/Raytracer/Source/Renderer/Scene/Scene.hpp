@@ -26,7 +26,7 @@ public:
     Scene(const int &width, const int &height);
     
     vect3D colourRay(const Ray& r, int rayBounces);
-    bool intersectScene (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const;
+    bool intersectScene (const Ray &ray, recent &recent_Inter, const double &timeMin, const double &timeMax) const;
     
 private:
     

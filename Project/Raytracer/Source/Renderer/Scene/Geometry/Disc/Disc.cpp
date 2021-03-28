@@ -10,10 +10,10 @@
 
 Disc::Disc(const vect3D &centerPoint,
              const vect3D &normalDirection,
-             const double sideLength,
-             const colour &colour) : _side(sideLength), _normal(normalDirection), Solid(centerPoint, colour) {}
+             const double discRadius,
+             const colour &colour) : _radius(discRadius), _normal(normalDirection), Solid(centerPoint, colour) {}
 
-bool Disc::Intersect (const Ray &ray, recent &recent_Inter, double timeMin, double timeMax) const {
+bool Disc::Intersect (const Ray &ray, recent &recent_Inter, const double &timeMin, const double &timeMax) const {
     
     auto nominator = (_center - ray.getOrigin()).dot(_normal);
     auto denominator = ray.getDest().dot(_normal);
@@ -22,7 +22,7 @@ bool Disc::Intersect (const Ray &ray, recent &recent_Inter, double timeMin, doub
     auto rayAtT= ray.pos(t);
     auto distance = rayAtT - _center;
     
-    if (t > timeMax || t < timeMin || (distance.length() > (_side/2)) ) return false;
+    if (t > timeMax || t < timeMin || (distance.length() > (_radius/2)) ) return false;
     else {
         
         recent_Inter.time = t;
