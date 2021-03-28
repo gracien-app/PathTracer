@@ -24,6 +24,9 @@ struct recent {
 class Solid {
 public:
     
+    /// Base constructor used in all deriving classes to initialise object with two shared parameters: center point of geometry and colour.
+    /// @param centerPoint Vector point defining position of the central point of the geometry
+    /// @param colour Colour object defining colour of the geometry
     Solid(const vect3D &centerPoint, const colour &colour);
     
     /// Sets the position according to the XYZ of vect3D object passed.
@@ -35,7 +38,6 @@ public:
     /// @param rgb Reference to object of type Colour with RGB parameters specified.
     /// @warning Provided object should contain standard RGB parameter values (0-255). Normalization is performed by the method itself.
     void setColour(const colour &rgb);
-    
     
     /// Virtual empty method for Deriving classes.
     /// @param ray Ray object with specified origin and destination direction.
