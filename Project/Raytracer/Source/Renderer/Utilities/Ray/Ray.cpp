@@ -9,6 +9,8 @@
 #include "Ray.hpp"
 
 // MARK: Constructors
+Ray::Ray() {};
+
 Ray::Ray(const vect3D& origin, const vect3D& destination) : orig(origin), dest(destination) {
    // TODO: Consider making point class to differentiate between vectors and just points
 }

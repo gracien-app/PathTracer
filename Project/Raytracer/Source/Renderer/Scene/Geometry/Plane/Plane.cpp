@@ -10,20 +10,22 @@
 
 Plane::Plane(const vect3D &centerPoint,
              const vect3D &normalDirection,
-             const colour &colour) : _normal(normalDirection), Solid(centerPoint, colour) {}
+             std::shared_ptr<Material> &materialPtr) : _normal(normalDirection),
+                                                      Solid(centerPoint, materialPtr) {}
 
-bool Plane::Intersect (const Ray &ray, collision &recent_Inter, const double &timeMin, const double &timeMax) const {
+bool Plane::Intersect (const Ray &ray, collision &recInter, const double &timeMin, const double &timeMax) const {
     
     auto nominator = (_center - ray.getOrigin()).dot(_normal);
     auto denominator = ray.getDest().dot(_normal);
-    
+    // TODO: Needs check if denominator is very small, check performance hit with profiler.
     auto t = nominator / denominator;
     
     if (t > timeMax || t < timeMin ) return false;
     else {
-        recent_Inter.time = t;
-        recent_Inter.position = ray.pos(t);
-        recent_Inter.outNormal = _normal;
+        recInter.time       = t;
+        recInter.position   = ray.pos(t);
+        recInter.outNormal  = _normal;
+        recInter.material   = _material;
         return true;
     }
 }

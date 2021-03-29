@@ -10,7 +10,8 @@
 #define Ray_hpp
 
 #include "Vectors.hpp"
-#include "Material.hpp"
+
+class Material;
 
 struct collision {
     double time;
@@ -23,6 +24,7 @@ class Ray {
 public:
     
     // MARK: Constructors
+    Ray();
     Ray(const vect3D& origin, const vect3D& destination);
     
     // MARK: Private data access

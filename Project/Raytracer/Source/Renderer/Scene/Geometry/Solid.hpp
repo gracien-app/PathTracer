@@ -9,8 +9,7 @@
 #ifndef Solid_hpp
 #define Solid_hpp
 
-#include "Ray.hpp"
-#include "Colour.hpp"
+#include "Material.hpp"
 
 /// Base class for all Solid (hitable by rays) objects.
 /// @discussion [POLYMORPHIC] [COLLISIONS]
@@ -20,17 +19,12 @@ public:
     /// Base constructor used in all deriving classes to initialise object with two shared parameters: center point of geometry and colour.
     /// @param centerPoint Vector point defining position of the central point of the geometry
     /// @param colour Colour object defining colour of the geometry
-    Solid(const vect3D &centerPoint, const colour &colour);
+    Solid(const vect3D &centerPoint, std::shared_ptr<Material> &materialPtr);
     
     /// Sets the position according to the XYZ of vect3D object passed.
     /// @param vector Reference to vect3D object
     /// @warning Inverts Z to compensate the right handed coordinate system, so that objects with positive Z are in front of "camera".
-    void setPosition(const vect3D &vector);
-    
-    /// Sets the colour of object
-    /// @param rgb Reference to object of type Colour with RGB parameters specified.
-    /// @warning Provided object should contain standard RGB parameter values (0-255). Normalization is performed by the method itself.
-    void setColour(const colour &rgb);
+    void setPosition(const vect3D &newPosition);
     
     /// Virtual empty method for Deriving classes.
     /// @param ray Ray object with specified origin and destination direction.
@@ -41,7 +35,6 @@ public:
     virtual bool Intersect (const Ray &ray, collision &recent_Inter, const double &timeMin, const double &timeMax) const;
     
 protected:
-    colour _colour;
     vect3D _center;
     std::shared_ptr<Material> _material;
 };

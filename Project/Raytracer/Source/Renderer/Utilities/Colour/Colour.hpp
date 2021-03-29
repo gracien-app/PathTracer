@@ -31,5 +31,11 @@ private:
     double Alpha;
 };
 
+inline colour operator*(const colour &lhs, const colour &rhs) {
+    return colour(lhs.x()*rhs.x(),
+                  lhs.y()*rhs.x(),
+                  lhs.z()*rhs.x());
+}
+
 
 #endif /* Colour_hpp */

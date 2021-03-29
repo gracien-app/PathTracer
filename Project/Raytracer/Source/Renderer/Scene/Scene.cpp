@@ -15,50 +15,40 @@ Scene::Scene(const int &width, const int &height) : Camera(vect3D(0,0,0), 0.5, w
     skyGradient.push_back( ( colour(238, 242, 243) ).normalizeRGB() );
     skyGradient.push_back( ( colour(142, 158, 171) ).normalizeRGB() );
     
-    /* BASIC SPHERE SCENE
-    sceneObjects.push_back(
-                 std::unique_ptr<Sphere>( new Sphere( vect3D(0, -100.5, 1),
-                                                     100.0f,
-                                                     colour(0, 0, 0))) ); //Floor
-    */
-//    auto test_Material = std::make_shared<Material>( new Material() );
+    std::shared_ptr<Material> diffMaterial ( new Diffused( colour(230, 3, 3).normalizeRGB() ) );
+    std::shared_ptr<Material> diffMaterial2 ( new Diffused( colour (120, 60, 60).normalizeRGB() ) );
     
-    // Simple sphere with planar ground
-    sceneObjects.push_back(
-                 std::unique_ptr<Plane>( new Plane( vect3D(0, -0.5, 1),
-                                                    Normalize(vect3D(0.3, 1, 0)),
-                                                    colour(0, 0, 0))) ); //Floor right
+    // BASIC SPHERE SCENE
+//    sceneObjects.push_back( std::unique_ptr<Plane> ( new Plane (vect3D(0, -0.5, 1), vect3D(0, 1, 0), diffMaterial2)) );
+    sceneObjects.push_back( std::unique_ptr<Sphere> ( new Sphere (vect3D(0, 0, 1),0.5, diffMaterial)) );
     
-    sceneObjects.push_back(
-                 std::unique_ptr<Plane>( new Plane( vect3D(0, -0.5, 1),
-                                                    Normalize(vect3D(-0.3, 1, 0)),
-                                                    colour(0, 0, 0))) ); //Floor left
-    
-   /* sceneObjects.push_back(
-                 std::unique_ptr<Sphere>(
-                             new Sphere( vect3D(0.0f, 0.0f, 1.0f),
-                                         0.5f,
-                                         test_Material)) ); //Sphere
-*/
 }
 
-vect3D Scene::colourRay(const Ray& r, int rayBounces) {
+colour Scene::colourRay(const Ray& r, int rayBounces) {
     
     collision recInter;
     
     if (rayBounces == 0) return vect3D(0,0,0);
     
     if ( intersectScene ( r, recInter, 0.001, infinity<double> ) ) { //MARK: Small numbers error correction
-        auto nextDir = recInter.position + randUnitDir(recInter.outNormal);
-        return colourRay(Ray(recInter.position, nextDir - recInter.position), rayBounces-1) * 0.5 ;
+        
+        colour totalColour;
+        Ray reflectedRay;
+        
+        if (recInter.material->reflect(r, reflectedRay, recInter, totalColour)) {
+            return totalColour * colourRay(reflectedRay, rayBounces-1);
+        }
+        
+        else return colour(0,0,0);
+        
     }
     
     else {
         auto unit_R = r.getDest(); // Y can be between <-1,1> because of constant projectionHeight=2
         auto t = (unit_R.y()+1) * 0.5; // To make it go from <0, 1>
-        return vect3D ( skyGradient[1]*(1-t) + skyGradient[0]*t );
+        return colour ( skyGradient[1]*(1-t) + skyGradient[0]*t );
     }
-  }
+}
 // MARK: Linear interpolation formula for sky gradient: (1-h) x colour_bottom + h x colour_top
 
 

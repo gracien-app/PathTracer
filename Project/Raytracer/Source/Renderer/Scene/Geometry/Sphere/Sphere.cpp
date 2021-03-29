@@ -10,7 +10,8 @@
 
 Sphere::Sphere(const vect3D &centerPoint,
                const double radius,
-               std::shared_ptr<Material> materialPtr) : _radius(radius), Solid(centerPoint, colour(0, 0, 0)) {}
+               std::shared_ptr<Material> &materialPtr) : _radius(radius),
+                                                        Solid(centerPoint, materialPtr) {}
 
 bool Sphere::Intersect (const Ray &ray, collision &recent_Inter, const double &timeMin, const double &timeMax) const {
     
@@ -33,10 +34,10 @@ bool Sphere::Intersect (const Ray &ray, collision &recent_Inter, const double &t
             }
         }
         
-        recent_Inter.time = root;
-        recent_Inter.position = ray.pos(root);
-        recent_Inter.outNormal = ( recent_Inter.position - _center ) / _radius;
-        recent_Inter.material = _material;
+        recent_Inter.time       = root;
+        recent_Inter.position   = ray.pos(root);
+        recent_Inter.outNormal  = ( recent_Inter.position - _center ) / _radius;
+        recent_Inter.material   = _material;
         return true;
     }
 }

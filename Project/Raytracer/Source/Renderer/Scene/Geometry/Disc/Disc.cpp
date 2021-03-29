@@ -8,12 +8,14 @@
 
 #include "Disc.hpp"
 
-Disc::Disc(const vect3D &centerPoint,
+Disc::Disc(  const vect3D &centerPoint,
              const vect3D &normalDirection,
              const double discRadius,
-             const colour &colour) : _radius(discRadius), _normal(normalDirection), Solid(centerPoint, colour) {}
+             std::shared_ptr<Material> &materialPtr) : _radius(discRadius),
+                                                      _normal(normalDirection),
+                                                      Solid(centerPoint, materialPtr) {}
 
-bool Disc::Intersect (const Ray &ray, collision &recent_Inter, const double &timeMin, const double &timeMax) const {
+bool Disc::Intersect (const Ray &ray, collision &recInter, const double &timeMin, const double &timeMax) const {
     
     auto nominator = (_center - ray.getOrigin()).dot(_normal);
     auto denominator = ray.getDest().dot(_normal);
@@ -23,11 +25,13 @@ bool Disc::Intersect (const Ray &ray, collision &recent_Inter, const double &tim
     auto distance = rayAtT - _center;
     
     if (t > timeMax || t < timeMin || (distance.length() > (_radius/2)) ) return false;
+    
     else {
         
-        recent_Inter.time = t;
-        recent_Inter.position = rayAtT;
-        recent_Inter.outNormal = _normal;
+        recInter.time       = t;
+        recInter.position   = rayAtT;
+        recInter.outNormal  = _normal;
+        recInter.material   = _material;
         return true;
     }
 }

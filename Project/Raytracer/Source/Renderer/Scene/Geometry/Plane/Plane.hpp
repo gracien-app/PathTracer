@@ -9,7 +9,7 @@
 #ifndef Plane_hpp
 #define Plane_hpp
 
-#include "Solid.hpp"
+#include "Sphere.hpp"
 
 
 /// Class defining infinite one-sided plane object.
@@ -21,7 +21,7 @@ public:
     /// @param centerPoint Vector point defining position of the central point of the geometry
     /// @param normalDirection Normal vector of the geometry, defines direction towards which geometry is oriented.
     /// @param colour Colour object defining colour of the geometry
-    Plane(const vect3D &centerPoint, const vect3D &normalDirection, const colour &colour);
+    Plane(const vect3D &centerPoint, const vect3D &normalDirection, std::shared_ptr<Material> &materialPtr);
     
     /// Overloaded method checking if passed ray can intersect with infinite plane geometry.
     /// @param ray Reference to object of type Ray

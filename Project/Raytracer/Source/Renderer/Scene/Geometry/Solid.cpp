@@ -8,22 +8,14 @@
 
 #include "Solid.hpp"
 
-Solid::Solid(const vect3D &centerPoint, const colour &colour) {
+Solid::Solid(const vect3D &centerPoint, std::shared_ptr<Material> &materialPtr) : _material(materialPtr) {
     setPosition(centerPoint);
-    setColour(colour);
 }
 
-void Solid::setPosition(const vect3D &vector) {
-    _center[0] = vector.x();
-    _center[1] = vector.y();
-    _center[2] = -vector.z(); //Inverted to compensate right handed cooridinates system.
-}
-
-void Solid::setColour(const colour &rgb) {
-    _colour[0] = rgb.x();
-    _colour[1] = rgb.y();
-    _colour[2] = rgb.z();
-    _colour.normalizeRGB();
+void Solid::setPosition(const vect3D &newPosition) {
+    _center[0] = newPosition.x();
+    _center[1] = newPosition.y();
+    _center[2] = -newPosition.z(); //Inverted to compensate right handed cooridinates system.
 }
 
 bool Solid::Intersect (const Ray &ray, collision &recent_Inter, const double &timeMin, const double &timeMax) const {

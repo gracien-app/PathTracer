@@ -8,6 +8,38 @@
 
 #include "Material.hpp"
 
-Material::Material() {
-    int a;
+// MARK: Constructors
+
+Material::Material(const colour &rgbColour) : _colour(rgbColour) {};
+
+Diffused::Diffused(const colour &rgbColour) : Material(rgbColour) {};
+
+Metallic::Metallic(const colour &rgbColour) : Material(rgbColour) {};
+
+// MARK: Reflect methods
+
+bool Material::reflect(
+                       const Ray &inputRay,
+                             Ray &reflRay, const collision &recInter, colour &reflColour ) const {
+    return false;
 }
+
+bool Diffused::reflect(const Ray &inputRay,
+                             Ray &reflRay, const collision &recInter, colour &reflColour ) const {
+    auto nextDir = recInter.position + randUnitDir(recInter.outNormal);
+    
+    reflRay = Ray(recInter.position, nextDir);
+    
+    reflColour = _colour;
+    
+    return true;
+}
+
+bool Metallic::reflect(const Ray &inputRay,
+                             Ray &reflRay, const collision &recInter, colour &reflColour ) const {
+    return false;
+}
+
+
+
+
