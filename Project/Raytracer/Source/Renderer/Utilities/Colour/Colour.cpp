@@ -8,16 +8,14 @@
 
 #include "Colour.hpp"
 
-colour::colour() : vect3D(), Alpha(255) {};
-colour::colour(const vect3D &rhs) : vect3D(rhs.x(),rhs.y(),rhs.z()), Alpha(255) {};
-colour::colour(unsigned int R, unsigned int G, unsigned int B) : vect3D(R,G,B), Alpha(255) {};
-colour::colour(unsigned int R, unsigned int G, unsigned int B, unsigned int A) : vect3D(R,G,B), Alpha(A) {};
+colour::colour() : vect3D() {};
+colour::colour(const vect3D &rhs) : vect3D(rhs.x(),rhs.y(),rhs.z()) {};
+colour::colour(const double &R, const double &G, const double &B) : vect3D(R,G,B) {};
 
 colour& colour::normalizeRGB() {
     this->_data[0] /= 255;
     this->_data[1] /= 255;
     this->_data[2] /= 255;
-    this->Alpha /= 255;
     return *this;
 }
 
@@ -32,13 +30,12 @@ void colour::standardizeOutput(std::vector<sf::Uint8> &outPixels, const int &gri
     outPixels[4*gridPos+0] = int(256 * clamp<double>(R, 0.0, 0.999));
     outPixels[4*gridPos+1] = int(256 * clamp<double>(G, 0.0, 0.999));
     outPixels[4*gridPos+2] = int(256 * clamp<double>(B, 0.0, 0.999));
-    outPixels[4*gridPos+3] = int(this->Alpha*255.999);
+    outPixels[4*gridPos+3] = int(255);
     //.999 to compensate < width, height
 }
 
 // MARK: Debug
 void colour::printInfo() {
     std::cout << "RGBA: " << this->x() << " " << this->y() << " " << this->z();
-    std::cout << " Alpha: " << this->Alpha << std::endl;
 }
 

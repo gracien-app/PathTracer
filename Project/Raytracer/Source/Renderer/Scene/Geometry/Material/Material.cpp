@@ -30,6 +30,8 @@ bool Diffused::reflect(const Ray &inputRay,
     
     reflRay = Ray(recInter.position, nextDir-recInter.position);
     
+    reflColour = _colour;
+    
     return true;
 }
 

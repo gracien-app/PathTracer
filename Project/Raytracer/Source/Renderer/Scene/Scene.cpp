@@ -15,8 +15,8 @@ Scene::Scene(const int &width, const int &height) : Camera(vect3D(0,0,0), 0.5, w
     skyGradient.push_back( ( colour(238, 242, 243) ).normalizeRGB() );
     skyGradient.push_back( ( colour(142, 158, 171) ).normalizeRGB() );
     
-    std::shared_ptr<Material> diffMaterial ( new Diffused( colour(230, 3, 3).normalizeRGB() ) );
-    std::shared_ptr<Material> diffMaterial2 ( new Diffused( colour (120, 60, 60).normalizeRGB() ) );
+    std::shared_ptr<Material> diffMaterial ( new Diffused( colour(230, 1, 1).normalizeRGB() ) );
+    std::shared_ptr<Material> diffMaterial2 ( new Diffused( colour (30, 30, 30).normalizeRGB() ) );
     
     // BASIC SPHERE SCENE
     sceneObjects.push_back( std::unique_ptr<Plane> ( new Plane (vect3D(0, -0.5, 1), vect3D(0, 1, 0), diffMaterial2)) );
@@ -36,12 +36,10 @@ colour Scene::colourRay(const Ray& r, int rayBounces) {
         Ray reflectedRay;
         
         if (recInter.material->reflect(r, reflectedRay, recInter, totalColour)) {
-            auto output = colour(0.5, 0.5, 0.5, 1) * colourRay(reflectedRay, rayBounces-1);
-            return output;
+            return totalColour * colourRay(reflectedRay, rayBounces-1);
         }
         
         else return colour(0,0,0);
-        
     }
     
     else {

@@ -17,8 +17,7 @@ public:
     
     colour();
     colour(const vect3D &rhs);
-    colour(unsigned int R, unsigned int G, unsigned int B);
-    colour(unsigned int R, unsigned int G, unsigned int B, unsigned int A);
+    colour(const double &R, const double &G, const double &B);
     
     /// Method for transforming standard RGB values of vector to normalized values ranging from <0,1> used by the renderer.
     /// @warning Make sure that vector is not already normalized, no checks are performed.
