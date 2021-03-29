@@ -19,7 +19,7 @@ Scene::Scene(const int &width, const int &height) : Camera(vect3D(0,0,0), 0.5, w
     std::shared_ptr<Material> diffMaterial2 ( new Diffused( colour (120, 60, 60).normalizeRGB() ) );
     
     // BASIC SPHERE SCENE
-//    sceneObjects.push_back( std::unique_ptr<Plane> ( new Plane (vect3D(0, -0.5, 1), vect3D(0, 1, 0), diffMaterial2)) );
+    sceneObjects.push_back( std::unique_ptr<Plane> ( new Plane (vect3D(0, -0.5, 1), vect3D(0, 1, 0), diffMaterial2)) );
     sceneObjects.push_back( std::unique_ptr<Sphere> ( new Sphere (vect3D(0, 0, 1),0.5, diffMaterial)) );
     
 }
@@ -28,7 +28,7 @@ colour Scene::colourRay(const Ray& r, int rayBounces) {
     
     collision recInter;
     
-    if (rayBounces == 0) return vect3D(0,0,0);
+    if (rayBounces == 0) return colour(0,0,0);
     
     if ( intersectScene ( r, recInter, 0.001, infinity<double> ) ) { //MARK: Small numbers error correction
         
@@ -36,7 +36,8 @@ colour Scene::colourRay(const Ray& r, int rayBounces) {
         Ray reflectedRay;
         
         if (recInter.material->reflect(r, reflectedRay, recInter, totalColour)) {
-            return totalColour * colourRay(reflectedRay, rayBounces-1);
+            auto output = colour(0.5, 0.5, 0.5, 1) * colourRay(reflectedRay, rayBounces-1);
+            return output;
         }
         
         else return colour(0,0,0);

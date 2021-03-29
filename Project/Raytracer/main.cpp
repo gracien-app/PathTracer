@@ -9,10 +9,16 @@
 #include "App.hpp"
 #include "main.h"
 
+#include "Colour.hpp"
+
 int main()
 {
-    App Raytracer(1534,1534); //maximum height for my resolution 1534
-    Raytracer.Run();
+//    App Raytracer(1534,1534); //maximum height for my resolution 1534
+//    Raytracer.Run();
+    
+    colour a (0.5, 0.5, 0.5);
+    colour mult = colour(0.5, 0.5, 0.5) * a;
+    mult.printInfo();
 
     return 0;
 }

@@ -33,9 +33,10 @@ private:
 
 inline colour operator*(const colour &lhs, const colour &rhs) {
     return colour(lhs.x()*rhs.x(),
-                  lhs.y()*rhs.x(),
-                  lhs.z()*rhs.x());
+                  lhs.y()*rhs.y(),
+                  lhs.z()*rhs.z());
 }
+
 
 
 #endif /* Colour_hpp */

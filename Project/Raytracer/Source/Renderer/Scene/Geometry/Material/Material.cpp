@@ -28,9 +28,7 @@ bool Diffused::reflect(const Ray &inputRay,
                              Ray &reflRay, const collision &recInter, colour &reflColour ) const {
     auto nextDir = recInter.position + randUnitDir(recInter.outNormal);
     
-    reflRay = Ray(recInter.position, nextDir);
-    
-    reflColour = _colour;
+    reflRay = Ray(recInter.position, nextDir-recInter.position);
     
     return true;
 }
