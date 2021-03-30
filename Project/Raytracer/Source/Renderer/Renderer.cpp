@@ -41,8 +41,8 @@ void Renderer::render() {
     
     auto currentScene = preScenes.at(0);
     
-    int samplesPerPixel = 1;
-    int rayBounces = 3;
+    int samplesPerPixel = 50;
+    int rayBounces = 4;
     sf::Clock clock;
     sf::Time timeElapsed;
     

@@ -26,9 +26,10 @@ bool Material::reflect(
 
 bool Diffused::reflect(const Ray &inputRay,
                              Ray &reflRay, const collision &recInter, colour &reflColour ) const {
-    auto nextDir = recInter.position + randUnitDir(recInter.outNormal);
     
-    reflRay = Ray(recInter.position, nextDir-recInter.position);
+    auto nextDir = randUnitDir(recInter.outNormal);
+    
+    reflRay = Ray(recInter.position, nextDir);
     
     reflColour = _colour;
     
@@ -37,7 +38,15 @@ bool Diffused::reflect(const Ray &inputRay,
 
 bool Metallic::reflect(const Ray &inputRay,
                              Ray &reflRay, const collision &recInter, colour &reflColour ) const {
-    return false;
+    
+    auto unitDir = Normalize( inputRay.getDest() );
+    
+    reflRay = Ray(recInter.position, unitDir - 2*recInter.outNormal*unitDir.dot(recInter.outNormal));
+    
+    reflColour = _colour;
+    
+    if (reflRay.getDest().dot(recInter.outNormal)) return true;
+    else return false;
 }
 
 
