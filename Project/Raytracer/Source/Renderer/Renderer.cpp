@@ -41,14 +41,11 @@ void Renderer::render() {
     
     auto currentScene = preScenes.at(0);
     
-    int samplesPerPixel = 50;
-    int rayBounces = 4;
-    sf::Clock clock;
-    sf::Time timeElapsed;
+    int samplesPerPixel = 100;
+    int rayBounces = 50;
     
     //MARK: Origin of renderer = camera position from which we see the scene
     
-    clock.restart();
     
     for (int j=0; j<(_height); j++) {
         for (int i=0; i<(_width); i++) {
@@ -70,9 +67,8 @@ void Renderer::render() {
             }
             outputPixel.standardizeOutput(outPixels, gridPos, samplesPerPixel);
         }
-        timeElapsed = clock.getElapsedTime();
     
-        if ((int(timeElapsed.asMilliseconds()) % 500) == 0) {
+        if (j % 100 == 0) {
             std::cout << "PROGRESS: " << int((j/(_height-1))*100) << "%" << std::endl;
         }
     }

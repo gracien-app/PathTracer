@@ -36,22 +36,21 @@ public:
     Diffused(const colour &rgbColour);
     virtual bool reflect(const Ray &inputRay,
                                Ray &reflRay, const collision &recInter, colour &reflColour ) const override;
-    
-private:
-    
 };
 
 /// @brief Metallic material which reflects the ray with angle equal to the collision angle.
 /// @discussion The reflected ray is reflected at the same angle at which it collided with the surface.
 /// Angle is defined with respect to the normal vector of the surface at the point of collision.
+/// To replicate roughness of metal surfaces, additional parameter is available.
+/// @ref double _rough;
+/// It describes strength with which the angle is randomly altered.
 class Metallic : public Material {
 public:
-    Metallic(const colour &rgbColour);
+    Metallic(const colour &rgbColour, const double &roughness);
     virtual bool reflect(const Ray &inputRay,
                                Ray &reflRay, const collision &recInter, colour &reflColour ) const override;
-    
 private:
-    
+    double _rough;
 };
 
 #endif /* Material_hpp */
