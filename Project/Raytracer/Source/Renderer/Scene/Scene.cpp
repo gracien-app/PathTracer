@@ -16,11 +16,10 @@ Scene::Scene(const int &width, const int &height) : Camera(vect3D(0,0,0), 0.5, w
     skyGradient.push_back( ( colour(142, 158, 171) ).normalizeRGB() );
     
     std::shared_ptr<Material> Material1 ( new Diffused( colour(0.1, 0.1, 0.1) ) );
-    std::shared_ptr<Material> Material2 ( new Metallic( colour (0.2, 0.4, 0.9), 0.8 ) );
+    std::shared_ptr<Material> Material2 ( new Metallic( colour (0.2, 0.4, 0.9), 0.5 ) );
     
     // BASIC SPHERE SCENE
     sceneObjects.push_back( std::unique_ptr<Plane> ( new Plane (vect3D(0, -0.5, 0), vect3D(0, 1, 0), Material1)) );
-    sceneObjects.push_back( std::unique_ptr<Sphere> ( new Sphere (vect3D(0, 0.5, 1),0.5, Material2)) );
     sceneObjects.push_back( std::unique_ptr<Sphere> ( new Sphere (vect3D(-1, 0, 1),0.5, Material2)) );
     sceneObjects.push_back( std::unique_ptr<Sphere> ( new Sphere (vect3D(1, 0, 1),0.5, Material2)) );
     

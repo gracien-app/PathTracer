@@ -12,7 +12,7 @@ Renderer::Renderer(const uint &width, const uint &height) : _width(width), _heig
     
     outTexture.reset(new sf::Texture);
     outSprite.reset(new sf::Sprite);
-    outTexture->setSmooth(false);
+    
     
     preScenes.push_back(std::shared_ptr<Scene>(new Scene(width,height)));
     
@@ -29,7 +29,10 @@ void Renderer::init() {
     
     outPixels.reserve(_width*_height*4); //MARK: because each pixel is stored as partials R G B A.
      
-    if (outTexture->create(_width, _height)) outSprite->setTexture(*outTexture);
+    if (outTexture && outTexture->create(_width, _height)) {
+        outTexture->setSmooth(false);
+        outSprite->setTexture(*outTexture);
+    }
     else throw "Can't initialize - sf::Texture::Create failure";
     
     busy = false;
@@ -41,8 +44,8 @@ void Renderer::render() {
     
     auto currentScene = preScenes.at(0);
     
-    int samplesPerPixel = 100;
-    int rayBounces = 50;
+    int samplesPerPixel = 500;
+    int rayBounces = 25;
     
     //MARK: Origin of renderer = camera position from which we see the scene
     
