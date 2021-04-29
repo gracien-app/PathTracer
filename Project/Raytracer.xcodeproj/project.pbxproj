@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		BE15F1EC2600378E00A0BCF8 /* Colour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE15F1EA2600378E00A0BCF8 /* Colour.cpp */; };
+		BE1FCE45263AD988009390CC /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE1FCE43263AD988009390CC /* Rectangle.cpp */; };
+		BE1FCE49263AEB0E009390CC /* Cube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE1FCE47263AEB0E009390CC /* Cube.cpp */; };
 		BE23B80125F57DAD000BFAD9 /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE23B80025F57DAD000BFAD9 /* ResourcePath.mm */; };
 		BE23B80425F57DAD000BFAD9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE23B80325F57DAD000BFAD9 /* main.cpp */; };
 		BE23B82225F57E3D000BFAD9 /* freetype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE23B81825F57E33000BFAD9 /* freetype.framework */; };
@@ -53,6 +55,10 @@
 		BE116BBF2607C6C100042B38 /* Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		BE15F1EA2600378E00A0BCF8 /* Colour.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Colour.cpp; sourceTree = "<group>"; };
 		BE15F1EB2600378E00A0BCF8 /* Colour.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Colour.hpp; sourceTree = "<group>"; };
+		BE1FCE43263AD988009390CC /* Rectangle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Rectangle.cpp; sourceTree = "<group>"; };
+		BE1FCE44263AD988009390CC /* Rectangle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Rectangle.hpp; sourceTree = "<group>"; };
+		BE1FCE47263AEB0E009390CC /* Cube.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Cube.cpp; sourceTree = "<group>"; };
+		BE1FCE48263AEB0E009390CC /* Cube.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cube.hpp; sourceTree = "<group>"; };
 		BE23B7FB25F57DAD000BFAD9 /* Raytracer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Raytracer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE23B7FF25F57DAD000BFAD9 /* Raytracer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Raytracer-Info.plist"; sourceTree = "<group>"; };
 		BE23B80025F57DAD000BFAD9 /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
@@ -113,6 +119,24 @@
 				BE15F1EB2600378E00A0BCF8 /* Colour.hpp */,
 			);
 			path = Colour;
+			sourceTree = "<group>";
+		};
+		BE1FCE42263AD925009390CC /* Rectangle */ = {
+			isa = PBXGroup;
+			children = (
+				BE1FCE43263AD988009390CC /* Rectangle.cpp */,
+				BE1FCE44263AD988009390CC /* Rectangle.hpp */,
+			);
+			path = Rectangle;
+			sourceTree = "<group>";
+		};
+		BE1FCE46263AEAE4009390CC /* Cube */ = {
+			isa = PBXGroup;
+			children = (
+				BE1FCE47263AEB0E009390CC /* Cube.cpp */,
+				BE1FCE48263AEB0E009390CC /* Cube.hpp */,
+			);
+			path = Cube;
 			sourceTree = "<group>";
 		};
 		BE23B7F125F57DAD000BFAD9 = {
@@ -213,6 +237,8 @@
 			children = (
 				BED358352610BE000098E917 /* Solid.cpp */,
 				BED358362610BE000098E917 /* Solid.hpp */,
+				BE1FCE46263AEAE4009390CC /* Cube */,
+				BE1FCE42263AD925009390CC /* Rectangle */,
 				BEF22E8F2610BB9100388A0B /* Sphere */,
 				BEF22E87260F94AA00388A0B /* Plane */,
 				BEAD4D84260EB8630074EC28 /* Disc */,
@@ -384,9 +410,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE1FCE49263AEB0E009390CC /* Cube.cpp in Sources */,
 				BE23B83325F5802A000BFAD9 /* App.cpp in Sources */,
 				BE3CBF7425F80426008D5A9B /* Renderer.cpp in Sources */,
 				BEAD4D87260EB87C0074EC28 /* Disc.cpp in Sources */,
+				BE1FCE45263AD988009390CC /* Rectangle.cpp in Sources */,
 				BED358372610BE000098E917 /* Solid.cpp in Sources */,
 				BE23B80425F57DAD000BFAD9 /* main.cpp in Sources */,
 				BE23B80125F57DAD000BFAD9 /* ResourcePath.mm in Sources */,

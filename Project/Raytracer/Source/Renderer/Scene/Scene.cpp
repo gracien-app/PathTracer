@@ -8,20 +8,23 @@
 
 #include "Scene.hpp"
 
-Scene::Scene(const int &width, const int &height) : Camera(vect3D(0,0,0), 0.5, width, height) {
+Scene::Scene(const int &width, const int &height) : Camera(vect3D(0,0,0), 1, width, height) {
     std::cout << "[C] Scene" << std::endl;
     
     //https://uigradients.com/#Portrait
     skyGradient.push_back( ( colour(238, 242, 243) ).normalizeRGB() );
     skyGradient.push_back( ( colour(142, 158, 171) ).normalizeRGB() );
     
-    std::shared_ptr<Material> Material1 ( new Diffused( colour(0.1, 0.1, 0.1) ) );
-    std::shared_ptr<Material> Material2 ( new Metallic( colour (0.2, 0.4, 0.9), 0.5 ) );
+    std::shared_ptr<Material> Material1 ( new Metallic( colour(1.0, 1.0, 1.0), 1.0 ) );
+    std::shared_ptr<Material> Black ( new Diffused( colour(0, 0, 0)) );
+    std::shared_ptr<Material> Material2 ( new Metallic( colour (0.85, 0.85, 0.85), 0.1 ) );
     
-    // BASIC SPHERE SCENE
-    sceneObjects.push_back( std::unique_ptr<Plane> ( new Plane (vect3D(0, -0.5, 0), vect3D(0, 1, 0), Material1)) );
-    sceneObjects.push_back( std::unique_ptr<Sphere> ( new Sphere (vect3D(-1, 0, 1),0.5, Material2)) );
-    sceneObjects.push_back( std::unique_ptr<Sphere> ( new Sphere (vect3D(1, 0, 1),0.5, Material2)) );
+    sceneObjects.push_back( std::unique_ptr<Sphere> ( new Sphere (vect3D(0, -0.3, 0.75), 0.2, Material2)));
+    //sceneObjects.push_back( std::unique_ptr<Sphere> ( new Sphere (vect3D(0, 0, 0), 4, Black)));
+    
+    sceneObjects.push_back( std::unique_ptr<Cube> ( new Cube (  vect3D(0, 0, -0.5),
+                                                                1.0,
+                                                                Material1)));
     
 }
 

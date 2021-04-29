@@ -9,7 +9,7 @@
 #ifndef Scene_hpp
 #define Scene_hpp
 
-#include "Disc.hpp"
+#include "Cube.hpp"
 #include "Camera.hpp"
 
 class Scene : public Camera {

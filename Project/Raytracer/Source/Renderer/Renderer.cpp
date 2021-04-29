@@ -44,8 +44,8 @@ void Renderer::render() {
     
     auto currentScene = preScenes.at(0);
     
-    int samplesPerPixel = 500;
-    int rayBounces = 25;
+    int samplesPerPixel = 10;
+    int rayBounces = 5;
     
     //MARK: Origin of renderer = camera position from which we see the scene
     
