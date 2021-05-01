@@ -14,7 +14,7 @@ Renderer::Renderer(const uint &width, const uint &height) : _width(width), _heig
     outSprite.reset(new sf::Sprite);
     
     
-    preScenes.push_back(std::shared_ptr<Scene>(new Scene(width,height)));
+    preScenes.push_back(std::shared_ptr<Scene>(new Scene(width,height,1)));
     
     std::cout << "[C] Renderer: Created" << std::endl;
 };
@@ -45,7 +45,7 @@ void Renderer::render() {
     auto currentScene = preScenes.at(0);
     
     int samplesPerPixel = 10;
-    int rayBounces = 5;
+    int rayBounces = 10;
     
     //MARK: Origin of renderer = camera position from which we see the scene
     

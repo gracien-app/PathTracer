@@ -16,8 +16,11 @@ class Scene : public Camera {
 public:
     
     /// Default scene constructor, pre-loaded with blue sky gradient and one grey spherical object in the middle of the scene.
-    /// @discussion https://uigradients.com/#AquaMarine
-    Scene(const int &width, const int &height);
+    Scene(const int &width, const int &height, const int &variant);
+    
+    void setupCornell();
+    void setupTest();
+    void setupHole();
     
     colour colourRay(const Ray& r, int rayBounces);
     bool intersectScene (const Ray &ray, collision &recent_Inter, const double &timeMin, const double &timeMax) const;

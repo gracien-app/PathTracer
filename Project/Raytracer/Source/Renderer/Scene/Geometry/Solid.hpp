@@ -26,6 +26,8 @@ public:
     /// @warning Inverts Z to compensate the right handed coordinate system, so that objects with positive Z are in front of "camera".
     void setPosition(const vect3D &newPosition);
     
+    vect3D getPosition();
+    
     /// Virtual empty method for Deriving classes.
     /// @param ray Ray object with specified origin and destination direction.
     /// @param recent_Inter Structure containing information about recent intersection.

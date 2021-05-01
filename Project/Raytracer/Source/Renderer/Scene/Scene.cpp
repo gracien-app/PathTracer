@@ -8,24 +8,21 @@
 
 #include "Scene.hpp"
 
-Scene::Scene(const int &width, const int &height) : Camera(vect3D(0,0,0), 1, width, height) {
-    std::cout << "[C] Scene" << std::endl;
+Scene::Scene(const int &width, const int &height, const int &variant) : Camera(vect3D(0,0,0), 1.0, width, height) {
     
-    //https://uigradients.com/#Portrait
-    skyGradient.push_back( ( colour(238, 242, 243) ).normalizeRGB() );
-    skyGradient.push_back( ( colour(142, 158, 171) ).normalizeRGB() );
-    
-    std::shared_ptr<Material> Material1 ( new Metallic( colour(1.0, 1.0, 1.0), 1.0 ) );
-    std::shared_ptr<Material> Black ( new Diffused( colour(0, 0, 0)) );
-    std::shared_ptr<Material> Material2 ( new Metallic( colour (0.85, 0.85, 0.85), 0.1 ) );
-    
-    sceneObjects.push_back( std::unique_ptr<Sphere> ( new Sphere (vect3D(0, -0.3, 0.75), 0.2, Material2)));
-    //sceneObjects.push_back( std::unique_ptr<Sphere> ( new Sphere (vect3D(0, 0, 0), 4, Black)));
-    
-    sceneObjects.push_back( std::unique_ptr<Cube> ( new Cube (  vect3D(0, 0, -0.5),
-                                                                1.0,
-                                                                Material1)));
-    
+    switch (variant) {
+        case 1:
+            setupCornell();
+            break;
+            
+        case 2:
+            setupTest();
+            break;
+            
+        case 3:
+            setupHole();
+            break;
+    }
 }
 
 colour Scene::colourRay(const Ray& r, int rayBounces) {
@@ -68,5 +65,112 @@ bool Scene::intersectScene (const Ray &ray, collision &recent_Inter, const doubl
         }
     }
     return didIntersect;
+}
+
+void Scene::setupCornell() {
+    std::cout << "[C] Scene: Cornell Box" << std::endl;
+    
+    const double rectSide = 1;
+    
+    skyGradient.push_back( ( colour(1.0, 1.0, 1.0) ) );
+    skyGradient.push_back( ( colour(1.0, 1.0, 1.0) ) );
+    
+    std::shared_ptr<Material> leftWall  ( new Metallic( colour (67,  206, 162).normalizeRGB(), 1.0 ) );
+    std::shared_ptr<Material> rightWall ( new Metallic( colour (24,  90,  157).normalizeRGB(), 1.0 ) );
+    std::shared_ptr<Material> whiteWall ( new Metallic( colour (238, 242, 243).normalizeRGB(), 1.0 ) );
+    
+    sceneObjects.push_back( std::unique_ptr<Sphere> ( new Sphere (vect3D(0, -0.3, 0.80),
+                                                                  0.2,
+                                                                  whiteWall)));
+    
+    /* LEFT */
+     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(-0.5, 0, 0.5),
+                                                                         vect3D(1, 0, 0),
+                                                                         rectSide,
+                                                                         leftWall)));
+    /* RIGHT */
+     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0.5, 0, 0.5),
+                                                                         vect3D(-1, 0, 0),
+                                                                         rectSide,
+                                                                         rightWall)));
+
+    /* TOP */
+     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0, 0.5, 0.5),
+                                                                         vect3D(0, -1, 0),
+                                                                         rectSide,
+                                                                         whiteWall)));
+
+    /* BOTTOM */
+     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0, -0.5, 0.5),
+                                                                         vect3D(0, 1, 0),
+                                                                         rectSide,
+                                                                         whiteWall)));
+
+    /* FRONT */
+     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0, 0, 0),
+                                                                         vect3D(0, 0, -1),
+                                                                         rectSide,
+                                                                         whiteWall)));
+
+    /* BACK */
+     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0, 0, 1.0),
+                                                                         vect3D(0, 0, 1),
+                                                                         rectSide,
+                                                                         whiteWall)));
+}
+
+void Scene::setupTest() {
+    std::cout << "[C] Scene: Test" << std::endl;
+    
+    const double rectSide = 1;
+    
+    skyGradient.push_back( ( colour(142,158,171).normalizeRGB() ) );
+    skyGradient.push_back( ( colour(238,242,243).normalizeRGB() ) );
+    
+    std::shared_ptr<Material> whiteWall ( new Metallic( colour (238, 242, 243).normalizeRGB(), 0.9 ) );
+    std::shared_ptr<Material> ball ( new Metallic( colour (238, 242, 243).normalizeRGB(), 0 ) );
+    
+    sceneObjects.push_back( std::unique_ptr<Sphere> ( new Sphere (vect3D(0, 0.0, 0.80),
+                                                                  0.2,
+                                                                  ball)));
+    
+    /* LEFT */
+     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(-0.5, 0, 0.5),
+                                                                         vect3D(1, 0, 0),
+                                                                         rectSide,
+                                                                         whiteWall)));
+    /* RIGHT */
+     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0.5, 0, 0.5),
+                                                                         vect3D(-1, 0, 0),
+                                                                         rectSide,
+                                                                         whiteWall)));
+
+    /* TOP */
+     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0, 0.5, 0.5),
+                                                                         vect3D(0, -1, 0),
+                                                                         rectSide,
+                                                                         whiteWall)));
+
+    /* BOTTOM */
+     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0, -0.5, 0.5),
+                                                                         vect3D(0, 1, 0),
+                                                                         rectSide,
+                                                                         whiteWall)));
+
+    /* FRONT */
+     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0, 0, 0),
+                                                                         vect3D(0, 0, -1),
+                                                                         rectSide,
+                                                                         whiteWall)));
+    
+}
+
+void Scene::setupHole() {
+    
+    std::cout << "[C] Scene: Random Spheres" << std::endl;
+    
+    skyGradient.push_back( ( colour(24,90,157).normalizeRGB() ) );
+    skyGradient.push_back( ( colour(67,206,162).normalizeRGB() ) );
+    
 }
 

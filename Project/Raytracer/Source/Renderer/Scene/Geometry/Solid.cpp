@@ -18,6 +18,10 @@ void Solid::setPosition(const vect3D &newPosition) {
     _center[2] = -newPosition.z(); //Inverted to compensate right handed cooridinates system.
 }
 
+vect3D Solid::getPosition() {
+    return _center;
+}
+
 bool Solid::Intersect (const Ray &ray, collision &recent_Inter, const double &timeMin, const double &timeMax) const {
     return false;
 }
