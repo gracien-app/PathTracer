@@ -75,13 +75,21 @@ void Scene::setupCornell() {
     skyGradient.push_back( ( colour(1.0, 1.0, 1.0) ) );
     skyGradient.push_back( ( colour(1.0, 1.0, 1.0) ) );
     
-    std::shared_ptr<Material> leftWall  ( new Metallic( colour (67,  206, 162).normalizeRGB(), 1.0 ) );
-    std::shared_ptr<Material> rightWall ( new Metallic( colour (24,  90,  157).normalizeRGB(), 1.0 ) );
-    std::shared_ptr<Material> whiteWall ( new Metallic( colour (238, 242, 243).normalizeRGB(), 1.0 ) );
+    std::shared_ptr<Material> leftWall  ( new Metallic( colour (252,70,107).normalizeRGB(), 1.0 ) );
+    std::shared_ptr<Material> topWall  ( new Metallic( colour (159,89,170).normalizeRGB(), 1.0 ) );
+    std::shared_ptr<Material> rightWall ( new Metallic( colour (63,94,251).normalizeRGB(), 1.0 ) );
+    std::shared_ptr<Material> whiteWall ( new Metallic( colour (255, 255, 255).normalizeRGB(), 0.2) );
+    std::shared_ptr<Material> ballMaterial ( new Metallic( colour (255, 255, 255).normalizeRGB(), 0.05 ) );
+    std::shared_ptr<Material> cubeMaterial ( new Metallic( colour (255, 255, 255).normalizeRGB(), 0.25 ) );
     
-    sceneObjects.push_back( std::unique_ptr<Sphere> ( new Sphere (vect3D(0, -0.3, 0.80),
+    sceneObjects.push_back( std::unique_ptr<Sphere> ( new Sphere (vect3D(0.2, -0.3, 0.8),
                                                                   0.2,
-                                                                  whiteWall)));
+                                                                  ballMaterial)));
+    
+    sceneObjects.push_back( std::unique_ptr<Cube> ( new Cube (vect3D(-0.2, -0.35, 0.8),
+                                                                  0.3,
+                                                                  cubeMaterial)));
+    
     
     /* LEFT */
      sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(-0.5, 0, 0.5),
@@ -98,7 +106,7 @@ void Scene::setupCornell() {
      sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0, 0.5, 0.5),
                                                                          vect3D(0, -1, 0),
                                                                          rectSide,
-                                                                         whiteWall)));
+                                                                         topWall)));
 
     /* BOTTOM */
      sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0, -0.5, 0.5),
@@ -107,16 +115,16 @@ void Scene::setupCornell() {
                                                                          whiteWall)));
 
     /* FRONT */
-     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0, 0, 0),
-                                                                         vect3D(0, 0, -1),
-                                                                         rectSide,
-                                                                         whiteWall)));
+//     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0, 0, 0),
+//                                                                         vect3D(0, 0, -1),
+//                                                                         rectSide,
+//                                                                         whiteWall)));
 
     /* BACK */
-     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0, 0, 1.0),
+     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0, 0, 1),
                                                                          vect3D(0, 0, 1),
                                                                          rectSide,
-                                                                         whiteWall)));
+                                                                         ballMaterial)));
 }
 
 void Scene::setupTest() {

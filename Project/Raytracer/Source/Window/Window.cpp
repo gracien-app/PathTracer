@@ -15,7 +15,7 @@ Window::Window(const uint &width, const uint &height) {
     _videoMode.reset(new sf::VideoMode(width,height,32));
     
     _renderWindow->create(*_videoMode, "RAYTRACER", sf::Style::Default);
-    _renderWindow->setVerticalSyncEnabled(true);
+    _renderWindow->setFramerateLimit(60);
     
     std::cout << "[C] Window: Created" << std::endl;
 }

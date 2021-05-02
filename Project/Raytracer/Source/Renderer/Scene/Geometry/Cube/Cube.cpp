@@ -14,6 +14,8 @@ Cube::Cube(     const vect3D &centerPoint,
     
     auto halfSide = sideLength/2;
     
+    _center = _center * vect3D(1, 1, -1); // Compensation for RH coordinate system (+Z in front of camera)
+    
     vect3D frontCenter = _center + vect3D(0, 0, halfSide);
     vect3D backCenter = _center + vect3D(0, 0, -halfSide);
     

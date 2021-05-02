@@ -13,8 +13,7 @@ Renderer::Renderer(const uint &width, const uint &height) : _width(width), _heig
     outTexture.reset(new sf::Texture);
     outSprite.reset(new sf::Sprite);
     
-    
-    preScenes.push_back(std::shared_ptr<Scene>(new Scene(width,height,1)));
+    preScenes.push_back(std::unique_ptr<Scene>(new Scene(width,height,1)));
     
     std::cout << "[C] Renderer: Created" << std::endl;
 };
@@ -42,10 +41,10 @@ void Renderer::render() {
     
     busy = true;
     
-    auto currentScene = preScenes.at(0);
+    int sceneID = 0;
     
-    int samplesPerPixel = 10;
-    int rayBounces = 10;
+    int samplesPerPixel = 5;
+    int rayBounces = 100;
     
     //MARK: Origin of renderer = camera position from which we see the scene
     
@@ -65,8 +64,8 @@ void Renderer::render() {
                 auto y = ( double(j)+randomNumber<double>() ) / (_height-1);
                 //MARK: x and y are to multiply the vertical and horizontal projection vectors to the correct pixel.
                 
-                auto pixelRay = currentScene->prepRay(x, y);
-                outputPixel += currentScene->colourRay(pixelRay, rayBounces);
+                auto pixelRay = preScenes[sceneID]->prepRay(x, y);
+                outputPixel += preScenes[sceneID]->colourRay(pixelRay, rayBounces);
             }
             outputPixel.standardizeOutput(outPixels, gridPos, samplesPerPixel);
         }
