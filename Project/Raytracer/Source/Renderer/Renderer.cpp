@@ -43,7 +43,7 @@ void Renderer::render() {
     
     int sceneID = 0;
     
-    int samplesPerPixel = 5;
+    int samplesPerPixel = 2;
     int rayBounces = 100;
     
     //MARK: Origin of renderer = camera position from which we see the scene
