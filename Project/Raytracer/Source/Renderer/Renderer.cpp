@@ -13,7 +13,7 @@ Renderer::Renderer(const uint &width, const uint &height) : _width(width), _heig
     outTexture.reset(new sf::Texture);
     outSprite.reset(new sf::Sprite);
     
-    preScenes.push_back(std::unique_ptr<Scene>(new Scene(width,height,1)));
+    preScenes.push_back(std::unique_ptr<Scene>(new Scene(width,height,2)));
     
     std::cout << "[C] Renderer: Created" << std::endl;
 };
@@ -43,11 +43,13 @@ void Renderer::render() {
     
     int sceneID = 0;
     
-    int samplesPerPixel = 2;
-    int rayBounces = 100;
+    int samplesPerPixel = 5;
+    int rayBounces = 5;
+    
+    sf::Clock renderTime;
+    renderTime.restart();
     
     //MARK: Origin of renderer = camera position from which we see the scene
-    
     
     for (int j=0; j<(_height); j++) {
         for (int i=0; i<(_width); i++) {
@@ -74,7 +76,8 @@ void Renderer::render() {
             std::cout << "PROGRESS: " << int((j/(_height-1))*100) << "%" << std::endl;
         }
     }
-    std::cout << "PROGRESS: 100%\n  Render FINISHED" << std::endl;
+    std::cout << "PROGRESS: 100%" << std::endl;
+    std::cout << "EXECUTION TIME: " << renderTime.getElapsedTime().asSeconds() << " sec" << std::endl;
     updateTexture();
 }
 

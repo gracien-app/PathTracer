@@ -76,19 +76,17 @@ void Scene::setupCornell() {
     skyGradient.push_back( ( colour(1.0, 1.0, 1.0) ) );
     
     std::shared_ptr<Material> leftWall  ( new Metallic( colour (252,70,107).normalizeRGB(), 1.0 ) );
-    std::shared_ptr<Material> topWall  ( new Metallic( colour (159,89,170).normalizeRGB(), 1.0 ) );
     std::shared_ptr<Material> rightWall ( new Metallic( colour (63,94,251).normalizeRGB(), 1.0 ) );
     std::shared_ptr<Material> whiteWall ( new Metallic( colour (255, 255, 255).normalizeRGB(), 0.2) );
-    std::shared_ptr<Material> ballMaterial ( new Metallic( colour (255, 255, 255).normalizeRGB(), 0.05 ) );
-    std::shared_ptr<Material> cubeMaterial ( new Metallic( colour (255, 255, 255).normalizeRGB(), 0.05 ) );
+    std::shared_ptr<Material> geoMaterial ( new Metallic( colour (255, 255, 255).normalizeRGB(), 0.05 ) );
     
     sceneObjects.push_back( std::unique_ptr<Sphere> ( new Sphere (vect3D(0.2, -0.3, 0.8),
                                                                   0.2,
-                                                                  ballMaterial)));
+                                                                  geoMaterial)));
     
     sceneObjects.push_back( std::unique_ptr<Cube> ( new Cube (vect3D(-0.2, -0.35, 0.8),
                                                                   0.3,
-                                                                  cubeMaterial)));
+                                                                  geoMaterial)));
     
     
     /* LEFT */
@@ -130,7 +128,7 @@ void Scene::setupCornell() {
      sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0, 0, 1),
                                                                          vect3D(0, 0, 1),
                                                                          rectSide,
-                                                                         ballMaterial)));
+                                                                         geoMaterial)));
 }
 
 void Scene::setupTest() {
