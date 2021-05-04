@@ -27,9 +27,7 @@ public:
 private:
     
     bool rendering;
-    std::unique_ptr<sf::Event> _event;
-    std::unique_ptr<sf::VideoMode> _videoMode;
-    std::unique_ptr<sf::RenderWindow> _renderWindow;
+    sf::RenderWindow _renderWindow;
 };
 
 #endif /* Window_hpp */

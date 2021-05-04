@@ -10,12 +10,10 @@
 
 Window::Window(const uint &width, const uint &height) {
     
-    _event.reset(new sf::Event);
-    _renderWindow.reset(new sf::RenderWindow);
-    _videoMode.reset(new sf::VideoMode(width,height,32));
+    sf::VideoMode _videoMode(width,height,32);
     
-    _renderWindow->create(*_videoMode, "RAYTRACER", sf::Style::Default);
-    _renderWindow->setFramerateLimit(60);
+    _renderWindow.create(_videoMode, "RAYTRACER", sf::Style::Default);
+    _renderWindow.setFramerateLimit(60);
     
     std::cout << "[C] Window: Created" << std::endl;
 }
@@ -27,29 +25,31 @@ Window::~Window() {
 void Window::Display(const std::shared_ptr<Renderer> &renderEngine) {
     
     auto renderSprite = renderEngine->Sprite();
-    rendering = true;
+    rendering = false;
     
-    while (_renderWindow->isOpen()) {
+    while (_renderWindow.isOpen()) {
         
-        while (_renderWindow->pollEvent(*_event)) {
-            if (_event->type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-                _renderWindow->close();
+        sf::Event _event;
+        
+        while (_renderWindow.pollEvent(_event)) {
+            if (_event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                _renderWindow.close();
             }
-            if (_event->type == sf::Event::KeyReleased && _event->key.code == sf::Keyboard::Space) {
+            if (_event.type == sf::Event::KeyReleased && _event.key.code == sf::Keyboard::Space) {
                 rendering = !rendering;
             }
         }
         
-        _renderWindow->clear(sf::Color(0, 0, 0));
-        _renderWindow->draw(*renderSprite);
-        _renderWindow->display();
+        _renderWindow.clear(sf::Color(0, 0, 0));
+        _renderWindow.draw(*renderSprite);
+        _renderWindow.display();
         
         if ( !renderEngine->isBusy() && rendering ) renderEngine->render();
     }
 }
 
 bool Window::isOpen() {
-    return _renderWindow->isOpen();
+    return _renderWindow.isOpen();
 }
 
 

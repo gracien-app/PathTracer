@@ -38,7 +38,5 @@ void App::Initialise() {
 }
 
 void App::Run() {
-    while (app_Window->isOpen()) {
         app_Window->Display(app_Renderer);
-    }
 }
