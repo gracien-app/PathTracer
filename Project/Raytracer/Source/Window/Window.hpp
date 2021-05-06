@@ -9,7 +9,7 @@
 #ifndef Window_hpp
 #define Window_hpp
 
-#include "main.h"
+#include "Renderer.hpp"
 
 class Window {
 public:

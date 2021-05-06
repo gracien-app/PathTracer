@@ -11,20 +11,11 @@
 // MARK: Constructors
 
 App::App() {
-    
-   
-    
     std::cout << "[C] Application: Created" << std::endl;
 }
 
 App::~App() {
     std::cout << "[D] Application: Terminated" << std::endl;
-}
-
-// MARK: Operators
-
-void App::operator()() {
-    _appWindow->Display();
 }
 
 void App::Initialise(const uint &width, const uint &height) {
@@ -33,11 +24,19 @@ void App::Initialise(const uint &width, const uint &height) {
         _appWindow.reset( new Window() );
         _appWindow->Initialise(width, height);
     }
-    catch(const char* err) {
-        std::cerr << "[!] APP Initialise: " << err << std::endl;
+    catch(const char* &err) {
+        throw;
     }
-    catch (std::bad_alloc err) {
-        std::cerr << "[!] APP Initialise: " << err.what() << std::endl;
+    catch (const std::bad_alloc &err) {
+        throw;
     }
 
 }
+
+// MARK: Operators
+
+void App::operator()() {
+    _appWindow->Display();
+}
+
+

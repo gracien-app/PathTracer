@@ -7,8 +7,6 @@
 //
 
 #include "main.h"
-#include "App.hpp"
-#include <thread>
 
 const unsigned int logicalCoresCount() {
     return std::thread::hardware_concurrency();
@@ -22,10 +20,12 @@ int main()
         Raytracer.Initialise(1534, 1534); //maximum height for my resolution 1534
     }
     catch(const char* err) {
-        std::cerr << err << std::endl;
+        std::cerr << "[!] " << err << std::endl;
+        return -1;
     }
     catch (std::bad_alloc err) {
-        std::cerr << err.what() << std::endl;
+        std::cerr << "[!] " << err.what() << std::endl;
+        return -1;
     }
     
     std::cout << "CPU - Logical Cores available: " << logicalCoresCount() << std::endl;

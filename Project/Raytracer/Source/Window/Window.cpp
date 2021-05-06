@@ -30,11 +30,11 @@ void Window::Initialise(const uint &width, const uint &height) {
         _renderWindow.setFramerateLimit(60);
         
     }
-    catch(const char* err) {
-        std::cerr << "[!] WINDOW Initialise: " << err << std::endl;
+    catch(const char* &err) {
+        throw;
     }
-    catch (std::bad_alloc err) {
-        std::cerr << "[!] WINDOW Initialise: " << err.what() << std::endl;
+    catch (const std::bad_alloc &err) {
+        throw;
     }
     
 }
@@ -63,6 +63,7 @@ void Window::Display() {
         
         if ( !_appRenderer->isBusy() && rendering ) _appRenderer->Render();
     }
+    
 }
 
 bool Window::isOpen() {

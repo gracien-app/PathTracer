@@ -9,7 +9,9 @@
 #ifndef main_h
 #define main_h
 
-#include "ResourcePath.hpp"
-#include "Renderer.hpp"
+#include "App.hpp"
+#include <thread>
+
+
 
 #endif /* main_h */
