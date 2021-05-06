@@ -23,7 +23,13 @@ App::~App() {
     std::cout << "\n[D] Application: Terminated"<< std::endl;
 }
 
-// MARK: State methods
+// MARK: Operators
+
+void App::operator()() {
+    app_Window->Display(app_Renderer);
+}
+
+// MARK: Methods
 
 void App::Initialise() {
     try {
@@ -35,8 +41,4 @@ void App::Initialise() {
     catch (std::bad_alloc) {
         std::cerr << "\n[!] FATAL: Can't allocate space for output pixel vector.\n\n";
     }
-}
-
-void App::Run() {
-        app_Window->Display(app_Renderer);
 }

@@ -13,7 +13,7 @@ Renderer::Renderer(const uint &width, const uint &height) : _width(width), _heig
     outTexture.reset(new sf::Texture);
     outSprite.reset(new sf::Sprite);
     
-    preScenes.push_back(std::unique_ptr<Scene>(new Scene(width,height,2)));
+    preScenes.push_back(std::unique_ptr<Scene>(new Scene(width,height,1)));
     
     std::cout << "[C] Renderer: Created" << std::endl;
 };
@@ -43,7 +43,7 @@ void Renderer::render() {
     
     int sceneID = 0;
     
-    int samplesPerPixel = 5;
+    int samplesPerPixel = 3;
     int rayBounces = 5;
     
     sf::Clock renderTime;

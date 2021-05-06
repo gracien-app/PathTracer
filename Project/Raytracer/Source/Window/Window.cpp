@@ -25,7 +25,7 @@ Window::~Window() {
 void Window::Display(const std::shared_ptr<Renderer> &renderEngine) {
     
     auto renderSprite = renderEngine->Sprite();
-    rendering = false;
+    rendering = true;
     
     while (_renderWindow.isOpen()) {
         

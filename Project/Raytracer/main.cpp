@@ -18,7 +18,7 @@ int main()
 {
     App Raytracer(1534,1534); //maximum height for my resolution 1534
     std::cout << "CPU - Logical Cores available: " << logicalCoresCount() << std::endl;
-    Raytracer.Run();
+    Raytracer();
 
     return 0;
 }
@@ -36,8 +36,12 @@ int main()
 //      Run 1: 21.5943 sec
 //      Run 2: 21.5666 sec
 //      Run 3: 21.7336 sec
+//      Run 4: 51.7416 (Rosetta)
 
 // Scene 2 (5 samples/pixel, 5 ray bounces) 107.2 MB of memory used
 //      Run 1: 6.07266 sec
 //      Run 2: 6.05947 sec
 //      Run 3: 6.08092 sec
+
+// 50 50 0.001 1787 sec // i5
+// 50 50 0.001 746.3 sec // M1

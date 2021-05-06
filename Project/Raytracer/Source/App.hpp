@@ -18,9 +18,10 @@ public:
     App(const uint &width, const uint &height);
     ~App();
     
-    // MARK: State methods
-    void Run();
-    void Stop();
+    // MARK: Operators
+    void operator()();
+    
+    // MARK: Methods
     void Initialise();
     
 private:
