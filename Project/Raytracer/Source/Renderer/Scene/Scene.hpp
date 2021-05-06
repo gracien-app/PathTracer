@@ -28,7 +28,7 @@ public:
 private:
     
     std::vector<colour> skyGradient;
-    std::vector<std::unique_ptr<Solid>> sceneObjects;
+    std::vector<std::unique_ptr<Solid> > sceneObjects;
 };
 
 #endif /* Scene_hpp */

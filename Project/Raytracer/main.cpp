@@ -16,7 +16,18 @@ const unsigned int logicalCoresCount() {
 
 int main()
 {
-    App Raytracer(1534,1534); //maximum height for my resolution 1534
+    App Raytracer;
+    
+    try {
+        Raytracer.Initialise(1534, 1534); //maximum height for my resolution 1534
+    }
+    catch(const char* err) {
+        std::cerr << err << std::endl;
+    }
+    catch (std::bad_alloc err) {
+        std::cerr << err.what() << std::endl;
+    }
+    
     std::cout << "CPU - Logical Cores available: " << logicalCoresCount() << std::endl;
     Raytracer();
 

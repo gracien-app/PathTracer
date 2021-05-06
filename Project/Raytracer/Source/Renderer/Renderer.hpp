@@ -13,11 +13,14 @@
 
 class Renderer {
 public:
+    
+    // MARK: Constructors & Destructor
     Renderer(const uint &width, const uint &height);
     ~Renderer();
     
-    void init();
-    void render();
+    // MARK: Methods
+    void Initialise();
+    void Render();
     void updateTexture();
     
     bool isBusy() const;
@@ -33,7 +36,7 @@ private:
     std::vector<sf::Uint8> outPixels;
     std::shared_ptr<sf::Sprite> outSprite;
     std::unique_ptr<sf::Texture> outTexture;
-    std::vector<std::shared_ptr<Scene>> preScenes;
+    std::vector<std::shared_ptr<Scene> > preScenes;
     
 };
 

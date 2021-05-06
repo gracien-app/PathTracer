@@ -10,19 +10,34 @@
 
 // MARK: Constructors
 
-App::App(const uint &width, const uint &height) {
+App::App() {
     
-    app_Window.reset(new Window(width,height));
+   
     
-    std::cout << "[C] Application:\n    Resolution: "<<width<<"x"<<height<< "\n\n";
+    std::cout << "[C] Application: Created" << std::endl;
 }
 
 App::~App() {
-    std::cout << "\n[D] Application: Terminated"<< std::endl;
+    std::cout << "[D] Application: Terminated" << std::endl;
 }
 
 // MARK: Operators
 
 void App::operator()() {
-    app_Window->Display();
+    _appWindow->Display();
+}
+
+void App::Initialise(const uint &width, const uint &height) {
+    
+    try {
+        _appWindow.reset( new Window() );
+        _appWindow->Initialise(width, height);
+    }
+    catch(const char* err) {
+        std::cerr << "[!] APP Initialise: " << err << std::endl;
+    }
+    catch (std::bad_alloc err) {
+        std::cerr << "[!] APP Initialise: " << err.what() << std::endl;
+    }
+
 }

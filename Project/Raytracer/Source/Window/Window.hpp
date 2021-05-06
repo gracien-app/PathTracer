@@ -16,13 +16,12 @@ public:
     
     // MARK: Constructors & Destructor
     
-    Window(const uint &width, const uint &height);
+    Window();
     ~Window();
     
     // MARK: Utilities
-    
+    void Initialise(const uint &width, const uint &height);
     bool isOpen();
-    bool initEngine();
     void Display();
 
 private:
@@ -31,7 +30,7 @@ private:
     
     sf::RenderWindow _renderWindow;
     
-    std::unique_ptr<Renderer> app_Renderer;
+    std::unique_ptr<Renderer> _appRenderer;
 };
 
 #endif /* Window_hpp */

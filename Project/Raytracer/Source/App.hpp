@@ -15,19 +15,18 @@ class App {
 public:
     
     // MARK: Constructors & Destructor
-    App(const uint &width, const uint &height);
+    App();
     ~App();
     
     // MARK: Operators
     void operator()();
     
     // MARK: Methods
-    void Initialise();
+    void Initialise(const uint &width, const uint &height);
     
 private:
     
-    bool is_Open;
-    std::unique_ptr<Window> app_Window;
+    std::unique_ptr<Window> _appWindow;
     
 };
 

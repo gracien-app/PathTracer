@@ -8,16 +8,7 @@
 
 #include "Window.hpp"
 
-Window::Window(const uint &width, const uint &height) {
-    
-    sf::VideoMode _videoMode(width,height,32);
-    
-    _renderWindow.create(_videoMode, "RAYTRACER", sf::Style::Default);
-    _renderWindow.setFramerateLimit(60);
-    
-    app_Renderer.reset(new Renderer(width, height));
-    initEngine();
-    
+Window::Window() { 
     std::cout << "[C] Window: Created" << std::endl;
 }
 
@@ -25,25 +16,32 @@ Window::~Window() {
     std::cout << "[D] Window: Terminated" << std::endl;
 }
 
-bool Window::initEngine() {
-    bool success = true;
+void Window::Initialise(const uint &width, const uint &height) {
+    
     try {
-        app_Renderer->init();
+        
+        // RENDERER INIT //
+        _appRenderer.reset( new Renderer(width, height) );
+        _appRenderer->Initialise();
+        
+        // RENDER WINDOW //
+        sf::VideoMode _videoMode(width, height, 32);
+        _renderWindow.create(_videoMode, "RAYTRACER", sf::Style::Default);
+        _renderWindow.setFramerateLimit(60);
+        
     }
     catch(const char* err) {
-        std::cerr << "\n[!] FATAL: " << err << "\n\n";
-        success = false;
+        std::cerr << "[!] WINDOW Initialise: " << err << std::endl;
     }
-    catch (std::bad_alloc) {
-        std::cerr << "\n[!] FATAL: Can't allocate space for output pixel vector.\n\n";
-        success = false;
+    catch (std::bad_alloc err) {
+        std::cerr << "[!] WINDOW Initialise: " << err.what() << std::endl;
     }
-    return success;
+    
 }
 
 void Window::Display() {
     
-    auto renderSprite = app_Renderer->Sprite();
+    auto renderSprite = _appRenderer->Sprite();
     rendering = true;
     
     while (_renderWindow.isOpen()) {
@@ -63,7 +61,7 @@ void Window::Display() {
         _renderWindow.draw(*renderSprite);
         _renderWindow.display();
         
-        if ( !app_Renderer->isBusy() && rendering ) app_Renderer->render();
+        if ( !_appRenderer->isBusy() && rendering ) _appRenderer->Render();
     }
 }
 

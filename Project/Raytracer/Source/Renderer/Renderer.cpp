@@ -8,36 +8,37 @@
 
 #include "Renderer.hpp"
 
-Renderer::Renderer(const uint &width, const uint &height) : _width(width), _height(height) {
-    
-    outTexture.reset(new sf::Texture);
-    outSprite.reset(new sf::Sprite);
-    
-    preScenes.push_back(std::unique_ptr<Scene>(new Scene(width,height,99)));
+Renderer::Renderer(const uint &windowWidth, const uint &windowHeight) : _width(windowWidth), _height(windowHeight) {
     
     std::cout << "[C] Renderer: Created" << std::endl;
-};
+    
+}
 
 Renderer::~Renderer() {
+    
     std::cout << "[D] Renderer: Terminated" << std::endl;
+    
 }
 
-void Renderer::init() {
+void Renderer::Initialise() {
     
-    busy = true;
+    outSprite.reset(new sf::Sprite);
+    outTexture.reset(new sf::Texture);
+    outPixels.reserve(_width*_height*4); //MARK: Each pixel is stored as R G B A separately.
     
-    outPixels.reserve(_width*_height*4); //MARK: because each pixel is stored as partials R G B A.
-     
-    if (outTexture && outTexture->create(_width, _height)) {
+    if ( outTexture && outSprite && outTexture->create(_width, _height) ) {
+        
         outTexture->setSmooth(false);
         outSprite->setTexture(*outTexture);
+        preScenes.push_back( std::unique_ptr<Scene>( new Scene(_width, _height, 99) ) );
+        
     }
-    else throw "Can't initialize - sf::Texture::Create failure";
     
-    busy = false;
+    else throw "RENDERER Initialise - Can't allocate memory";
+    
 }
 
-void Renderer::render() {
+void Renderer::Render() {
     
     busy = true;
     
