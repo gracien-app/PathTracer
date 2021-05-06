@@ -15,6 +15,9 @@ Window::Window(const uint &width, const uint &height) {
     _renderWindow.create(_videoMode, "RAYTRACER", sf::Style::Default);
     _renderWindow.setFramerateLimit(60);
     
+    app_Renderer.reset(new Renderer(width, height));
+    initEngine();
+    
     std::cout << "[C] Window: Created" << std::endl;
 }
 
@@ -22,9 +25,25 @@ Window::~Window() {
     std::cout << "[D] Window: Terminated" << std::endl;
 }
 
-void Window::Display(const std::shared_ptr<Renderer> &renderEngine) {
+bool Window::initEngine() {
+    bool success = true;
+    try {
+        app_Renderer->init();
+    }
+    catch(const char* err) {
+        std::cerr << "\n[!] FATAL: " << err << "\n\n";
+        success = false;
+    }
+    catch (std::bad_alloc) {
+        std::cerr << "\n[!] FATAL: Can't allocate space for output pixel vector.\n\n";
+        success = false;
+    }
+    return success;
+}
+
+void Window::Display() {
     
-    auto renderSprite = renderEngine->Sprite();
+    auto renderSprite = app_Renderer->Sprite();
     rendering = true;
     
     while (_renderWindow.isOpen()) {
@@ -44,7 +63,7 @@ void Window::Display(const std::shared_ptr<Renderer> &renderEngine) {
         _renderWindow.draw(*renderSprite);
         _renderWindow.display();
         
-        if ( !renderEngine->isBusy() && rendering ) renderEngine->render();
+        if ( !app_Renderer->isBusy() && rendering ) app_Renderer->render();
     }
 }
 

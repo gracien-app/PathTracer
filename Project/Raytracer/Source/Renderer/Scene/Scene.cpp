@@ -19,8 +19,8 @@ Scene::Scene(const int &width, const int &height, const int &variant) : Camera(v
             setupTest();
             break;
             
-        case 3:
-            setupHole();
+        case 99:
+            fastTest();
             break;
     }
 }
@@ -177,12 +177,44 @@ void Scene::setupTest() {
     
 }
 
-void Scene::setupHole() {
+void Scene::fastTest() {
     
-    std::cout << "[C] Scene: Random Spheres" << std::endl;
+    std::cout << "[C] Scene: Fast Debug Scene" << std::endl;
     
-    skyGradient.push_back( ( colour(24,90,157).normalizeRGB() ) );
-    skyGradient.push_back( ( colour(67,206,162).normalizeRGB() ) );
+    const double rectSide = 1;
+    
+    skyGradient.push_back( ( colour(1.0, 1.0, 1.0) ) );
+    skyGradient.push_back( ( colour(1.0, 1.0, 1.0) ) );
+    
+    std::shared_ptr<Material> Walls  ( new Diffused( colour (252,70,107).normalizeRGB() ) );
+    std::shared_ptr<Material> Geo ( new Metallic( colour (63,94,251).normalizeRGB(), 0.3 ) );
+    
+    sceneObjects.push_back( std::unique_ptr<Sphere> ( new Sphere (vect3D(0, -0.3, 0.8),
+                                                                  0.2,
+                                                                  Geo)));
+
+    /* LEFT */
+     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(-0.5, 0, 0.5),
+                                                                         vect3D(1, 0, 0),
+                                                                         rectSide,
+                                                                         Walls)));
+    /* RIGHT */
+     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0.5, 0, 0.5),
+                                                                         vect3D(-1, 0, 0),
+                                                                         rectSide,
+                                                                         Walls)));
+
+    /* BOTTOM */
+     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0, -0.5, 0.5),
+                                                                         vect3D(0, 1, 0),
+                                                                         rectSide,
+                                                                         Walls)));
+
+    /* BACK */
+     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0, 0, 1),
+                                                                         vect3D(0, 0, 1),
+                                                                         rectSide,
+                                                                         Walls)));
     
 }
 

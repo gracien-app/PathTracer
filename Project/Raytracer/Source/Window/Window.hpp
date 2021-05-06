@@ -22,12 +22,16 @@ public:
     // MARK: Utilities
     
     bool isOpen();
-    void Display(const std::shared_ptr<Renderer> &ptr);
+    bool initEngine();
+    void Display();
 
 private:
     
     bool rendering;
+    
     sf::RenderWindow _renderWindow;
+    
+    std::unique_ptr<Renderer> app_Renderer;
 };
 
 #endif /* Window_hpp */

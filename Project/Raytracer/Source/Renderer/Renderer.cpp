@@ -13,7 +13,7 @@ Renderer::Renderer(const uint &width, const uint &height) : _width(width), _heig
     outTexture.reset(new sf::Texture);
     outSprite.reset(new sf::Sprite);
     
-    preScenes.push_back(std::unique_ptr<Scene>(new Scene(width,height,1)));
+    preScenes.push_back(std::unique_ptr<Scene>(new Scene(width,height,99)));
     
     std::cout << "[C] Renderer: Created" << std::endl;
 };

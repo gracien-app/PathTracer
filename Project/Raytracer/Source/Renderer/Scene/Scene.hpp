@@ -20,7 +20,7 @@ public:
     
     void setupCornell();
     void setupTest();
-    void setupHole();
+    void fastTest();
     
     colour colourRay(const Ray& r, int rayBounces);
     bool intersectScene (const Ray &ray, collision &recent_Inter, const double &timeMin, const double &timeMax) const;

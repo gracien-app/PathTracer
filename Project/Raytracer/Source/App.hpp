@@ -28,7 +28,6 @@ private:
     
     bool is_Open;
     std::unique_ptr<Window> app_Window;
-    std::shared_ptr<Renderer> app_Renderer;
     
 };
 

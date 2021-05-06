@@ -13,9 +13,7 @@
 App::App(const uint &width, const uint &height) {
     
     app_Window.reset(new Window(width,height));
-    app_Renderer.reset(new Renderer(width, height));
     
-    Initialise();
     std::cout << "[C] Application:\n    Resolution: "<<width<<"x"<<height<< "\n\n";
 }
 
@@ -26,19 +24,5 @@ App::~App() {
 // MARK: Operators
 
 void App::operator()() {
-    app_Window->Display(app_Renderer);
-}
-
-// MARK: Methods
-
-void App::Initialise() {
-    try {
-        app_Renderer->init();
-    }
-    catch(const char* err) {
-        std::cerr << "\n[!] FATAL: " << err << "\n\n";
-    }
-    catch (std::bad_alloc) {
-        std::cerr << "\n[!] FATAL: Can't allocate space for output pixel vector.\n\n";
-    }
+    app_Window->Display();
 }
