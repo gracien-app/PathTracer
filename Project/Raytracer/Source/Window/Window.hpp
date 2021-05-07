@@ -20,9 +20,12 @@ public:
     ~Window();
     
     // MARK: Utilities
-    void Initialise(const uint &width, const uint &height);
-    bool isOpen();
     void Display();
+    void handleEvent();
+    void Initialise(const uint &width, const uint &height);
+    
+    bool isOpen();
+    
 
 private:
     
@@ -31,6 +34,8 @@ private:
     sf::RenderWindow _renderWindow;
     
     std::unique_ptr<Renderer> _renderEngine;
+    std::unique_ptr<sf::Event> _windowEvent;
+   
 };
 
 #endif /* Window_hpp */

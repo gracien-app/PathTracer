@@ -28,7 +28,7 @@ public:
     void updateTexture();
     void invertContinue();
     void runMultiThreading();
-    void Render(const uint &Y, const uint &chunkSize);
+    void renderChunk(const uint &Y, const uint &chunkSize);
     
     std::shared_ptr<sf::Sprite> &refSprite();
     

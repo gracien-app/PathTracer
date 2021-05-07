@@ -29,6 +29,7 @@ void Window::Initialise(const uint &width, const uint &height) {
         sf::VideoMode _videoMode(width, height, 32);
         _renderWindow.create(_videoMode, "RAYTRACER", sf::Style::Default);
         _renderWindow.setFramerateLimit(30);
+        _windowEvent.reset( new sf::Event );
         
     }
     catch(const char* &err) {
@@ -47,17 +48,8 @@ void Window::Display() {
     
     while (_renderWindow.isOpen()) {
         
-        sf::Event _event;
-        
-        while (_renderWindow.pollEvent(_event)) {
-            if (_event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-                _renderEngine->invertContinue();
-                _renderWindow.close();
-            }
-            if (_event.type == sf::Event::KeyReleased && _event.key.code == sf::Keyboard::Space) {
-                _renderEngine->invertContinue();
-                rendering = !rendering;
-            }
+        while (_renderWindow.pollEvent(*_windowEvent)) {
+            handleEvent();
         }
         
         _renderWindow.clear(sf::Color(0, 0, 0));
@@ -74,6 +66,20 @@ void Window::Display() {
 
 bool Window::isOpen() {
     return _renderWindow.isOpen();
+}
+
+void Window::handleEvent() {
+    
+    if (_windowEvent->type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+        _renderEngine->invertContinue();
+        _renderWindow.close();
+    }
+    
+    if (_windowEvent->type == sf::Event::KeyReleased && _windowEvent->key.code == sf::Keyboard::Space) {
+        _renderEngine->invertContinue();
+        rendering = !rendering;
+    }
+    
 }
 
 

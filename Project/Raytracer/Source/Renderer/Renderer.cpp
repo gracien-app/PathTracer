@@ -17,6 +17,22 @@ Renderer::~Renderer() {
     std::cout << "[D] Renderer: Destructed" << std::endl;
 }
 
+void Renderer::invertContinue() {
+    continueRender = !continueRender;
+}
+
+void Renderer::updateTexture() {
+    _outTexture->update(&_outPixels[0]);
+}
+
+bool Renderer::isBusy() const {
+    return busy;
+}
+
+std::shared_ptr<sf::Sprite> &Renderer::refSprite () {
+    return _outSprite;
+}
+
 void Renderer::Initialise() {
     
     _outSprite.reset(new sf::Sprite);
@@ -50,7 +66,7 @@ void Renderer::runMultiThreading() {
         if (i == (nThreads-1) ) yEnd = _height;
         else yEnd = yStart + chunkSize-1;
         
-        _concThreads.push_back( std::thread(&Renderer::Render, this, yStart, yEnd) );
+        _concThreads.push_back( std::thread(&Renderer::renderChunk, this, yStart, yEnd) );
     }
     
     std::cout << " [R] Multi-threaded rendering on " << nThreads << " concurrent threads" << std::endl;
@@ -72,18 +88,14 @@ bool Renderer::joinAll() {
     
 }
 
-void Renderer::invertContinue() {
-    continueRender = !continueRender;
-}
-
-void Renderer::Render(const uint &Y, const uint &chunkSize) {
+void Renderer::renderChunk(const uint &Y, const uint &chunkSize) {
     
     busy = true;
     
     int sceneID = 0;
     
-    int samplesPerPixel = 5;
-    int rayBounces = 5;
+    int samplesPerPixel = 1;
+    int rayBounces = 100;
     
     sf::Clock renderTime;
     renderTime.restart();
@@ -120,15 +132,5 @@ void Renderer::Render(const uint &Y, const uint &chunkSize) {
         
 }
 
-void Renderer::updateTexture() {
-    _outTexture->update(&_outPixels[0]);
-}
 
-bool Renderer::isBusy() const {
-    return busy;
-}
-
-std::shared_ptr<sf::Sprite> &Renderer::refSprite () {
-    return _outSprite;
-}
 
