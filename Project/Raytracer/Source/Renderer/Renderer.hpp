@@ -20,30 +20,29 @@ public:
     ~Renderer();
     
     // MARK: Methods
-    void Initialise();
-    void Render(const uint &Y, const uint &chunkSize);
-    void runMultiThreading();
-    void joinAll();
-    void updateTexture();
     
-    void invertContinue();
-    
+    bool joinAll();
     bool isBusy() const;
     
-    std::shared_ptr<sf::Sprite> &Sprite ();
+    void Initialise();
+    void updateTexture();
+    void invertContinue();
+    void runMultiThreading();
+    void Render(const uint &Y, const uint &chunkSize);
+    
+    std::shared_ptr<sf::Sprite> &refSprite();
     
 private:
     
-    bool continueRender;
-    bool busy;
-    double _width;
-    double _height;
+    bool busy, continueRender;
+    double _width, _height;
     
-    std::vector<sf::Uint8> outPixels;
-    std::shared_ptr<sf::Sprite> outSprite;
-    std::unique_ptr<sf::Texture> outTexture;
-    std::vector<std::thread> concurrentThreads;
-    std::vector<std::shared_ptr<Scene>> preScenes;
+    std::vector<sf::Uint8> _outPixels;
+    std::shared_ptr<sf::Sprite> _outSprite;
+    std::unique_ptr<sf::Texture> _outTexture;
+    
+    std::vector<std::thread> _concThreads;
+    std::vector<std::shared_ptr<Scene>> _presetScenes;
     
 };
 

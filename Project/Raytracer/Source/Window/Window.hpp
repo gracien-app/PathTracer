@@ -30,7 +30,7 @@ private:
     
     sf::RenderWindow _renderWindow;
     
-    std::unique_ptr<Renderer> _appRenderer;
+    std::unique_ptr<Renderer> _renderEngine;
 };
 
 #endif /* Window_hpp */

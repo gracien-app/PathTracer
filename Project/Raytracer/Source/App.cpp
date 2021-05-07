@@ -15,7 +15,8 @@ App::App() {
 }
 
 App::~App() {
-    std::cout << "[D] Application: Terminated" << std::endl;
+    _appWindow.reset();
+    std::cout << "[D] Application: Destructed" << std::endl;
 }
 
 void App::Initialise(const uint &width, const uint &height) {

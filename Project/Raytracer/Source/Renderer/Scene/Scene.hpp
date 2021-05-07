@@ -15,18 +15,24 @@
 class Scene : public Camera {
 public:
     
-    /// Default scene constructor, pre-loaded with blue sky gradient and one grey spherical object in the middle of the scene.
+    // MARK: Constructors & Destructor
     Scene(const int &width, const int &height, const int &variant);
+    ~Scene();
     
+    // MARK: Methods
     void setupCornell();
     void setupTest();
     void fastTest();
     
     colour colourRay(const Ray& r, int rayBounces);
-    bool intersectScene (const Ray &ray, collision &recent_Inter, const double &timeMin, const double &timeMax) const;
+    
     
 private:
     
+    // MARK: Methods
+    bool intersectScene (const Ray &ray, collision &recent_Inter, const double &tMin, const double &tMax) const;
+    
+    // MARK: Data
     std::vector<colour> skyGradient;
     std::vector<std::unique_ptr<Solid> > sceneObjects;
 };

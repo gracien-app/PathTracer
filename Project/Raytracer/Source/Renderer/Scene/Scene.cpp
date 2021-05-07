@@ -25,6 +25,10 @@ Scene::Scene(const int &width, const int &height, const int &variant) : Camera(v
     }
 }
 
+Scene::~Scene() {
+    std::cout << "[D] Scene: Destructed" << std::endl;
+}
+
 colour Scene::colourRay(const Ray& r, int rayBounces) {
     
     collision recInter;
@@ -52,13 +56,13 @@ colour Scene::colourRay(const Ray& r, int rayBounces) {
 // MARK: Linear interpolation formula for sky gradient: (1-h) x colour_bottom + h x colour_top
 
 
-bool Scene::intersectScene (const Ray &ray, collision &recent_Inter, const double &timeMin, const double &timeMax) const {
+bool Scene::intersectScene (const Ray &ray, collision &recent_Inter, const double &tMin, const double &tMax) const {
     collision tempRecent;
     bool didIntersect = false;
-    auto closestIntersect = timeMax;
+    auto closestIntersect = tMax;
 
     for (const auto& object : sceneObjects) {
-        if ( object->Intersect(ray, tempRecent, timeMin, closestIntersect) ) {
+        if ( object->Intersect(ray, tempRecent, tMin, closestIntersect) ) {
             didIntersect = true;
             closestIntersect = tempRecent.time;
             recent_Inter = tempRecent;

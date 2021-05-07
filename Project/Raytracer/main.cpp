@@ -8,10 +8,6 @@
 
 #include "main.h"
 
-const unsigned int logicalCoresCount() {
-    return std::thread::hardware_concurrency();
-}
-
 int main()
 {
     App Raytracer;
@@ -28,7 +24,6 @@ int main()
         return -1;
     }
     
-    std::cout << "CPU - Logical Cores available: " << logicalCoresCount() << std::endl;
     Raytracer();
 
     return 0;

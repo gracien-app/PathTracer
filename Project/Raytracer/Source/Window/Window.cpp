@@ -13,7 +13,8 @@ Window::Window() {
 }
 
 Window::~Window() {
-    std::cout << "[D] Window: Terminated" << std::endl;
+    _renderEngine.reset();
+    std::cout << "[D] Window: Destructed" << std::endl;
 }
 
 void Window::Initialise(const uint &width, const uint &height) {
@@ -21,13 +22,13 @@ void Window::Initialise(const uint &width, const uint &height) {
     try {
         
         // RENDERER INIT //
-        _appRenderer.reset( new Renderer(width, height) );
-        _appRenderer->Initialise();
+        _renderEngine.reset( new Renderer(width, height) );
+        _renderEngine->Initialise();
         
         // RENDER WINDOW //
         sf::VideoMode _videoMode(width, height, 32);
         _renderWindow.create(_videoMode, "RAYTRACER", sf::Style::Default);
-        _renderWindow.setFramerateLimit(60);
+        _renderWindow.setFramerateLimit(30);
         
     }
     catch(const char* &err) {
@@ -41,8 +42,8 @@ void Window::Initialise(const uint &width, const uint &height) {
 
 void Window::Display() {
     
-    auto renderSprite = _appRenderer->Sprite();
-    _appRenderer->runMultiThreading();
+    auto renderSprite = _renderEngine->refSprite();
+    _renderEngine->runMultiThreading();
     
     while (_renderWindow.isOpen()) {
         
@@ -50,23 +51,24 @@ void Window::Display() {
         
         while (_renderWindow.pollEvent(_event)) {
             if (_event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-                _appRenderer->invertContinue();
+                _renderEngine->invertContinue();
                 _renderWindow.close();
             }
             if (_event.type == sf::Event::KeyReleased && _event.key.code == sf::Keyboard::Space) {
-                _appRenderer->invertContinue();
+                _renderEngine->invertContinue();
                 rendering = !rendering;
             }
         }
         
         _renderWindow.clear(sf::Color(0, 0, 0));
-        _appRenderer->updateTexture();
+        _renderEngine->updateTexture();
         _renderWindow.draw(*renderSprite);
         _renderWindow.display();
         
     }
     
-    _appRenderer->joinAll();
+    if ( _renderEngine->joinAll() ) std::cout << " [R] All threads joined safely." << std::endl;
+    else std::cout << "[!] WARNING: Not all threads joined." << std::endl;
     
 }
 
