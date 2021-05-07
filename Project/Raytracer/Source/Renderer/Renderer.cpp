@@ -9,11 +9,7 @@
 #include "Renderer.hpp"
 
 Renderer::Renderer(const uint &windowWidth, const uint &windowHeight) : _width(windowWidth),
-                                                                        _height(windowHeight),
-                                                                        t1(),
-                                                                        t2(),
-t3(),
-t4() {
+                                                                        _height(windowHeight) {
     
     std::cout << "[C] Renderer: Created" << std::endl;
 }
@@ -34,7 +30,7 @@ void Renderer::Initialise() {
         
         outTexture->setSmooth(false);
         outSprite->setTexture(*outTexture);
-        preScenes.push_back( std::unique_ptr<Scene>( new Scene(_width, _height, 99) ) );
+        preScenes.push_back( std::unique_ptr<Scene>( new Scene(_width, _height, 1) ) );
         
     }
     
@@ -43,17 +39,30 @@ void Renderer::Initialise() {
 }
 
 void Renderer::runMultiThreading() {
-    t1 = std::thread(&Renderer::Render, this, 0, 382);
-    t2 = std::thread(&Renderer::Render, this, 383, 765);
-    t3 = std::thread(&Renderer::Render, this, 766, 1148);
-    t4 = std::thread(&Renderer::Render, this, 1149, 1149+383);
+    
+    int nThreads = 4;
+    concurrentThreads.reserve(nThreads);
+    int chunkSize = _height / nThreads;
+    continueRender = true;
+    
+    for (int i=0; i < nThreads; i++) {
+        
+        int yStart = i*chunkSize;
+        int yEnd;
+        if (i == (nThreads-1) ) yEnd = _height;
+        else yEnd = yStart + chunkSize-1;
+        
+        concurrentThreads.push_back( std::thread(&Renderer::Render, this, yStart, yEnd) );
+    }
+    
 }
 
 void Renderer::joinAll() {
-    if (t1.joinable()) t1.join();
-    if (t2.joinable()) t2.join();
-    if (t3.joinable()) t3.join();
-    if (t4.joinable()) t4.join();
+    for (auto &thr : concurrentThreads) if (thr.joinable()) thr.join();
+}
+
+void Renderer::invertContinue() {
+    continueRender = !continueRender;
 }
 
 void Renderer::Render(const uint &Y, const uint &chunkSize) {
@@ -62,8 +71,8 @@ void Renderer::Render(const uint &Y, const uint &chunkSize) {
     
     int sceneID = 0;
     
-    int samplesPerPixel = 100;
-    int rayBounces = 100;
+    int samplesPerPixel = 5;
+    int rayBounces = 5;
     
     sf::Clock renderTime;
     renderTime.restart();
@@ -72,6 +81,7 @@ void Renderer::Render(const uint &Y, const uint &chunkSize) {
     
     for (int j=Y; j<=(chunkSize); j++) {
         for (int i=0; i<(_width); i++) {
+            if (!continueRender) break;
             
             int gridPos = i+(j*_width);
             //MARK: CRUCIAL CUSTOM RESOLUTION FIX - gridPos = i+(j x width) not (j x height)
@@ -90,13 +100,10 @@ void Renderer::Render(const uint &Y, const uint &chunkSize) {
             }
             outputPixel.standardizeOutput(outPixels, gridPos, samplesPerPixel);
         }
-    
-        if (j % 100 == 0) {
-            std::cout << "PROGRESS: " << int((j/(_height-1))*100) << "%" << std::endl;
-        }
     }
-    std::cout << "PROGRESS: 100%" << std::endl;
-    std::cout << "EXECUTION TIME: " << renderTime.getElapsedTime().asSeconds() << " sec" << std::endl;
+    if (!continueRender)  std::cout << "Rendering Terminated" << std::endl;
+    std::cout << "THREAD: " << std::this_thread::get_id() << std::endl;
+    std::cout << "|_EXECUTION TIME: " << renderTime.getElapsedTime().asSeconds() << " sec" << std::endl;
 }
 
 void Renderer::updateTexture() {
@@ -110,3 +117,4 @@ bool Renderer::isBusy() const {
 std::shared_ptr<sf::Sprite> &Renderer::Sprite () {
     return outSprite;
 }
+

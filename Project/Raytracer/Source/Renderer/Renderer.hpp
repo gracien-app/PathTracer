@@ -26,22 +26,23 @@ public:
     void joinAll();
     void updateTexture();
     
+    void invertContinue();
+    
     bool isBusy() const;
     
     std::shared_ptr<sf::Sprite> &Sprite ();
     
 private:
     
+    bool continueRender;
     bool busy;
     double _width;
     double _height;
     
-    std::thread t1, t2, t3, t4;
-    
-    
     std::vector<sf::Uint8> outPixels;
     std::shared_ptr<sf::Sprite> outSprite;
     std::unique_ptr<sf::Texture> outTexture;
+    std::vector<std::thread> concurrentThreads;
     std::vector<std::shared_ptr<Scene>> preScenes;
     
 };

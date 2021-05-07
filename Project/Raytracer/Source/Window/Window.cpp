@@ -50,9 +50,11 @@ void Window::Display() {
         
         while (_renderWindow.pollEvent(_event)) {
             if (_event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                _appRenderer->invertContinue();
                 _renderWindow.close();
             }
             if (_event.type == sf::Event::KeyReleased && _event.key.code == sf::Keyboard::Space) {
+                _appRenderer->invertContinue();
                 rendering = !rendering;
             }
         }
@@ -65,6 +67,7 @@ void Window::Display() {
     }
     
     _appRenderer->joinAll();
+    
 }
 
 bool Window::isOpen() {

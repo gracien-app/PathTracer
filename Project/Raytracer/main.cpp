@@ -17,7 +17,7 @@ int main()
     App Raytracer;
     
     try {
-        Raytracer.Initialise(1532, 1532); //maximum height for my resolution 1534
+        Raytracer.Initialise(1534, 1534); //maximum height for my resolution 1534
     }
     catch(const char* err) {
         std::cerr << "[!] " << err << std::endl;
@@ -56,3 +56,5 @@ int main()
 
 // 50 50 0.001 1787 sec // i5
 // 50 50 0.001 746.3 sec // M1
+
+// 50 50 0.001 296 sec // M1 Multithreading with 5 Threads (4 worker + 1 for window, input handling)
