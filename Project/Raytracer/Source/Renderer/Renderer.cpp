@@ -8,10 +8,14 @@
 
 #include "Renderer.hpp"
 
-Renderer::Renderer(const uint &windowWidth, const uint &windowHeight) : _width(windowWidth), _height(windowHeight) {
+Renderer::Renderer(const uint &windowWidth, const uint &windowHeight) : _width(windowWidth),
+                                                                        _height(windowHeight),
+                                                                        t1(),
+                                                                        t2(),
+t3(),
+t4() {
     
     std::cout << "[C] Renderer: Created" << std::endl;
-    
 }
 
 Renderer::~Renderer() {
@@ -38,21 +42,35 @@ void Renderer::Initialise() {
     
 }
 
-void Renderer::Render() {
+void Renderer::runMultiThreading() {
+    t1 = std::thread(&Renderer::Render, this, 0, 382);
+    t2 = std::thread(&Renderer::Render, this, 383, 765);
+    t3 = std::thread(&Renderer::Render, this, 766, 1148);
+    t4 = std::thread(&Renderer::Render, this, 1149, 1149+383);
+}
+
+void Renderer::joinAll() {
+    if (t1.joinable()) t1.join();
+    if (t2.joinable()) t2.join();
+    if (t3.joinable()) t3.join();
+    if (t4.joinable()) t4.join();
+}
+
+void Renderer::Render(const uint &Y, const uint &chunkSize) {
     
     busy = true;
     
     int sceneID = 0;
     
-    int samplesPerPixel = 3;
-    int rayBounces = 5;
+    int samplesPerPixel = 100;
+    int rayBounces = 100;
     
     sf::Clock renderTime;
     renderTime.restart();
     
     //MARK: Origin of renderer = camera position from which we see the scene
     
-    for (int j=0; j<(_height); j++) {
+    for (int j=Y; j<=(chunkSize); j++) {
         for (int i=0; i<(_width); i++) {
             
             int gridPos = i+(j*_width);
@@ -79,7 +97,6 @@ void Renderer::Render() {
     }
     std::cout << "PROGRESS: 100%" << std::endl;
     std::cout << "EXECUTION TIME: " << renderTime.getElapsedTime().asSeconds() << " sec" << std::endl;
-    updateTexture();
 }
 
 void Renderer::updateTexture() {

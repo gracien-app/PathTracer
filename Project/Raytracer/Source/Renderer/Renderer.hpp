@@ -10,6 +10,7 @@
 #define Renderer_hpp
 
 #include "Scene.hpp"
+#include <thread>
 
 class Renderer {
 public:
@@ -20,7 +21,9 @@ public:
     
     // MARK: Methods
     void Initialise();
-    void Render();
+    void Render(const uint &Y, const uint &chunkSize);
+    void runMultiThreading();
+    void joinAll();
     void updateTexture();
     
     bool isBusy() const;
@@ -33,10 +36,13 @@ private:
     double _width;
     double _height;
     
+    std::thread t1, t2, t3, t4;
+    
+    
     std::vector<sf::Uint8> outPixels;
     std::shared_ptr<sf::Sprite> outSprite;
     std::unique_ptr<sf::Texture> outTexture;
-    std::vector<std::shared_ptr<Scene> > preScenes;
+    std::vector<std::shared_ptr<Scene>> preScenes;
     
 };
 

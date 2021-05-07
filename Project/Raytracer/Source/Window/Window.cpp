@@ -42,7 +42,7 @@ void Window::Initialise(const uint &width, const uint &height) {
 void Window::Display() {
     
     auto renderSprite = _appRenderer->Sprite();
-    rendering = true;
+    _appRenderer->runMultiThreading();
     
     while (_renderWindow.isOpen()) {
         
@@ -58,12 +58,13 @@ void Window::Display() {
         }
         
         _renderWindow.clear(sf::Color(0, 0, 0));
+        _appRenderer->updateTexture();
         _renderWindow.draw(*renderSprite);
         _renderWindow.display();
         
-        if ( !_appRenderer->isBusy() && rendering ) _appRenderer->Render();
     }
     
+    _appRenderer->joinAll();
 }
 
 bool Window::isOpen() {
