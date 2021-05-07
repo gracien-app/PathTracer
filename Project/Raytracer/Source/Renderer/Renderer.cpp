@@ -63,7 +63,7 @@ void Renderer::runMultiThreading() {
         
         int yStart = i*chunkSize;
         int yEnd;
-        if (i == (nThreads-1) ) yEnd = _height;
+        if (i == (nThreads-1) ) yEnd = _height-1;
         else yEnd = yStart + chunkSize-1;
         
         _concThreads.push_back( std::thread(&Renderer::renderChunk, this, yStart, yEnd) );
