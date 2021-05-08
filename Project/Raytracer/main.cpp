@@ -43,6 +43,7 @@ int main()
 //      Run 2: 21.5666 sec
 //      Run 3: 21.7336 sec
 //      Run 4: 51.7416 (Rosetta)
+//      Run 5: 9.94164 sec (M-Thr 7 threads)
 
 // Scene 2 (5 samples/pixel, 5 ray bounces) 107.2 MB of memory used
 //      Run 1: 6.07266 sec

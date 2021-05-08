@@ -24,7 +24,7 @@ public:
     void setupTest();
     void fastTest();
     
-    colour colourRay(const Ray& r, int rayBounces);
+    colour colourRay(const Ray& r, const int &rayBounces) const;
     
     
 private:

@@ -29,7 +29,7 @@ Scene::~Scene() {
     std::cout << "[D] Scene: Destructed" << std::endl;
 }
 
-colour Scene::colourRay(const Ray& r, int rayBounces) {
+colour Scene::colourRay(const Ray& r, const int &rayBounces) const {
     
     collision recInter;
     
@@ -83,6 +83,7 @@ void Scene::setupCornell() {
     std::shared_ptr<Material> rightWall ( new Metallic( colour (63,94,251).normalizeRGB(), 1.0 ) );
     std::shared_ptr<Material> whiteWall ( new Metallic( colour (255, 255, 255).normalizeRGB(), 0.2) );
     std::shared_ptr<Material> geoMaterial ( new Metallic( colour (255, 255, 255).normalizeRGB(), 0.05 ) );
+    
     
     sceneObjects.push_back( std::unique_ptr<Sphere> ( new Sphere (vect3D(0.2, -0.3, 0.8),
                                                                   0.2,

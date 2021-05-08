@@ -9,7 +9,7 @@
 #include "Rectangle.hpp"
 
 Rectangle::Rectangle(   const vect3D &centerPoint, const vect3D &normalDirection,
-                        const double sideLength, std::shared_ptr<Material> &materialPtr) : _side(sideLength), _normal(normalDirection), Solid(centerPoint, materialPtr) {
+                        const double &sideLength, std::shared_ptr<Material> &materialPtr) : _side(sideLength), _normal(normalDirection), Solid(centerPoint, materialPtr) {
                          
     auto half_Side = _side/2;
     _xmax = _center.x() + half_Side;

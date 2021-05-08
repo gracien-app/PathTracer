@@ -55,10 +55,10 @@ void Renderer::runMultiThreading() {
     
     int nThreads = std::thread::hardware_concurrency()-1;
     int chunkSize = _height / nThreads;
-    
-    _concThreads.reserve(nThreads);
     continueRender = true;
-    
+    if (nThreads == 1) renderChunk(0, _height-1);
+    else {
+    _concThreads.reserve(nThreads);
     for (int i=0; i < nThreads; i++) {
         
         int yStart = i*chunkSize;
@@ -70,7 +70,7 @@ void Renderer::runMultiThreading() {
     }
     
     std::cout << " [R] Multi-threaded rendering on " << nThreads << " concurrent threads" << std::endl;
-    
+    }
 }
 
 bool Renderer::joinAll() {
@@ -94,8 +94,8 @@ void Renderer::renderChunk(const uint &Y, const uint &chunkSize) {
     
     int sceneID = 0;
     
-    int samplesPerPixel = 1;
-    int rayBounces = 100;
+    int samplesPerPixel = 2;
+    int rayBounces = 50;
     
     sf::Clock renderTime;
     renderTime.restart();
@@ -126,7 +126,7 @@ void Renderer::renderChunk(const uint &Y, const uint &chunkSize) {
     }
     
     if (continueRender) {
-        std::cout << "  [R] THREAD: " << std::this_thread::get_id() << std::endl;
+        std::cout << "  [+] THREAD: " << std::this_thread::get_id() << std::endl;
         std::cout << "      EXECUTION TIME: " << renderTime.getElapsedTime().asSeconds() << " sec" << std::endl;
     }
         

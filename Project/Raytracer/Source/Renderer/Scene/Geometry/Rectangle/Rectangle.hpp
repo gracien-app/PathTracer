@@ -21,7 +21,7 @@ public:
     /// @param colour Colour object defining colour of the geometry
     Rectangle(const vect3D &centerPoint,
               const vect3D &normalDirection,
-              const double sideLength,
+              const double &sideLength,
               std::shared_ptr<Material> &materialPtr);
     
     /// @brief Overloaded method checking if passed ray can intersect with rectangle geometry.

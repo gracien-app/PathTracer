@@ -9,8 +9,8 @@
 #include "Vectors.hpp"
 
 // MARK: Constructors
-vect3D::vect3D() : _data{0,0,0} {};
-vect3D::vect3D(double x, double y, double z) : _data{x,y,z} {};
+vect3D::vect3D () : _data{0, 0, 0} {};
+vect3D::vect3D(double x, double y, double z) : _data{x, y, z} {};
 
 // MARK: Operators
 
@@ -18,11 +18,11 @@ double& vect3D::operator[] (const int &index) {
     return _data[index];
 }
 
-vect3D vect3D::operator - () const {
+vect3D vect3D::operator- () const {
     return vect3D( -_data[0], -_data[1], -_data[2] );
 }
 
-vect3D& vect3D::operator += (const vect3D &rhs) {
+vect3D& vect3D::operator+= (const vect3D &rhs) {
     _data[0] += rhs._data[0];
     _data[1] += rhs._data[1];
     _data[2] += rhs._data[2];

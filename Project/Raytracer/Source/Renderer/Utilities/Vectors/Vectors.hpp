@@ -55,17 +55,17 @@ inline vect3D operator-(const vect3D &lhs, const vect3D &rhs) {
                   lhs.z()-rhs.z());
 }
 
-inline vect3D operator*(const double multiplier, const vect3D &lhs) {
+inline vect3D operator*(const double &multiplier, const vect3D &lhs) {
     return vect3D(lhs.x()*multiplier,
                   lhs.y()*multiplier,
                   lhs.z()*multiplier);
 }
 
-inline vect3D operator*(const vect3D &lhs, const double multiplier ) {
+inline vect3D operator*(const vect3D &lhs, const double &multiplier ) {
     return multiplier*lhs; //Using the above;
 }
 
-inline vect3D operator/(const vect3D &lhs, const double divider) {
+inline vect3D operator/(const vect3D &lhs, const double &divider) {
     return vect3D(lhs.x()*(1/divider),
                   lhs.y()*(1/divider),
                   lhs.z()*(1/divider));
@@ -81,7 +81,7 @@ inline static vect3D randomize() {
                       randomNumber<double>());
 }
 
-inline static vect3D randomize(double min, double max) {
+inline static vect3D randomize(const double &min, const double &max) {
         return vect3D(randomNumber<double>(min, max),
                       randomNumber<double>(min, max),
                       randomNumber<double>(min, max));

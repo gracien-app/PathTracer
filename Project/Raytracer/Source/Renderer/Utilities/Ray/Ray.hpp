@@ -32,7 +32,7 @@ public:
     vect3D getDest() const;
 
     // MARK: Utility methods
-    vect3D pos(double time) const;
+    vect3D pos(const double &time) const;
     
     // MARK: Debug
     void printInfo() const;

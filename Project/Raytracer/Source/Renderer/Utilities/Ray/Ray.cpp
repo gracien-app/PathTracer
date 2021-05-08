@@ -9,11 +9,9 @@
 #include "Ray.hpp"
 
 // MARK: Constructors
-Ray::Ray() {};
+Ray::Ray() {}
 
-Ray::Ray(const vect3D& origin, const vect3D& destination) : orig(origin), dest(destination) {
-   // TODO: Consider making point class to differentiate between vectors and just points
-}
+Ray::Ray(const vect3D &origin, const vect3D &destination) : orig(origin), dest(destination) {}
 
 // MARK: Private data access
 vect3D Ray::getOrigin() const {
@@ -25,9 +23,9 @@ vect3D Ray::getDest() const {
 }
 
 // MARK: Utility methods
-vect3D Ray::pos(double time) const {
+vect3D Ray::pos(const double &time) const {
     return dest*time + orig;
-    //MARK: Initial idea - Ax+B where A is destination, x is time, B is origin, so it goes towards dest with time t, i can multiply dest by constant thanks to operator.
+    //MARK: Ray is a linear function Ax+B where A is destination, x is time, B is origin, so it goes towards dest with time.
 }
 
 // MARK: Debug
