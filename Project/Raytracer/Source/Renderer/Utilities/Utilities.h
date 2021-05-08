@@ -13,15 +13,15 @@
 
 template <typename T>
 inline double randomNumber() {
-    static std::uniform_real_distribution<T> distribution(0.0, 1.0);
-    static std::mt19937 generator;
+    thread_local static std::uniform_real_distribution<T> distribution(0.0, 1.0);
+    thread_local static std::mt19937 generator;
     return distribution(generator);
 }
 
 template <typename T>
 inline double randomNumber(double min, double max) {
-    static std::uniform_real_distribution<T> distribution(min, max);
-    static std::mt19937 generator;
+    thread_local static std::uniform_real_distribution<T> distribution(min, max);
+    thread_local static std::mt19937 generator;
     return distribution(generator);
 }
 

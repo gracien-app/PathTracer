@@ -53,7 +53,7 @@ void Renderer::Initialise() {
 
 void Renderer::runMultiThreading() {
     
-    int nThreads = std::thread::hardware_concurrency()-1;
+    int nThreads = 4;//std::thread::hardware_concurrency()-1;
     int chunkSize = _height / nThreads;
     continueRender = true;
     if (nThreads == 1) renderChunk(0, _height-1);
@@ -88,14 +88,14 @@ bool Renderer::joinAll() {
     
 }
 
-void Renderer::renderChunk(const uint &Y, const uint &chunkSize) {
+void Renderer::renderChunk(const int &Y, const int &chunkSize) {
     
     busy = true;
     
     int sceneID = 0;
     
-    int samplesPerPixel = 2;
-    int rayBounces = 50;
+    int samplesPerPixel = 3;
+    int rayBounces = 3;
     
     sf::Clock renderTime;
     renderTime.restart();
