@@ -28,7 +28,7 @@ void Window::Initialise(const uint &width, const uint &height) {
         // RENDER WINDOW //
         sf::VideoMode _videoMode(width, height, 32);
         _renderWindow.create(_videoMode, "RAYTRACER", sf::Style::Default);
-        _renderWindow.setFramerateLimit(30);
+        _renderWindow.setFramerateLimit(60);
         _windowEvent.reset( new sf::Event );
         
     }
@@ -77,7 +77,6 @@ void Window::handleEvent() {
     
     if (_windowEvent->type == sf::Event::KeyReleased && _windowEvent->key.code == sf::Keyboard::Space) {
         _renderEngine->invertContinue();
-        rendering = !rendering;
     }
     
 }

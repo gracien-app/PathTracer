@@ -28,13 +28,14 @@ public:
     void updateTexture();
     void invertContinue();
     void runMultiThreading();
+    void printThreadInfo(const sf::Time &execTime);
     void renderChunk(const int &Y, const int &chunkSize);
     
     std::shared_ptr<sf::Sprite> &refSprite();
     
 private:
     
-    bool busy, continueRender;
+    bool continueRender;
     double _width, _height;
     
     std::vector<sf::Uint8> _outPixels;

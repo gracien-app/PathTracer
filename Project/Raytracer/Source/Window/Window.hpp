@@ -29,8 +29,6 @@ public:
 
 private:
     
-    bool rendering;
-    
     sf::RenderWindow _renderWindow;
     
     std::unique_ptr<Renderer> _renderEngine;

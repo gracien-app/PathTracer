@@ -25,10 +25,6 @@ void Renderer::updateTexture() {
     _outTexture->update(&_outPixels[0]);
 }
 
-bool Renderer::isBusy() const {
-    return busy;
-}
-
 std::shared_ptr<sf::Sprite> &Renderer::refSprite () {
     return _outSprite;
 }
@@ -43,7 +39,7 @@ void Renderer::Initialise() {
         
         _outTexture->setSmooth(false);
         _outSprite->setTexture(*_outTexture);
-        _presetScenes.push_back( std::unique_ptr<Scene>( new Scene(_width, _height, 1) ) );
+        _presetScenes.push_back( std::unique_ptr<Scene>( new Scene(_width, _height, 99) ) );
         
     }
     
@@ -53,7 +49,7 @@ void Renderer::Initialise() {
 
 void Renderer::runMultiThreading() {
     
-    int nThreads = 4;//std::thread::hardware_concurrency()-1;
+    int nThreads = std::thread::hardware_concurrency()-1;
     int chunkSize = _height / nThreads;
     continueRender = true;
     if (nThreads == 1) renderChunk(0, _height-1);
@@ -90,12 +86,10 @@ bool Renderer::joinAll() {
 
 void Renderer::renderChunk(const int &Y, const int &chunkSize) {
     
-    busy = true;
-    
     int sceneID = 0;
     
-    int samplesPerPixel = 3;
-    int rayBounces = 3;
+    int samplesPerPixel = 1;
+    int rayBounces = 2;
     
     sf::Clock renderTime;
     renderTime.restart();
@@ -125,11 +119,21 @@ void Renderer::renderChunk(const int &Y, const int &chunkSize) {
         }
     }
     
+    printThreadInfo( renderTime.getElapsedTime() );
+    
+}
+
+void Renderer::printThreadInfo(const sf::Time &execTime) {
+    
+    static std::mutex printMutex;
+    
+    std::lock_guard<std::mutex> printLock(printMutex); // Safer than mutex::lock(), unlocks when out of scope
+    
     if (continueRender) {
         std::cout << "  [+] THREAD: " << std::this_thread::get_id() << std::endl;
-        std::cout << "      EXECUTION TIME: " << renderTime.getElapsedTime().asSeconds() << " sec" << std::endl;
+        std::cout << "      EXECUTION TIME: " << execTime.asSeconds() << " sec" << std::endl;
     }
-        
+    
 }
 
 
