@@ -23,14 +23,13 @@ public:
     // MARK: Methods
     
     bool joinAll();
-    bool isBusy() const;
     
     void Initialise();
     void updateTexture();
     void invertContinue();
-    void runMultiThreading();
+    void runMultiThreading(const int &nThreads);
     void printThreadInfo(const sf::Time &execTime);
-    void renderChunk(const int &Y, const int &chunkSize);
+    void renderChunk(const int &chunkStart, const int &chunkEnd);
     
     std::shared_ptr<sf::Sprite> &refSprite();
     

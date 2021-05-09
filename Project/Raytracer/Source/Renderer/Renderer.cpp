@@ -17,18 +17,6 @@ Renderer::~Renderer() {
     std::cout << "[D] Renderer: Destructed" << std::endl;
 }
 
-void Renderer::invertContinue() {
-    continueRender = !continueRender;
-}
-
-void Renderer::updateTexture() {
-    _outTexture->update(&_outPixels[0]);
-}
-
-std::shared_ptr<sf::Sprite> &Renderer::refSprite () {
-    return _outSprite;
-}
-
 void Renderer::Initialise() {
     
     _outSprite.reset(new sf::Sprite);
@@ -47,11 +35,10 @@ void Renderer::Initialise() {
     
 }
 
-void Renderer::runMultiThreading() {
+void Renderer::runMultiThreading(const int &nThreads) {
     
-    int nThreads = std::thread::hardware_concurrency()-1;
-    int chunkSize = _height / nThreads;
     continueRender = true;
+    int chunkSize = _height / nThreads;
     if (nThreads == 1) renderChunk(0, _height-1);
     else {
     _concThreads.reserve(nThreads);
@@ -84,7 +71,7 @@ bool Renderer::joinAll() {
     
 }
 
-void Renderer::renderChunk(const int &Y, const int &chunkSize) {
+void Renderer::renderChunk(const int &chunkStart, const int &chunkEnd) {
     
     int sceneID = 0;
     
@@ -96,7 +83,7 @@ void Renderer::renderChunk(const int &Y, const int &chunkSize) {
     
     //MARK: Origin of renderer = camera position, camera is inside each scene
     
-    for (int j=Y; j<=(chunkSize); j++) {
+    for (int j=chunkStart; j<=chunkEnd; j++) {
         for (int i=0; i<(_width); i++) {
             if (!continueRender) break;
             
@@ -134,6 +121,18 @@ void Renderer::printThreadInfo(const sf::Time &execTime) {
         std::cout << "      EXECUTION TIME: " << execTime.asSeconds() << " sec" << std::endl;
     }
     
+}
+
+void Renderer::invertContinue() {
+    continueRender = !continueRender;
+}
+
+void Renderer::updateTexture() {
+    _outTexture->update(&_outPixels[0]);
+}
+
+std::shared_ptr<sf::Sprite> &Renderer::refSprite () {
+    return _outSprite;
 }
 
 

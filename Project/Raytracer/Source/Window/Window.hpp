@@ -20,19 +20,20 @@ public:
     ~Window();
     
     // MARK: Utilities
+    
     void Display();
     void handleEvent();
-    void Initialise(const uint &width, const uint &height);
-    
-    bool isOpen();
-    
+    void startRendering();
+    void Initialise(const uint &width, const uint &height, const int &threads);
 
 private:
     
+    int userThreads;
+    
+    sf::Event _windowEvent;
     sf::RenderWindow _renderWindow;
     
     std::unique_ptr<Renderer> _renderEngine;
-    std::unique_ptr<sf::Event> _windowEvent;
    
 };
 

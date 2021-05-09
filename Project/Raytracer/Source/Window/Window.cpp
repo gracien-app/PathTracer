@@ -17,11 +17,12 @@ Window::~Window() {
     std::cout << "[D] Window: Destructed" << std::endl;
 }
 
-void Window::Initialise(const uint &width, const uint &height) {
+void Window::Initialise(const uint &width, const uint &height, const int &threads) {
     
     try {
         
         // RENDERER INIT //
+        userThreads = threads;
         _renderEngine.reset( new Renderer(width, height) );
         _renderEngine->Initialise();
         
@@ -29,7 +30,6 @@ void Window::Initialise(const uint &width, const uint &height) {
         sf::VideoMode _videoMode(width, height, 32);
         _renderWindow.create(_videoMode, "RAYTRACER", sf::Style::Default);
         _renderWindow.setFramerateLimit(60);
-        _windowEvent.reset( new sf::Event );
         
     }
     catch(const char* &err) {
@@ -41,14 +41,30 @@ void Window::Initialise(const uint &width, const uint &height) {
     
 }
 
+void Window::startRendering() {
+    
+    if (userThreads <= 0) {
+        _renderEngine->runMultiThreading( std::thread::hardware_concurrency() );
+    }
+    
+    else {
+        
+        if (userThreads == 1) std::cout << "[!] Running on single thread is not advised" << std::endl;
+        _renderEngine->runMultiThreading(userThreads);
+        
+    }
+    
+}
+
 void Window::Display() {
     
     auto renderSprite = _renderEngine->refSprite();
-    _renderEngine->runMultiThreading();
+    startRendering();
+    
     
     while (_renderWindow.isOpen()) {
         
-        while (_renderWindow.pollEvent(*_windowEvent)) {
+        while (_renderWindow.pollEvent(_windowEvent)) {
             handleEvent();
         }
         
@@ -64,18 +80,14 @@ void Window::Display() {
     
 }
 
-bool Window::isOpen() {
-    return _renderWindow.isOpen();
-}
-
 void Window::handleEvent() {
     
-    if (_windowEvent->type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+    if (_windowEvent.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
         _renderEngine->invertContinue();
         _renderWindow.close();
     }
     
-    if (_windowEvent->type == sf::Event::KeyReleased && _windowEvent->key.code == sf::Keyboard::Space) {
+    if (_windowEvent.type == sf::Event::KeyReleased && _windowEvent.key.code == sf::Keyboard::Space) {
         _renderEngine->invertContinue();
     }
     

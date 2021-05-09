@@ -22,7 +22,7 @@ public:
     void operator()();
     
     // MARK: Methods
-    void Initialise(const uint &width, const uint &height);
+    void Initialise(const uint &width, const uint &height, const int &threads = -1);
     
 private:
     

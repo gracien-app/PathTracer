@@ -19,11 +19,11 @@ App::~App() {
     std::cout << "[D] Application: Destructed" << std::endl;
 }
 
-void App::Initialise(const uint &width, const uint &height) {
+void App::Initialise(const uint &width, const uint &height, const int &threads) {
     
     try {
         _appWindow.reset( new Window() );
-        _appWindow->Initialise(width, height);
+        _appWindow->Initialise(width, height, threads);
     }
     catch(const char* &err) {
         throw;
