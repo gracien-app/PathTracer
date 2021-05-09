@@ -11,6 +11,7 @@
 
 #include "Scene.hpp"
 #include <thread>
+#include <mutex>
 
 class Renderer {
 public:
@@ -35,13 +36,15 @@ public:
     
 private:
     
-    std::atomic<bool> continueRender;
+    
     double _width, _height;
     
-    std::vector<sf::Uint8> _outPixels;
+    std::atomic<bool> continueRender;
+    
     std::shared_ptr<sf::Sprite> _outSprite;
     std::unique_ptr<sf::Texture> _outTexture;
     
+    std::vector<sf::Uint8> _outPixels;
     std::vector<std::thread> _concThreads;
     std::vector<std::shared_ptr<Scene>> _presetScenes;
     

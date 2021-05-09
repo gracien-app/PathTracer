@@ -39,7 +39,7 @@ void Renderer::Initialise() {
         
         _outTexture->setSmooth(false);
         _outSprite->setTexture(*_outTexture);
-        _presetScenes.push_back( std::unique_ptr<Scene>( new Scene(_width, _height, 1) ) );
+        _presetScenes.push_back( std::unique_ptr<Scene>( new Scene(_width, _height, 99) ) );
         
     }
     
@@ -88,8 +88,8 @@ void Renderer::renderChunk(const int &Y, const int &chunkSize) {
     
     int sceneID = 0;
     
-    int samplesPerPixel = 50;
-    int rayBounces = 50;
+    int samplesPerPixel = 2;
+    int rayBounces = 2;
     
     sf::Clock renderTime;
     renderTime.restart();
