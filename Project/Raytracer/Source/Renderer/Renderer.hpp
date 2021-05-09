@@ -35,7 +35,7 @@ public:
     
 private:
     
-    bool continueRender;
+    std::atomic<bool> continueRender;
     double _width, _height;
     
     std::vector<sf::Uint8> _outPixels;
