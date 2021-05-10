@@ -15,7 +15,7 @@ class Camera {
 public:
     
     Camera( const vect3D &position, const double &focal, const int &resWidth, const int &resHeight);
-    Ray prepRay(double X, double Y);
+    Ray prepRay(const double &x, const double &y);
 
 private:
     

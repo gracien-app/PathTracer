@@ -25,6 +25,8 @@ public:
     void handleEvent();
     void startRendering();
     void Initialise(const uint &width, const uint &height, const int &threads);
+    
+    std::vector< std::map< const std::string, int > > scenePresets();
 
 private:
     

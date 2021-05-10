@@ -17,10 +17,9 @@ Camera::Camera( const vect3D &position, const double &focal, const int &resWidth
     _projectionHeight = 2.0; //MARK: Height coordinates go from -1,1 so the total length is 2.
     _projectionWidth = _projectionHeight*_aspectRatio; //MARK: Defining the width of coordinate system based on height.
     
-    _X = vect3D(_projectionWidth, 0, 0);
-    _Y =  vect3D(0, _projectionHeight, 0);
     _Depth = vect3D(0, 0, _focalLenght);
-    
+    _X = vect3D(_projectionWidth, 0, 0);
+    _Y = vect3D(0, _projectionHeight, 0);
     _LUC = vect3D(_origin - _Depth + _Y/2 - _X/2);
     
     //MARK: Direction vector defining the direction of rendering in X axis (Default = RIGHT)
@@ -29,6 +28,6 @@ Camera::Camera( const vect3D &position, const double &focal, const int &resWidth
     //MARK: FIXED Position vector of LEFT UPPER corner of viewport, starting point of rendering.
 }
 
-Ray Camera::prepRay(double x, double y) {
+Ray Camera::prepRay(const double &x, const double &y) {
     return Ray(_origin, (_LUC + _X*x - _Y*y));
 }

@@ -19,6 +19,8 @@ Renderer::~Renderer() {
 
 void Renderer::Initialise() {
     
+    _stopExecution = false;
+    
     _outSprite.reset(new sf::Sprite);
     _outTexture.reset(new sf::Texture);
     _outPixels.reserve(_width*_height*4); //MARK: Each pixel = R G B A separately.
@@ -27,7 +29,7 @@ void Renderer::Initialise() {
         
         _outTexture->setSmooth(false);
         _outSprite->setTexture(*_outTexture);
-        _presetScenes.push_back( std::unique_ptr<Scene>( new Scene(_width, _height, 99) ) );
+        _presetScenes.push_back( std::unique_ptr<Scene>( new Scene(_width, _height, 1) ) );
         
     }
     
@@ -37,28 +39,31 @@ void Renderer::Initialise() {
 
 void Renderer::runMultiThreading(const int &nThreads) {
     
-    continueRender = true;
     int chunkSize = _height / nThreads;
+    
     if (nThreads == 1) renderChunk(0, _height-1);
+    
     else {
-    _concThreads.reserve(nThreads);
-    for (int i=0; i < nThreads; i++) {
+        _concThreads.reserve(nThreads);
         
-        int yStart = i*chunkSize;
-        int yEnd;
-        if (i == (nThreads-1) ) yEnd = _height-1;
-        else yEnd = yStart + chunkSize-1;
+        for (int i=0; i < nThreads; i++) {
         
-        _concThreads.push_back( std::thread(&Renderer::renderChunk, this, yStart, yEnd) );
+            int yStart = i*chunkSize;
+            int yEnd;
+            if (i == (nThreads-1) ) yEnd = _height-1;
+            else yEnd = yStart + chunkSize-1;
+        
+            _concThreads.push_back( std::thread(&Renderer::renderChunk, this, yStart, yEnd) );
+        }
+        
+        std::cout << " [R] Multi-threaded rendering on " << nThreads << " concurrent threads" << std::endl;
     }
     
-    std::cout << " [R] Multi-threaded rendering on " << nThreads << " concurrent threads" << std::endl;
-    }
 }
 
 bool Renderer::joinAll() {
     
-    if (!continueRender) std::cout << " [R] Stopped manually" << std::endl;
+    if (_stopExecution) std::cout << " [R] Stopped manually" << std::endl;
     
     bool allJoined = true;
     
@@ -73,10 +78,9 @@ bool Renderer::joinAll() {
 
 void Renderer::renderChunk(const int &chunkStart, const int &chunkEnd) {
     
-    int sceneID = 0;
-    
-    int samplesPerPixel = 2;
-    int rayBounces = 2;
+    const int sceneID = 0;
+    const int samplesPerPixel = 10;
+    const int rayBounces = 10;
     
     sf::Clock renderTime;
     renderTime.restart();
@@ -84,12 +88,13 @@ void Renderer::renderChunk(const int &chunkStart, const int &chunkEnd) {
     //MARK: Origin of renderer = camera position, camera is inside each scene
     
     for (int j=chunkStart; j<=chunkEnd; j++) {
-        for (int i=0; i<(_width); i++) {
-            if (!continueRender) break;
+        for (int i=0; i<_width; i++) {
+            
+            if (_stopExecution) break;
             
             int gridPos = i+(j*_width);
-            //MARK: CRUCIAL CUSTOM RESOLUTION FIX - gridPos = i+(j x width) not (j x height)
-            //MARK: Pixels are transfered from continuous array of data, not by coordinates
+            //MARK: NON-SQUARE RESOLUTION FIX gridPos = i+(j x width) not (j x height)
+            //MARK: Pixels are transfered from continuous RGBA data, not by rows & columns
 
             auto outputPixel = colour(0, 0, 0);
             
@@ -116,7 +121,7 @@ void Renderer::printThreadInfo(const sf::Time &execTime) {
     
     std::lock_guard<std::mutex> printLock(printMutex); // Safer than mutex::lock(), unlocks when out of scope
     
-    if (continueRender) {
+    if (!_stopExecution) {
         std::cout << "  [+] THREAD: " << std::this_thread::get_id() << std::endl;
         std::cout << "      EXECUTION TIME: " << execTime.asSeconds() << " sec" << std::endl;
     }
@@ -124,7 +129,7 @@ void Renderer::printThreadInfo(const sf::Time &execTime) {
 }
 
 void Renderer::invertContinue() {
-    continueRender = !continueRender;
+    _stopExecution = !_stopExecution;
 }
 
 void Renderer::updateTexture() {

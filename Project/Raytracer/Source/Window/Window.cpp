@@ -48,27 +48,24 @@ void Window::startRendering() {
     }
     
     else {
-        
         if (userThreads == 1) std::cout << "[!] Running on single thread is not advised" << std::endl;
         _renderEngine->runMultiThreading(userThreads);
-        
     }
     
 }
 
 void Window::Display() {
     
+    auto presets = scenePresets();
     auto renderSprite = _renderEngine->refSprite();
-    startRendering();
     
+    startRendering();
     
     while (_renderWindow.isOpen()) {
         
-        while (_renderWindow.pollEvent(_windowEvent)) {
-            handleEvent();
-        }
+        while (_renderWindow.pollEvent(_windowEvent)) handleEvent();
         
-        _renderWindow.clear(sf::Color(0, 0, 0));
+        _renderWindow.clear(sf::Color(15, 15, 15));
         _renderEngine->updateTexture();
         _renderWindow.draw(*renderSprite);
         _renderWindow.display();
@@ -77,6 +74,13 @@ void Window::Display() {
     
     if ( _renderEngine->joinAll() ) std::cout << " [R] All threads joined safely." << std::endl;
     else std::cout << "[!] WARNING: Not all threads joined." << std::endl;
+    
+    for (auto &entry : presets) {
+        for (auto &keyvalue : entry) {
+            std::cout << "Key:" << keyvalue.first << " Val:" << keyvalue.second << std::endl;
+        }
+    std::cout << std::endl;
+    }
     
 }
 
@@ -93,4 +97,14 @@ void Window::handleEvent() {
     
 }
 
-
+std::vector< std::map< const std::string, int > > Window::scenePresets() {
+    
+    return std::vector<std::map<const std::string,int>> {
+        
+        { {"ID", 1}, {"SAMPLES", 10}, {"BOUNCES", 50}, },
+        { {"ID", 2}, {"SAMPLES", 20}, {"BOUNCES", 50} },
+        { {"ID", 99}, {"SAMPLES", 5}, {"BOUNCES", 5} }
+        
+    };
+    
+}

@@ -29,7 +29,7 @@ Scene::~Scene() {
     std::cout << "[D] Scene: Destructed" << std::endl;
 }
 
-colour Scene::colourRay(const Ray& r, const int &rayBounces) const {
+colour Scene::colourRay(const Ray &r, const int &rayBounces) const {
     
     collision recInter;
     

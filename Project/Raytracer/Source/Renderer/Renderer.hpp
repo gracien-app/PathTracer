@@ -38,7 +38,7 @@ private:
     
     double _width, _height;
     
-    std::atomic<bool> continueRender;
+    std::atomic<bool> _stopExecution;
     
     std::shared_ptr<sf::Sprite> _outSprite;
     std::unique_ptr<sf::Texture> _outTexture;
