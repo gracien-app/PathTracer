@@ -17,9 +17,7 @@ Renderer::~Renderer() {
     std::cout << "[D] Renderer: Destructed" << std::endl;
 }
 
-void Renderer::Initialise() {
-    
-    _stopExecution = false;
+void Renderer::Initialise(std::vector<std::map<std::string, int>> defaultPresets) {
     
     _outSprite.reset(new sf::Sprite);
     _outTexture.reset(new sf::Texture);
@@ -27,33 +25,52 @@ void Renderer::Initialise() {
     
     if ( _outTexture && _outSprite && _outTexture->create(_width, _height) ) {
         
-        _outTexture->setSmooth(false);
         _outSprite->setTexture(*_outTexture);
-        _presetScenes.push_back( std::unique_ptr<Scene>( new Scene(_width, _height, 1) ) );
         
+        for (auto &preset : defaultPresets) {
+            _presetScenes.push_back( std::unique_ptr<Scene>( new Scene(_width, _height, preset.at("ID")) ) );
+        }
+            
     }
     
     else throw "RENDERER Initialise - Can't allocate memory";
     
 }
 
-void Renderer::runMultiThreading(const int &nThreads) {
+void Renderer::runOnThreads(const int &nThreads, const std::map<std::string, int> &data, const bool &firstRun) {
+    
+    _stopExecution = false;
     
     int chunkSize = _height / nThreads;
     
-    if (nThreads == 1) renderChunk(0, _height-1);
+    if (nThreads == 1) renderChunk(0, _height-1, data);
     
     else {
-        _concThreads.reserve(nThreads);
         
-        for (int i=0; i < nThreads; i++) {
+        if (firstRun) {
+            _concThreads.reserve(nThreads);
+            
+            for (int i=0; i < nThreads; i++) {
+            
+                int yStart = i*chunkSize;
+                int yEnd;
+                if (i == (nThreads-1) ) yEnd = _height-1;
+                else yEnd = yStart + chunkSize-1;
+            
+                _concThreads.push_back( std::thread(&Renderer::renderChunk, this, yStart, yEnd, data) );
+            }
+        }
         
-            int yStart = i*chunkSize;
-            int yEnd;
-            if (i == (nThreads-1) ) yEnd = _height-1;
-            else yEnd = yStart + chunkSize-1;
-        
-            _concThreads.push_back( std::thread(&Renderer::renderChunk, this, yStart, yEnd) );
+        else {
+            for (int i=0; i < nThreads; i++) {
+            
+                int yStart = i*chunkSize;
+                int yEnd;
+                if (i == (nThreads-1) ) yEnd = _height-1;
+                else yEnd = yStart + chunkSize-1;
+            
+                _concThreads[i] = std::thread(&Renderer::renderChunk, this, yStart, yEnd, data);
+            }
         }
         
         std::cout << " [R] Multi-threaded rendering on " << nThreads << " concurrent threads" << std::endl;
@@ -76,11 +93,11 @@ bool Renderer::joinAll() {
     
 }
 
-void Renderer::renderChunk(const int &chunkStart, const int &chunkEnd) {
+void Renderer::renderChunk(const int &chunkStart, const int &chunkEnd, const std::map<std::string, int> &data) {
     
-    const int sceneID = 0;
-    const int samplesPerPixel = 10;
-    const int rayBounces = 10;
+    auto sceneID = data.at("COUNT");
+    auto samplesPerPixel = data.at("SAMPLES");
+    auto rayBounces = data.at("BOUNCES");
     
     sf::Clock renderTime;
     renderTime.restart();

@@ -8,7 +8,7 @@
 
 #include "Scene.hpp"
 
-Scene::Scene(const int &width, const int &height, const int &variant) : Camera(vect3D(0,0,0), 1.0, width, height) {
+Scene::Scene(const int &width, const int &height, int &variant) : Camera(vect3D(0,0,0), 1.0, width, height) {
     
     switch (variant) {
         case 1:
@@ -21,6 +21,13 @@ Scene::Scene(const int &width, const int &height, const int &variant) : Camera(v
             
         case 99:
             fastTest();
+            break;
+            
+        default:
+            std::cout << "[!] Preset scene with ID: " << variant << " doesn't exist" << std::endl;
+            std::cout << "    Using default instead " << std::endl;
+            variant = 2;
+            setupTest();
             break;
     }
 }

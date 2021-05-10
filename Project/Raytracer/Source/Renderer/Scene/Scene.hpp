@@ -16,7 +16,7 @@ class Scene : public Camera {
 public:
     
     // MARK: Constructors & Destructor
-    Scene(const int &width, const int &height, const int &variant);
+    Scene(const int &width, const int &height, int &variant);
     ~Scene();
     
     // MARK: Methods

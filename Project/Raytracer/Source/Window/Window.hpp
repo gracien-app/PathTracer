@@ -23,14 +23,16 @@ public:
     
     void Display();
     void handleEvent();
-    void startRendering();
+    void startRendering(const bool &firstRun);
     void Initialise(const uint &width, const uint &height, const int &threads);
     
-    std::vector< std::map< const std::string, int > > scenePresets();
+    std::vector<std::map<std::string, int>> presetData();
 
 private:
     
     int userThreads;
+    int currentScene;
+    int nOfScenes;
     
     sf::Event _windowEvent;
     sf::RenderWindow _renderWindow;

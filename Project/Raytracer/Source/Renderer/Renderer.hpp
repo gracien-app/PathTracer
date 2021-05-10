@@ -10,8 +10,9 @@
 #define Renderer_hpp
 
 #include "Scene.hpp"
-#include <thread>
+
 #include <mutex>
+#include <thread>
 
 class Renderer {
 public:
@@ -24,12 +25,13 @@ public:
     
     bool joinAll();
     
-    void Initialise();
     void updateTexture();
     void invertContinue();
-    void runMultiThreading(const int &nThreads);
+   
     void printThreadInfo(const sf::Time &execTime);
-    void renderChunk(const int &chunkStart, const int &chunkEnd);
+    void renderChunk(const int &chunkStart, const int &chunkEnd, const std::map<std::string, int> &data);
+    void Initialise(std::vector<std::map<std::string, int>> defaultPresets);
+    void runOnThreads(const int &nThreads, const std::map<std::string, int> &data, const bool &firstRun);
     
     std::shared_ptr<sf::Sprite> &refSprite();
     
@@ -45,7 +47,7 @@ private:
     
     std::vector<sf::Uint8> _outPixels;
     std::vector<std::thread> _concThreads;
-    std::vector<std::shared_ptr<Scene>> _presetScenes;
+    std::vector<std::unique_ptr<Scene>> _presetScenes;
     
 };
 
