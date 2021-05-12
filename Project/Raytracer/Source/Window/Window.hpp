@@ -23,7 +23,8 @@ public:
     
     void Display();
     void handleEvent();
-    void startRendering(const bool &firstRun);
+    void startRendering();
+    void changeScene(const bool &next = false);
     void Initialise(const uint &width, const uint &height, const int &threads);
     
     std::vector<std::map<std::string, int>> presetData();

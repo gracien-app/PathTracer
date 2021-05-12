@@ -24,7 +24,7 @@ void Window::Initialise(const uint &width, const uint &height, const int &thread
         // RENDERER INIT //
         userThreads = threads;
         _renderEngine.reset( new Renderer(width, height) );
-        _renderEngine->Initialise( presetData() );
+        _renderEngine->Initialise( presetData(), userThreads );
         
         // RENDER WINDOW //
         sf::VideoMode _videoMode(width, height, 32);
@@ -41,15 +41,15 @@ void Window::Initialise(const uint &width, const uint &height, const int &thread
     
 }
 
-void Window::startRendering(const bool &firstRun) {
+void Window::startRendering() {
     
     if (userThreads <= 0) {
-        _renderEngine->runOnThreads( std::thread::hardware_concurrency(), presetData()[currentScene], firstRun );
+        _renderEngine->runOnThreads( presetData()[currentScene] );
     }
     
     else {
         if (userThreads == 1) std::cout << "[!] Running on single thread is not advised" << std::endl;
-        _renderEngine->runOnThreads(userThreads, presetData()[currentScene], firstRun );
+        _renderEngine->runOnThreads( presetData()[currentScene] );
     }
     
 }
@@ -60,9 +60,8 @@ void Window::Display() {
     auto renderSprite = _renderEngine->refSprite();
     
     nOfScenes = int(presets.size()-1);
-    std::cout << nOfScenes << '\n';
-    currentScene = 0;
-    startRendering(1);
+    currentScene = 1;
+    startRendering();
     
     while (_renderWindow.isOpen()) {
         
@@ -80,34 +79,39 @@ void Window::Display() {
     
 }
 
+void Window::changeScene(const bool &next) {
+    
+    _renderEngine->stopAll();
+    _renderEngine->joinAll();
+    if (next) currentScene++;
+    else currentScene--;
+    startRendering();
+}
+
 void Window::handleEvent() {
     
     if (_windowEvent.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-        _renderEngine->invertContinue();
+        _renderEngine->stopAll();
         _renderWindow.close();
     }
     
     else if (_windowEvent.type == sf::Event::KeyReleased) {
         
         if (_windowEvent.key.code == sf::Keyboard::Space) {
-            _renderEngine->invertContinue();
+            _renderEngine->stopAll();
         }
         
         else if (_windowEvent.type == sf::Event::KeyReleased && _windowEvent.key.code == sf::Keyboard::Left) {
             if (currentScene > 0) {
-                _renderEngine->invertContinue();
-                _renderEngine->joinAll();
-                currentScene--;
-                startRendering(0);
+                std::cout << "PREV SCENE" << std::endl;
+                changeScene();
             }
         }
         
-        else  if (_windowEvent.type == sf::Event::KeyReleased && _windowEvent.key.code == sf::Keyboard::Right) {
+        else if (_windowEvent.type == sf::Event::KeyReleased && _windowEvent.key.code == sf::Keyboard::Right) {
             if (currentScene < nOfScenes) {
-                _renderEngine->invertContinue();
-                _renderEngine->joinAll();
-                currentScene++;
-                startRendering(0);
+                std::cout << "NEXT SCENE" << std::endl;
+                changeScene(true);
             }
         }
         
@@ -119,9 +123,9 @@ std::vector<std::map<std::string, int>> Window::presetData() {
     
     return std::vector<std::map<std::string, int>> {
     
-        { {"ID", 99}, {"SAMPLES", 10}, {"BOUNCES", 50}, {"COUNT", 0} },
-        { {"ID", 1}, {"SAMPLES", 1}, {"BOUNCES", 50}, {"COUNT", 1} },
-        { {"ID", 2}, {"SAMPLES", 5}, {"BOUNCES", 5}, {"COUNT", 2} }
+        { {"ID", 99}, {"SAMPLES", 2}, {"BOUNCES", 50}, {"COUNT", 0} },
+        { {"ID", 1}, {"SAMPLES", 2}, {"BOUNCES", 25}, {"COUNT", 1} },
+        { {"ID", 2}, {"SAMPLES", 1}, {"BOUNCES", 3}, {"COUNT", 2} }
         
     };
     

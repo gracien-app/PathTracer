@@ -17,10 +17,12 @@ Renderer::~Renderer() {
     std::cout << "[D] Renderer: Destructed" << std::endl;
 }
 
-void Renderer::Initialise(std::vector<std::map<std::string, int>> defaultPresets) {
+void Renderer::Initialise(std::vector<std::map<std::string, int>> defaultPresets, const int &nThreads) {
     
     _outSprite.reset(new sf::Sprite);
     _outTexture.reset(new sf::Texture);
+    
+    _imageChunks.reserve(nThreads);
     _outPixels.reserve(_width*_height*4); //MARK: Each pixel = R G B A separately.
     
     if ( _outTexture && _outSprite && _outTexture->create(_width, _height) ) {
@@ -30,50 +32,38 @@ void Renderer::Initialise(std::vector<std::map<std::string, int>> defaultPresets
         for (auto &preset : defaultPresets) {
             _presetScenes.push_back( std::unique_ptr<Scene>( new Scene(_width, _height, preset.at("ID")) ) );
         }
+        
+        distributeChunks(nThreads);
             
     }
     
     else throw "RENDERER Initialise - Can't allocate memory";
-    
 }
 
-void Renderer::runOnThreads(const int &nThreads, const std::map<std::string, int> &data, const bool &firstRun) {
-    
-    _stopExecution = false;
+void Renderer::distributeChunks(const int &nThreads) {
     
     int chunkSize = _height / nThreads;
     
-    if (nThreads == 1) renderChunk(0, _height-1, data);
+    for (int i=0; i < nThreads; i++) {
     
-    else {
+        int yStart = i*chunkSize;
+        int yEnd;
+        if (i == (nThreads-1) ) yEnd = _height-1;
+        else yEnd = yStart + chunkSize-1;
+    
+        _imageChunks.push_back(Chunk(yStart, yEnd));
+    }
+    
+    std::cout << " [R] Multi-threaded rendering on " << nThreads << " concurrent threads" << std::endl;
+}
+
+void Renderer::runOnThreads(const std::map<std::string, int> &data) {
+    
+    int counter = 0;
+    _stopExecution = false;
         
-        if (firstRun) {
-            _concThreads.reserve(nThreads);
-            
-            for (int i=0; i < nThreads; i++) {
-            
-                int yStart = i*chunkSize;
-                int yEnd;
-                if (i == (nThreads-1) ) yEnd = _height-1;
-                else yEnd = yStart + chunkSize-1;
-            
-                _concThreads.push_back( std::thread(&Renderer::renderChunk, this, yStart, yEnd, data) );
-            }
-        }
-        
-        else {
-            for (int i=0; i < nThreads; i++) {
-            
-                int yStart = i*chunkSize;
-                int yEnd;
-                if (i == (nThreads-1) ) yEnd = _height-1;
-                else yEnd = yStart + chunkSize-1;
-            
-                _concThreads[i] = std::thread(&Renderer::renderChunk, this, yStart, yEnd, data);
-            }
-        }
-        
-        std::cout << " [R] Multi-threaded rendering on " << nThreads << " concurrent threads" << std::endl;
+    for (auto &chunk : _imageChunks) {
+        chunk.workerThread = std::thread(&Renderer::renderChunk, this, counter++, data);
     }
     
 }
@@ -81,23 +71,36 @@ void Renderer::runOnThreads(const int &nThreads, const std::map<std::string, int
 bool Renderer::joinAll() {
     
     if (_stopExecution) std::cout << " [R] Stopped manually" << std::endl;
-    
+
     bool allJoined = true;
-    
-    for (auto &thr : _concThreads) {
-        if (thr.joinable()) thr.join();
-        else allJoined = false;
+
+    for (auto &chunk : _imageChunks) {
+        if( !chunk.joinChunk() ) allJoined = false;
     }
     
     return allJoined;
     
 }
 
-void Renderer::renderChunk(const int &chunkStart, const int &chunkEnd, const std::map<std::string, int> &data) {
+void Renderer::stopAll() {
+    _stopExecution = true;
+}
+
+bool Renderer::allFinished() {
+    for (auto &chunk : _imageChunks) {
+        if (chunk.isWorking()) return false;
+    }
+    return true;
+}
+
+void Renderer::renderChunk(const int &chunkID, const std::map<std::string, int> &data) {
     
     auto sceneID = data.at("COUNT");
     auto samplesPerPixel = data.at("SAMPLES");
     auto rayBounces = data.at("BOUNCES");
+    
+    auto chunkEnd = _imageChunks[chunkID].rangeEnd();
+    auto chunkStart = _imageChunks[chunkID].rangeStart();
     
     sf::Clock renderTime;
     renderTime.restart();
@@ -128,25 +131,7 @@ void Renderer::renderChunk(const int &chunkStart, const int &chunkEnd, const std
         }
     }
     
-    printThreadInfo( renderTime.getElapsedTime() );
-    
-}
-
-void Renderer::printThreadInfo(const sf::Time &execTime) {
-    
-    static std::mutex printMutex;
-    
-    std::lock_guard<std::mutex> printLock(printMutex); // Safer than mutex::lock(), unlocks when out of scope
-    
-    if (!_stopExecution) {
-        std::cout << "  [+] THREAD: " << std::this_thread::get_id() << std::endl;
-        std::cout << "      EXECUTION TIME: " << execTime.asSeconds() << " sec" << std::endl;
-    }
-    
-}
-
-void Renderer::invertContinue() {
-    _stopExecution = !_stopExecution;
+    _imageChunks[chunkID].taskFinished(renderTime.getElapsedTime(), printMutex, _stopExecution);
 }
 
 void Renderer::updateTexture() {
@@ -156,6 +141,3 @@ void Renderer::updateTexture() {
 std::shared_ptr<sf::Sprite> &Renderer::refSprite () {
     return _outSprite;
 }
-
-
-

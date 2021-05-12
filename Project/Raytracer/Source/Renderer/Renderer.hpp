@@ -9,10 +9,8 @@
 #ifndef Renderer_hpp
 #define Renderer_hpp
 
-#include "Scene.hpp"
+#include "Chunk.hpp"
 
-#include <mutex>
-#include <thread>
 
 class Renderer {
 public:
@@ -23,15 +21,17 @@ public:
     
     // MARK: Methods
     
+    void stopAll();
     bool joinAll();
+    bool allFinished();
+    
+    void distributeChunks(const int &nThreads);
     
     void updateTexture();
-    void invertContinue();
    
-    void printThreadInfo(const sf::Time &execTime);
-    void renderChunk(const int &chunkStart, const int &chunkEnd, const std::map<std::string, int> &data);
-    void Initialise(std::vector<std::map<std::string, int>> defaultPresets);
-    void runOnThreads(const int &nThreads, const std::map<std::string, int> &data, const bool &firstRun);
+    void runOnThreads(const std::map<std::string, int> &data);
+    void renderChunk(const int &chunkID, const std::map<std::string, int> &data);
+    void Initialise(std::vector<std::map<std::string, int>> defaultPresets, const int &nThreads);
     
     std::shared_ptr<sf::Sprite> &refSprite();
     
@@ -40,13 +40,16 @@ private:
     
     double _width, _height;
     
+    std::mutex printMutex;
+    
     std::atomic<bool> _stopExecution;
     
     std::shared_ptr<sf::Sprite> _outSprite;
     std::unique_ptr<sf::Texture> _outTexture;
     
+    std::vector<Chunk> _imageChunks;
     std::vector<sf::Uint8> _outPixels;
-    std::vector<std::thread> _concThreads;
+
     std::vector<std::unique_ptr<Scene>> _presetScenes;
     
 };
