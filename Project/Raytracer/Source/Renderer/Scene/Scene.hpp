@@ -20,9 +20,9 @@ public:
     ~Scene();
     
     // MARK: Methods
-    void setupCornell();
-    void setupTest();
     void fastTest();
+    void setupTest();
+    void setupCornell(const bool &reflective = false);
     
     colour colourRay(const Ray& r, const int &rayBounces) const;
     

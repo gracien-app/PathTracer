@@ -16,6 +16,10 @@ Scene::Scene(const int &width, const int &height, int &variant) : Camera(vect3D(
             break;
             
         case 2:
+            setupCornell(true);
+            break;
+            
+        case 3:
             setupTest();
             break;
             
@@ -42,7 +46,7 @@ colour Scene::colourRay(const Ray &r, const int &rayBounces) const {
     
     if (rayBounces == 0) return colour(0,0,0);
     
-    if ( intersectScene ( r, recInter, 0.001, infinity<double> ) ) { //MARK: Small numbers error correction
+    if ( intersectScene ( r, recInter, 0.0001, infinity<double> ) ) { //MARK: Small numbers error correction
         
         colour totalColour;
         Ray reflectedRay;
@@ -78,69 +82,56 @@ bool Scene::intersectScene (const Ray &ray, collision &recent_Inter, const doubl
     return didIntersect;
 }
 
-void Scene::setupCornell() {
+void Scene::setupCornell(const bool &reflective) {
     std::cout << "[C] Scene: Cornell Box" << std::endl;
+    if (reflective) std::cout << "           Metallic version" << std::endl;
     
     const double rectSide = 1;
     
     skyGradient.push_back( ( colour(1.0, 1.0, 1.0) ) );
     skyGradient.push_back( ( colour(1.0, 1.0, 1.0) ) );
     
-    std::shared_ptr<Material> leftWall  ( new Metallic( colour (252,70,107).normalizeRGB(), 1.0 ) );
-    std::shared_ptr<Material> rightWall ( new Metallic( colour (63,94,251).normalizeRGB(), 1.0 ) );
-    std::shared_ptr<Material> whiteWall ( new Metallic( colour (255, 255, 255).normalizeRGB(), 0.2) );
-    std::shared_ptr<Material> geoMaterial ( new Metallic( colour (255, 255, 255).normalizeRGB(), 0.05 ) );
+    std::shared_ptr<Material> leftWall, rightWall, whiteWall, geoMaterial;
+    
+    if (reflective) {
+        leftWall = std::make_shared<Metallic>       ( colour (252,70, 107).normalizeRGB(), 1.0 );
+        rightWall = std::make_shared<Metallic>      ( colour (63, 94, 251).normalizeRGB(), 1.0 );
+        whiteWall = std::make_shared<Metallic>      ( colour (255,255,255).normalizeRGB(), 0.2 );
+        geoMaterial = std::make_shared<Metallic>    ( colour (255,255,255).normalizeRGB(), 0.05);
+    }
+    else {
+        leftWall = std::make_shared<Diffused>       ( colour (252,70, 107).normalizeRGB() );
+        rightWall = std::make_shared<Diffused>      ( colour (63, 94, 251).normalizeRGB() );
+        whiteWall = std::make_shared<Diffused>      ( colour (255,255,255).normalizeRGB() );
+        geoMaterial = std::make_shared<Diffused>    ( colour (255,255,255).normalizeRGB() );
+    }
+    
+    // ITEMS
+    sceneObjects.push_back( std::make_unique<Sphere> (vect3D(0.2, -0.3, 0.8), 0.2, geoMaterial));
+    sceneObjects.push_back( std::make_unique<Cube>   (vect3D(-0.2, -0.35, 0.8), 0.3, geoMaterial));
     
     
-    sceneObjects.push_back( std::unique_ptr<Sphere> ( new Sphere (vect3D(0.2, -0.3, 0.8),
-                                                                  0.2,
-                                                                  geoMaterial)));
-    
-    sceneObjects.push_back( std::unique_ptr<Cube> ( new Cube (vect3D(-0.2, -0.35, 0.8),
-                                                                  0.3,
-                                                                  geoMaterial)));
-    
-    
-    /* LEFT */
-     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(-0.5, 0, 0.5),
-                                                                         vect3D(1, 0, 0),
-                                                                         rectSide,
-                                                                         leftWall)));
+    /* LEFT  */
+     sceneObjects.push_back( std::make_unique<Rectangle> (vect3D(-0.5, 0, 0.5), vect3D(1, 0, 0),
+                                                          rectSide, leftWall));
     /* RIGHT */
-     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0.5, 0, 0.5),
-                                                                         vect3D(-1, 0, 0),
-                                                                         rectSide,
-                                                                         rightWall)));
-
+    sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0.5, 0, 0.5), vect3D(-1, 0, 0),
+                                                          rectSide, rightWall));
     /* TOP */
-     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0, 0.5, 0.5),
-                                                                         vect3D(0, -1, 0),
-                                                                         rectSide,
-                                                                         whiteWall)));
-
+    sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, 0.5, 0.5), vect3D(0, -1, 0),
+                                                          rectSide, whiteWall));
     /* BOTTOM */
-     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0, -0.5, 0.5),
-                                                                         vect3D(0, 1, 0),
-                                                                         rectSide,
-                                                                         whiteWall)));
-
+    sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, -0.5, 0.5), vect3D(0, 1, 0),
+                                                          rectSide, whiteWall));
     /* FRONT BOTTOM */
-     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0, -0.6, 0),
-                                                                         vect3D(0, 0, -1),
-                                                                         rectSide,
-                                                                         whiteWall)));
-    
+    sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, -0.6, 0), vect3D(0, 0, -1),
+                                                          rectSide, whiteWall));
     /* FRONT UPPER */
-     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0, 0.6, 0),
-                                                                         vect3D(0, 0, -1),
-                                                                         rectSide,
-                                                                         whiteWall)));
-
+    sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, 0.6, 0), vect3D(0, 0, -1),
+                                                          rectSide, whiteWall));
     /* BACK */
-     sceneObjects.push_back( std::unique_ptr<Rectangle> ( new Rectangle (vect3D(0, 0, 1),
-                                                                         vect3D(0, 0, 1),
-                                                                         rectSide,
-                                                                         geoMaterial)));
+    sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, 0, 1), vect3D(0, 0, 1),
+                                                          rectSide, geoMaterial));
 }
 
 void Scene::setupTest() {

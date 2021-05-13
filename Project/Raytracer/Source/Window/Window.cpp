@@ -61,7 +61,8 @@ void Window::Display() {
         
         if (!_renderEngine->allFinished()) {
             auto renderTime = std::to_string(float(_timer.getElapsedTime().asSeconds()));
-            _renderWindow.setTitle("RAYTRACER - " + renderTime + " sec");
+            auto samples = std::to_string(_presets->at(currentScene).at("SAMPLES"));
+            _renderWindow.setTitle("RAYTRACER - Samples: " + samples + " Time: " + renderTime);
         }
         
         _renderWindow.clear(sf::Color(15, 15, 15));
@@ -82,6 +83,13 @@ void Window::changeScene(const bool &next) {
     _renderEngine->joinAll();
     if (next) currentScene++;
     else currentScene--;
+    startRendering();
+    _timer.restart();
+}
+
+void Window::restartScene() {
+    _renderEngine->stopAll();
+    _renderEngine->joinAll();
     startRendering();
     _timer.restart();
 }
@@ -108,7 +116,16 @@ void Window::handleEvent() {
         }
         
         if (_windowEvent.key.code == sf::Keyboard::Up) {
-            if (currentScene < nOfScenes) changeScene(true);
+            _presets->at(currentScene).at("SAMPLES") += 5;
+            restartScene();
+        }
+        
+        if (_windowEvent.key.code == sf::Keyboard::Down) {
+            currentSamples = _presets->at(currentScene).at("SAMPLES");
+            if (currentSamples != 5) {
+                _presets->at(currentScene).at("SAMPLES") -= 5;
+                restartScene();
+            }
         }
         
     }
@@ -120,6 +137,7 @@ void Window::initPresets() {
                             { {"ID", 99}, {"SAMPLES", 5}, {"BOUNCES", 5} },
                             { {"ID", 1}, {"SAMPLES", 5}, {"BOUNCES", 5} },
                             { {"ID", 2}, {"SAMPLES", 5}, {"BOUNCES", 5} },
+                            { {"ID", 3}, {"SAMPLES", 5}, {"BOUNCES", 5} }
                         }
     );
 }

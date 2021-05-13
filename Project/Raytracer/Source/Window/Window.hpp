@@ -24,13 +24,14 @@ public:
     void Display();
     void initPresets();
     void handleEvent();
+    void restartScene();
     void startRendering();
     void changeScene(const bool &next = false);
     void Initialise(const uint &width, const uint &height, const int &threads);
    
 private:
     
-    int userThreads, currentScene, nOfScenes;
+    int userThreads, currentScene, nOfScenes, currentSamples;
     
     sf::Clock _timer;
     sf::Event _windowEvent;
