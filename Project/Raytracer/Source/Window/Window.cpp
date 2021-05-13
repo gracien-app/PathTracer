@@ -22,50 +22,47 @@ void Window::Initialise(const uint &width, const uint &height, const int &thread
     try {
         
         // RENDERER INIT //
+        initPresets();
         userThreads = threads;
         _renderEngine.reset( new Renderer(width, height) );
-        _renderEngine->Initialise( presetData(), userThreads );
+        _renderEngine->Initialise( _presets, userThreads );
         
         // RENDER WINDOW //
         sf::VideoMode _videoMode(width, height, 32);
         _renderWindow.create(_videoMode, "RAYTRACER", sf::Style::Default);
         _renderWindow.setFramerateLimit(60);
+        currentScene = 0;
+        nOfScenes = int(_presets->size()-1);
         
     }
+    
     catch(const char* &err) {
         throw;
     }
+    
     catch (const std::bad_alloc &err) {
         throw;
     }
-    
 }
 
 void Window::startRendering() {
-    
-    if (userThreads <= 0) {
-        _renderEngine->runOnThreads( presetData()[currentScene] );
-    }
-    
-    else {
-        if (userThreads == 1) std::cout << "[!] Running on single thread is not advised" << std::endl;
-        _renderEngine->runOnThreads( presetData()[currentScene] );
-    }
-    
+    _renderEngine->runChunks( currentScene );
 }
 
 void Window::Display() {
     
-    auto presets = presetData();
     auto renderSprite = _renderEngine->refSprite();
-    
-    nOfScenes = int(presets.size()-1);
-    currentScene = 1;
     startRendering();
+    _timer.restart();
     
     while (_renderWindow.isOpen()) {
         
         while (_renderWindow.pollEvent(_windowEvent)) handleEvent();
+        
+        if (!_renderEngine->allFinished()) {
+            auto renderTime = std::to_string(float(_timer.getElapsedTime().asSeconds()));
+            _renderWindow.setTitle("RAYTRACER - " + renderTime + " sec");
+        }
         
         _renderWindow.clear(sf::Color(15, 15, 15));
         _renderEngine->updateTexture();
@@ -86,6 +83,7 @@ void Window::changeScene(const bool &next) {
     if (next) currentScene++;
     else currentScene--;
     startRendering();
+    _timer.restart();
 }
 
 void Window::handleEvent() {
@@ -101,32 +99,27 @@ void Window::handleEvent() {
             _renderEngine->stopAll();
         }
         
-        else if (_windowEvent.type == sf::Event::KeyReleased && _windowEvent.key.code == sf::Keyboard::Left) {
-            if (currentScene > 0) {
-                std::cout << "PREV SCENE" << std::endl;
-                changeScene();
-            }
+        if (_windowEvent.key.code == sf::Keyboard::Left) {
+            if (currentScene > 0) changeScene();
         }
         
-        else if (_windowEvent.type == sf::Event::KeyReleased && _windowEvent.key.code == sf::Keyboard::Right) {
-            if (currentScene < nOfScenes) {
-                std::cout << "NEXT SCENE" << std::endl;
-                changeScene(true);
-            }
+        if (_windowEvent.key.code == sf::Keyboard::Right) {
+            if (currentScene < nOfScenes) changeScene(true);
+        }
+        
+        if (_windowEvent.key.code == sf::Keyboard::Up) {
+            if (currentScene < nOfScenes) changeScene(true);
         }
         
     }
     
 }
 
-std::vector<std::map<std::string, int>> Window::presetData() {
-    
-    return std::vector<std::map<std::string, int>> {
-    
-        { {"ID", 99}, {"SAMPLES", 2}, {"BOUNCES", 50}, {"COUNT", 0} },
-        { {"ID", 1}, {"SAMPLES", 2}, {"BOUNCES", 25}, {"COUNT", 1} },
-        { {"ID", 2}, {"SAMPLES", 1}, {"BOUNCES", 3}, {"COUNT", 2} }
-        
-    };
-    
+void Window::initPresets() {
+    _presets.reset( new std::vector<std::map<std::string, int>> {
+                            { {"ID", 99}, {"SAMPLES", 5}, {"BOUNCES", 5} },
+                            { {"ID", 1}, {"SAMPLES", 5}, {"BOUNCES", 5} },
+                            { {"ID", 2}, {"SAMPLES", 5}, {"BOUNCES", 5} },
+                        }
+    );
 }

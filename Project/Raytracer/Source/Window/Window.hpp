@@ -22,23 +22,23 @@ public:
     // MARK: Utilities
     
     void Display();
+    void initPresets();
     void handleEvent();
     void startRendering();
     void changeScene(const bool &next = false);
     void Initialise(const uint &width, const uint &height, const int &threads);
-    
-    std::vector<std::map<std::string, int>> presetData();
-
+   
 private:
     
-    int userThreads;
-    int currentScene;
-    int nOfScenes;
+    int userThreads, currentScene, nOfScenes;
     
+    sf::Clock _timer;
     sf::Event _windowEvent;
     sf::RenderWindow _renderWindow;
     
     std::unique_ptr<Renderer> _renderEngine;
+    
+    std::shared_ptr<std::vector<std::map<std::string, int>>> _presets;
    
 };
 

@@ -30,7 +30,7 @@ public:
     bool Intersect (const Ray &ray, collision &recent_Inter, const double &timeMin, const double &timeMax) const override;
     
 private:
-    std::vector<std::unique_ptr<Rectangle> > cubeSides;
+    std::vector<std::unique_ptr<Rectangle>> cubeSides;
 };
 
 #endif /* Cube_hpp */

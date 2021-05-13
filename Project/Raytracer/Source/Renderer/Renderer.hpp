@@ -21,22 +21,19 @@ public:
     
     // MARK: Methods
     
-    void stopAll();
     bool joinAll();
     bool allFinished();
     
-    void distributeChunks(const int &nThreads);
-    
+    void stopAll();
     void updateTexture();
-   
-    void runOnThreads(const std::map<std::string, int> &data);
-    void renderChunk(const int &chunkID, const std::map<std::string, int> &data);
-    void Initialise(std::vector<std::map<std::string, int>> defaultPresets, const int &nThreads);
+    void runChunks(const int &nPreset);
+    void distributeChunks(const int &nThreads);
+    void renderChunk(const int &chunkID, const int &presetID, const int &samplesN, const int &bouncesN);
+    void Initialise(std::shared_ptr<std::vector<std::map<std::string, int>>> &defaultPresets, const int &nThreads);
     
     std::shared_ptr<sf::Sprite> &refSprite();
     
 private:
-    
     
     double _width, _height;
     
@@ -46,10 +43,10 @@ private:
     
     std::shared_ptr<sf::Sprite> _outSprite;
     std::unique_ptr<sf::Texture> _outTexture;
+    std::shared_ptr<std::vector<std::map<std::string, int>>> _presets;
     
     std::vector<Chunk> _imageChunks;
     std::vector<sf::Uint8> _outPixels;
-
     std::vector<std::unique_ptr<Scene>> _presetScenes;
     
 };

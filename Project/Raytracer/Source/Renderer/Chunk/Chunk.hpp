@@ -20,21 +20,22 @@ public:
     
     Chunk(const int &yStart, const int &yEnd);
     
-    void taskFinished(const sf::Time &executionTime, std::mutex &mut, const bool &stopped);
+//    void taskFinished(const sf::Time &executionTime, std::mutex &mut, const bool &stopped);
     
     bool joinChunk();
     bool isWorking();
     
     const int& rangeEnd();
     const int& rangeStart();
-    
     const int& getID();
     
     std::thread workerThread;
     
+    bool _working;
+    
 private:
     
-    bool _working;
+    
     std::pair<int, int> _range;
     
     const int _chunkID;

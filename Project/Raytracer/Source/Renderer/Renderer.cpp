@@ -17,10 +17,12 @@ Renderer::~Renderer() {
     std::cout << "[D] Renderer: Destructed" << std::endl;
 }
 
-void Renderer::Initialise(std::vector<std::map<std::string, int>> defaultPresets, const int &nThreads) {
+void Renderer::Initialise(std::shared_ptr<std::vector<std::map<std::string, int>>> &defaultPresets,
+                          const int &nThreads) {
     
     _outSprite.reset(new sf::Sprite);
     _outTexture.reset(new sf::Texture);
+    _presets = defaultPresets;
     
     _imageChunks.reserve(nThreads);
     _outPixels.reserve(_width*_height*4); //MARK: Each pixel = R G B A separately.
@@ -29,7 +31,7 @@ void Renderer::Initialise(std::vector<std::map<std::string, int>> defaultPresets
         
         _outSprite->setTexture(*_outTexture);
         
-        for (auto &preset : defaultPresets) {
+        for (auto &preset : *defaultPresets) {
             _presetScenes.push_back( std::unique_ptr<Scene>( new Scene(_width, _height, preset.at("ID")) ) );
         }
         
@@ -57,13 +59,17 @@ void Renderer::distributeChunks(const int &nThreads) {
     std::cout << " [R] Multi-threaded rendering on " << nThreads << " concurrent threads" << std::endl;
 }
 
-void Renderer::runOnThreads(const std::map<std::string, int> &data) {
+void Renderer::runChunks(const int &nPreset) {
     
     int counter = 0;
     _stopExecution = false;
+    
+    auto samples = _presets->at(nPreset).at("SAMPLES");
+    auto bounces = _presets->at(nPreset).at("BOUNCES");
         
     for (auto &chunk : _imageChunks) {
-        chunk.workerThread = std::thread(&Renderer::renderChunk, this, counter++, data);
+        chunk.workerThread = std::thread(&Renderer::renderChunk, this, counter++, nPreset, samples, bounces );
+        chunk._working = true;
     }
     
 }
@@ -93,11 +99,7 @@ bool Renderer::allFinished() {
     return true;
 }
 
-void Renderer::renderChunk(const int &chunkID, const std::map<std::string, int> &data) {
-    
-    auto sceneID = data.at("COUNT");
-    auto samplesPerPixel = data.at("SAMPLES");
-    auto rayBounces = data.at("BOUNCES");
+void Renderer::renderChunk(const int &chunkID, const int &presetID, const int &samplesN, const int &bouncesN) {
     
     auto chunkEnd = _imageChunks[chunkID].rangeEnd();
     auto chunkStart = _imageChunks[chunkID].rangeStart();
@@ -118,20 +120,21 @@ void Renderer::renderChunk(const int &chunkID, const std::map<std::string, int> 
 
             auto outputPixel = colour(0, 0, 0);
             
-            for (int s=0; s<samplesPerPixel; s++) {
+            for (int s=0; s<samplesN; s++) {
                 
                 auto x = ( double(i)+randomNumber<double>() ) / (_width-1);
                 auto y = ( double(j)+randomNumber<double>() ) / (_height-1);
                 //MARK: x and y are to multiply the vertical and horizontal projection vectors to the correct pixel.
                 
-                auto pixelRay = _presetScenes[sceneID]->prepRay(x, y);
-                outputPixel += _presetScenes[sceneID]->colourRay(pixelRay, rayBounces);
+                auto pixelRay = _presetScenes[presetID]->prepRay(x, y);
+                outputPixel += _presetScenes[presetID]->colourRay(pixelRay, bouncesN);
             }
-            outputPixel.standardizeOutput(_outPixels, gridPos, samplesPerPixel);
+            outputPixel.standardizeOutput(_outPixels, gridPos, samplesN);
         }
     }
     
-    _imageChunks[chunkID].taskFinished(renderTime.getElapsedTime(), printMutex, _stopExecution);
+//    _imageChunks[chunkID].taskFinished(renderTime.getElapsedTime(), printMutex, _stopExecution);
+    _imageChunks[chunkID]._working = false;
 }
 
 void Renderer::updateTexture() {

@@ -29,8 +29,6 @@ int main()
     return 0;
 }
 
-// TODO: Create Scene-changing functionality to the window, to switch between them using keyboard
-
 // MARK: Execution times for preset scenes before threading implementation
 // Scene 1 (5 samples/pixel, 5 ray bounces) 108.4 MB of memory used
 //      Run 1: 21.5666 sec (1 thread)
@@ -44,4 +42,4 @@ int main()
 
 // 50 50 0.001 296 sec // M1 Multithreading with 5 Threads (4 worker + 1 for window, input handling)
 
-// 111.4 before thread->task conversion
+// 111.4 before thread->chunk conversion
