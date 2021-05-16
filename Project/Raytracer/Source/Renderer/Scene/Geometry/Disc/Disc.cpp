@@ -8,9 +8,7 @@
 
 #include "Disc.hpp"
 
-Disc::~Disc() {
-    std::cout << "  [D] Disc: Destructed" << std::endl;
-}
+Disc::~Disc() {}
 
 Disc::Disc(  const vect3D &centerPoint,
              const vect3D &normalDirection,

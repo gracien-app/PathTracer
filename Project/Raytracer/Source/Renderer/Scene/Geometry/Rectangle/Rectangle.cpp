@@ -8,9 +8,7 @@
 
 #include "Rectangle.hpp"
 
-Rectangle::~Rectangle() {
-    std::cout << "  [D] Rectangle: Destructed" << std::endl;
-}
+Rectangle::~Rectangle() {}
 
 Rectangle::Rectangle(   const vect3D &centerPoint, const vect3D &normalDirection,
                         const double &sideLength, std::shared_ptr<Material> &materialPtr) : _side(sideLength), _normal(normalDirection), Solid(centerPoint, materialPtr) {

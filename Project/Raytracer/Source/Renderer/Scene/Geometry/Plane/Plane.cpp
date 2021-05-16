@@ -8,9 +8,7 @@
 
 #include "Plane.hpp"
 
-Plane::~Plane() {
-    std::cout << "  [D] Plane: Destructed" << std::endl;
-}
+Plane::~Plane() {}
 
 Plane::Plane(const vect3D &centerPoint,
              const vect3D &normalDirection,
