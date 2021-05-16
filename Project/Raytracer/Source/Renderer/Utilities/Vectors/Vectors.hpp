@@ -15,7 +15,9 @@
 
 class vect3D {
 public:
+    
     // MARK: Constructors
+    
     vect3D();
     vect3D(double x, double y, double z);
 
@@ -25,24 +27,18 @@ public:
     vect3D operator - () const;
     vect3D& operator += (const vect3D &rhs);
     
-    // MARK: Private data access
+    // MARK: Methods
     double x() const;
     double y() const;
     double z() const;
-    
-    // MARK: Utility methods
     double length() const;
     double lengthSquared() const;
     double dot(const vect3D &rhs) const;
-    
-    // MARK: Debug methods
-    virtual void printInfo();
     
 protected:
     double _data[3];
 };
 
-    //MARK: Utility functions
 inline vect3D operator+(const vect3D &lhs, const vect3D &rhs) {
     return vect3D(lhs.x()+rhs.x(),
                   lhs.y()+rhs.y(),
@@ -75,12 +71,6 @@ inline vect3D Normalize(const vect3D &vector) {
     return vector / vector.length();
 }
 
-inline static vect3D randomize() {
-        return vect3D(randomNumber<double>(),
-                      randomNumber<double>(),
-                      randomNumber<double>());
-}
-
 inline static vect3D randomize(const double &min, const double &max) {
         return vect3D(randomNumber<double>(min, max),
                       randomNumber<double>(min, max),
@@ -90,9 +80,9 @@ inline static vect3D randomize(const double &min, const double &max) {
 inline vect3D randUnitVector() {
     while (true) {
         auto vec = randomize(-1,1);
-        if (vec.lengthSquared() >= 1) continue;
-//        auto unitVec = Normalize(vec); //Just an idea, difference is just 1 sec faster but more noise.
-        return vec;
+//        if (vec.lengthSquared() >= 1) continue;
+        auto unitVec = Normalize(vec); //Just an idea, difference is just 1 sec faster but more noise.
+        return unitVec;
     }
 }
 

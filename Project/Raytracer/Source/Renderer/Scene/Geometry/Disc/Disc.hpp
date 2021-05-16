@@ -14,6 +14,8 @@
 class Disc : public Solid {
 public:
     
+    ~Disc() override;
+    
     /// Disc constructor for creation of finite (limited by radius) one-sided disc object.
     /// @param centerPoint Vector point defining position of the central point of the geometry
     /// @param normalDirection Normal vector of the geometry, defines direction towards which geometry is oriented.
@@ -37,7 +39,7 @@ public:
     /// For more in-depth explanation, one shoud refer to the infinite Plane intersection first.
     /// Additional statement: Length of vector defined as vector from center of geometry to the point of intersection, cannot be greater than radius.
     bool Intersect (const Ray &ray,
-                    collision &recent_Inter,
+                    intersection &recent_Inter,
                     const double &timeMin,
                     const double &timeMax) const override;
     

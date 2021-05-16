@@ -10,11 +10,11 @@
 
 // MARK: Constructors
 
-Material::Material(const colour &rgbColour) : _colour(rgbColour) {}
+Material::Material(const Colour &rgbColour) : _colour(rgbColour) {}
 
-Diffused::Diffused(const colour &rgbColour) : Material(rgbColour) {}
+Diffused::Diffused(const Colour &rgbColour) : Material(rgbColour) {}
 
-Metallic::Metallic(const colour &rgbColour, const double &roughness) : Material(rgbColour) {
+Metallic::Metallic(const Colour &rgbColour, const double &roughness) : Material(rgbColour) {
     if (roughness <= 1.0 || roughness >= 0) _rough = roughness;
     else _rough = 1.0;
 }
@@ -23,12 +23,12 @@ Metallic::Metallic(const colour &rgbColour, const double &roughness) : Material(
 
 bool Material::reflect(
                        const Ray &inputRay,
-                             Ray &reflRay, const collision &recInter, colour &reflColour ) const {
+                             Ray &reflRay, const intersection &recInter, Colour &reflColour ) const {
     return false;
 }
 
 bool Diffused::reflect(const Ray &inputRay,
-                             Ray &reflRay, const collision &recInter, colour &reflColour ) const {
+                             Ray &reflRay, const intersection &recInter, Colour &reflColour ) const {
     
     auto nextDir = randUnitDir(recInter.outNormal);
     
@@ -40,16 +40,16 @@ bool Diffused::reflect(const Ray &inputRay,
 }
 
 bool Metallic::reflect(const Ray &inputRay,
-                             Ray &reflRay, const collision &recInter, colour &reflColour ) const {
+                             Ray &reflRay, const intersection &recInter, Colour &reflColour ) const {
     
-    auto unitDir = Normalize( inputRay.getDest() );
+    auto unitDir = Normalize( inputRay.getDir() );
     
     reflRay = Ray(recInter.position,
                   unitDir - 2*recInter.outNormal*unitDir.dot(recInter.outNormal) + (randUnitVector()*_rough));
     
     reflColour = _colour;
     
-    if (reflRay.getDest().dot(recInter.outNormal)) return true;
+    if (reflRay.getDir().dot(recInter.outNormal)) return true;
     else return false;
 }
 

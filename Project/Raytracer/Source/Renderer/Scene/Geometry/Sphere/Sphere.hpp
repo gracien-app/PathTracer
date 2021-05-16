@@ -18,11 +18,13 @@ public:
     
     /// Sphere constructor with specifiable object parameters.
     /// @param center Center of mass of sphere
-    /// @param radius Radius of sphere <0,1>
+    /// @param radius Radius of sphere
     /// @param colour RGB colour of the sphere
     /// @discussion Careful when initialising, choose radius and center point with respect
     /// to the world size (<1). Remember to specify colour as RGB, it's going to be normalized.
     Sphere(const vect3D& centerPoint, const double radius, std::shared_ptr<Material> &materialPtr);
+    
+    ~Sphere() override;
     
     /// Checks if passed ray intersects with the geometrical figure of type Sphere.
     /// @param ray Reference to object of type Ray
@@ -37,7 +39,7 @@ public:
     /// @note Ray is a P(time) = Origin + time * Destination
     /// @note Final formula F(t) = t^2*Destination^2 + t*2*Destination*(Origin-C)+ Origin^2-R^2 = 0
     /// @warning Multiplication of vectors - Dot product!
-    bool Intersect (const Ray &ray, collision &recent_Inter, const double &timeMin, const double &timeMax) const override;
+    bool Intersect (const Ray &ray, intersection &recent_Inter, const double &timeMin, const double &timeMax) const override;
     
 private:
     double _radius;

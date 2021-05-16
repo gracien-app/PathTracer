@@ -14,6 +14,8 @@
 class Rectangle : public Solid {
 public:
     
+    ~Rectangle();
+    
     /// Rectangle constructor for creation of one-sided rectangular object.
     /// @param centerPoint Vector point defining position of the central point of the geometry
     /// @param normalDirection Normal vector of the geometry, defines direction towards which geometry is oriented.
@@ -32,7 +34,7 @@ public:
     /// @return - True if ray INTERSECTS the geometry.
     /// @return - False if no intersections occur.
     bool Intersect (const Ray &ray,
-                    collision &recent_Inter,
+                    intersection &recent_Inter,
                     const double &timeMin,
                     const double &timeMax) const override;
     

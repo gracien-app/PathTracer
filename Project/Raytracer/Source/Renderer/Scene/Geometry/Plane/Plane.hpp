@@ -17,6 +17,8 @@
 class Plane : public Solid {
 public:
     
+    ~Plane() override;
+    
     /// Plane constructor for creation of infinite one-sided plane object.
     /// @param centerPoint Vector point defining position of the central point of the geometry
     /// @param normalDirection Normal vector of the geometry, defines direction towards which geometry is oriented.
@@ -34,7 +36,7 @@ public:
     /// @discussion Normal vector is what defines the geometry. All vectors which have their dot product with normal vector equal 0, lie on the plane.
     /// @discussion That is because if dot product is 0, it means that two vectors are perpendicular.
     /// @discussion Function tries to find time t in range (timeMin, timeMax) where ray.pos(t) is perpendicular to Normal vector of the geometry.
-    bool Intersect (const Ray &ray, collision &recent_Inter, const double &timeMin, const double &timeMax) const override;
+    bool Intersect (const Ray &ray, intersection &recent_Inter, const double &timeMin, const double &timeMax) const override;
     
 private:
     vect3D _normal;

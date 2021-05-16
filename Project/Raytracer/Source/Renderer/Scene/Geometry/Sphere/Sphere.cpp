@@ -8,16 +8,20 @@
 
 #include "Sphere.hpp"
 
+Sphere::~Sphere() {
+    std::cout << "  [D] Sphere: Destructed" << std::endl;
+}
+
 Sphere::Sphere(const vect3D &centerPoint,
                const double radius,
                std::shared_ptr<Material> &materialPtr) : _radius(radius),
                                                         Solid(centerPoint, materialPtr) {}
 
-bool Sphere::Intersect (const Ray &ray, collision &recent_Inter, const double &timeMin, const double &timeMax) const {
+bool Sphere::Intersect (const Ray &ray, intersection &recent_Inter, const double &timeMin, const double &timeMax) const {
     
     auto OriginC = ray.getOrigin()-_center;
-    auto a = ray.getDest().lengthSquared();
-    auto optim_b = ray.getDest().dot(OriginC);
+    auto a = ray.getDir().lengthSquared();
+    auto optim_b = ray.getDir().dot(OriginC);
     auto c = OriginC.lengthSquared()-(_radius*_radius);
     
     auto delta = optim_b*optim_b - a*c;
@@ -35,17 +39,15 @@ bool Sphere::Intersect (const Ray &ray, collision &recent_Inter, const double &t
         }
         
         recent_Inter.time       = root;
-        recent_Inter.position   = ray.pos(root);
+        recent_Inter.position   = ray.getPos(root);
         recent_Inter.outNormal  = ( recent_Inter.position - _center ) / _radius;
         recent_Inter.material   = _material;
         return true;
     }
 }
     // MARK: Optimisations performed:
-    //      - Simplification of delta, b and roots. B was always 2* so some 2's canceled in the delta and solution,
-    //        leaving optim_b = 1/2b
     //      - Smaller root is prioritised. Then compared first against the time constraints (timeMin,timeMax)
-    //      - Square root of Delta calculated only if necessary: when there is/are roots
+    //      - Square root of Delta calculated only if necessary: when there are roots
     //      - First checking smaller root, if fails the check, ONLY then the bigger root is calculated.
     //      - Instead of Normalize() method of vect3D, radius of the sphere is used to normalize the normal vector.
 

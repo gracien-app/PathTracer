@@ -22,8 +22,8 @@ Camera::Camera( const vect3D &position, const double &focal, const int &resWidth
     _Y = vect3D(0, _projectionHeight, 0);
     _LUC = vect3D(_origin - _Depth + _Y/2 - _X/2);
     
-    //MARK: Direction vector defining the direction of rendering in X axis (Default = RIGHT)
-    //MARK: Direction vector defining the direction of rendering in Y axis (Default = UP).
+    //MARK: Direction vector defining the direction of rendering in X axis (Default = +X)
+    //MARK: Direction vector defining the direction of rendering in Y axis (Default = +Y).
     //MARK: Direction vector defining the depth (Z coordinate) of the viewport.
     //MARK: FIXED Position vector of LEFT UPPER corner of viewport, starting point of rendering.
 }

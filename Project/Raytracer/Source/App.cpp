@@ -19,25 +19,31 @@ App::~App() {
     std::cout << "[D] Application: Destructed" << std::endl;
 }
 
-void App::Initialise(const uint &width, const uint &height, const int &threads) {
+// MARK: Operators
+
+void App::operator()() {
+    _appWindow->Display();
+}
+
+
+// MARK: Methods
+
+void App::Initialise(const uint &width, const uint &height, const int &inputThreads) {
     
     try {
         _appWindow.reset( new Window() );
-        _appWindow->Initialise(width, height, threads);
+        _appWindow->Initialise(width, height, inputThreads);
     }
+    
     catch(const char* &err) {
         throw;
     }
+    
     catch (const std::bad_alloc &err) {
         throw;
     }
 
 }
 
-// MARK: Operators
-
-void App::operator()() {
-    _appWindow->Display();
-}
 
 

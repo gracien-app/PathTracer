@@ -8,29 +8,16 @@
 
 #include "Chunk.hpp"
 
-int Chunk::counterID = 0;
+int Chunk::_chunkCounter = 0;
 
-Chunk::Chunk(const int &yStart, const int &yEnd) : _chunkID(counterID++), _range(yStart,yEnd) {}
-
-//void Chunk::taskFinished(const sf::Time &executionTime, std::mutex &mut, const bool &stopped) {
-//    
-//    std::lock_guard<std::mutex> printLock(mut); // Safer than mutex::lock(), unlocks when out of scope
-//    
-//    _working = false;
-//    
-//    if (!stopped) {
-//        printf ("  [+] CHUNK: %i \n", _chunkID+1);
-//        printf ("      EXECUTION TIME: %f sec\n", executionTime.asSeconds());
-//    }
-//    
-//}
+Chunk::Chunk(const int &yStart, const int &yEnd) : _chunkID(_chunkCounter++), _range(yStart,yEnd) {}
 
 const int& Chunk::getID() {
     return _chunkID;
 }
 
-bool Chunk::isWorking() {
-    return _working;
+const bool Chunk::isWorking() {
+    return busy;
 }
 
 const int& Chunk::rangeEnd() {
@@ -41,10 +28,10 @@ const int& Chunk::rangeStart() {
     return _range.first;
 }
 
-bool Chunk::joinChunk() {
+const bool Chunk::joinChunk() {
     
-    if (workerThread.joinable()) {
-        workerThread.join();
+    if (chunkThread.joinable()) {
+        chunkThread.join();
         return true;
     }
     

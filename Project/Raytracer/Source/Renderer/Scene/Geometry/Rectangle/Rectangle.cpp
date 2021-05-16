@@ -8,6 +8,10 @@
 
 #include "Rectangle.hpp"
 
+Rectangle::~Rectangle() {
+    std::cout << "  [D] Rectangle: Destructed" << std::endl;
+}
+
 Rectangle::Rectangle(   const vect3D &centerPoint, const vect3D &normalDirection,
                         const double &sideLength, std::shared_ptr<Material> &materialPtr) : _side(sideLength), _normal(normalDirection), Solid(centerPoint, materialPtr) {
                          
@@ -23,24 +27,24 @@ Rectangle::Rectangle(   const vect3D &centerPoint, const vect3D &normalDirection
     
     }
 
-bool Rectangle::Intersect (const Ray &ray, collision &recInter, const double &timeMin, const double &timeMax) const {
+bool Rectangle::Intersect (const Ray &ray, intersection &recInter, const double &timeMin, const double &timeMax) const {
     
     auto nominator = (_center - ray.getOrigin()).dot(_normal);
-    auto denominator = ray.getDest().dot(_normal);
+    auto denominator = ray.getDir().dot(_normal);
     
     auto t = nominator / denominator;
     if (t > timeMax || t < timeMin ) return false;
     
-    auto x = ray.getOrigin().x() + ray.getDest().x()*t;
-    auto y = ray.getOrigin().y() + ray.getDest().y()*t;
-    auto z = ray.getOrigin().z() + ray.getDest().z()*t;
+    auto x = ray.getOrigin().x() + ray.getDir().x()*t;
+    auto y = ray.getOrigin().y() + ray.getDir().y()*t;
+    auto z = ray.getOrigin().z() + ray.getDir().z()*t;
     
     if (y > _ymax || y < _ymin || x > _xmax || x < _xmin || z > _zmax || z < _zmin) return false;
     
     else {
         
         recInter.time       = t;
-        recInter.position   = ray.pos(t);
+        recInter.position   = ray.getPos(t);
         recInter.outNormal  = _normal;
         recInter.material   = _material;
         return true;

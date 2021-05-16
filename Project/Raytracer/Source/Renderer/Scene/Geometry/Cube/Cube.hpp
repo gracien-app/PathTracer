@@ -16,6 +16,8 @@ class Cube : public Solid {
 
 public:
     
+    ~Cube() override;
+    
     Cube(const vect3D &centerPoint,
          const double sideLength,
          std::shared_ptr<Material> &materialPtr);
@@ -27,7 +29,7 @@ public:
     /// @param timeMax Specifies maximum time when the intersection can occur.
     /// @return - True if ray INTERSECTS the geometry.
     /// @return - False if no intersections occur.
-    bool Intersect (const Ray &ray, collision &recent_Inter, const double &timeMin, const double &timeMax) const override;
+    bool Intersect (const Ray &ray, intersection &recent_Inter, const double &timeMin, const double &timeMax) const override;
     
 private:
     std::vector<std::unique_ptr<Rectangle>> cubeSides;

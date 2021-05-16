@@ -8,6 +8,10 @@
 
 #include "Cube.hpp"
 
+Cube::~Cube() {
+    std::cout << "  [D] Cube: Destructed" << std::endl;
+}
+
 Cube::Cube(     const vect3D &centerPoint,
                 const double sideLength,
                 std::shared_ptr<Material> &materialPtr) : Solid(centerPoint, materialPtr) {
@@ -56,9 +60,9 @@ Cube::Cube(     const vect3D &centerPoint,
                                                                         _material)));
 }
 
-bool Cube::Intersect (const Ray &ray, collision &recInter, const double &timeMin, const double &timeMax) const {
+bool Cube::Intersect (const Ray &ray, intersection &recInter, const double &timeMin, const double &timeMax) const {
     
-    collision tempRecent;
+    intersection tempRecent;
     bool didIntersect = false;
     auto closestIntersect = timeMax;
 

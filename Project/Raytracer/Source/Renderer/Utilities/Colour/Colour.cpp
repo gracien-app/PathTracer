@@ -8,34 +8,34 @@
 
 #include "Colour.hpp"
 
-colour::colour() : vect3D() {};
-colour::colour(const vect3D &rhs) : vect3D(rhs.x(),rhs.y(),rhs.z()) {};
-colour::colour(const double &R, const double &G, const double &B) : vect3D(R,G,B) {};
+Colour::Colour() : vect3D() {};
+Colour::Colour(const vect3D &rhs) : vect3D(rhs.x(),rhs.y(),rhs.z()) {};
+Colour::Colour(const double &R, const double &G, const double &B) : vect3D(R,G,B) {};
 
-colour& colour::normalizeRGB() {
-    this->_data[0] /= 255;
-    this->_data[1] /= 255;
-    this->_data[2] /= 255;
+Colour& Colour::normalizeRGB() {
+    
+    auto ratio = 1.0 / 255;
+    
+    this->_data[0] *= ratio;
+    this->_data[1] *= ratio;
+    this->_data[2] *= ratio;
+    
     return *this;
+    
 }
 
-void colour::standardizeOutput(std::vector<sf::Uint8> &outPixels, const int &gridPos, const int &samples) {
+void Colour::standardiseOutput(std::vector<sf::Uint8> &outPixels, const int &gridPos, const int &samples) {
     
-    auto samplingScale = 1.0 / samples;
+    auto ratio = 1.0 / samples;
     
-    auto R =  sqrt((this->x() * samplingScale));
-    auto G =  sqrt((this->y() * samplingScale));
-    auto B =  sqrt((this->z() * samplingScale));
+    auto R = sqrt(this->x() * ratio);
+    auto G = sqrt(this->y() * ratio);
+    auto B = sqrt(this->z() * ratio);
     
     outPixels[4*gridPos+0] = int(256 * clamp<double>(R, 0.0, 0.999));
     outPixels[4*gridPos+1] = int(256 * clamp<double>(G, 0.0, 0.999));
     outPixels[4*gridPos+2] = int(256 * clamp<double>(B, 0.0, 0.999));
-    outPixels[4*gridPos+3] = int(255);
-    //.999 to compensate < width, height
-}
-
-// MARK: Debug
-void colour::printInfo() {
-    std::cout << "RGBA: " << this->x() << " " << this->y() << " " << this->z();
+    outPixels[4*gridPos+3] = 255;
+    
 }
 

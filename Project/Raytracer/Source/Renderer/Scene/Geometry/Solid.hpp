@@ -20,6 +20,8 @@ public:
     /// @param centerPoint Vector point defining position of the central point of the geometry
     /// @param colour Colour object defining colour of the geometry
     Solid(const vect3D &centerPoint, std::shared_ptr<Material> &materialPtr);
+   
+    virtual ~Solid();
     
     /// Sets the position according to the XYZ of vect3D object passed.
     /// @param vector Reference to vect3D object
@@ -34,7 +36,7 @@ public:
     /// @param timeMin Value defining minimum time at which intersection can occur.
     /// @param timeMax Value defining maximum time at which intersection can occur.
     /// @warning [ NEEDS TO BE OVERLOADED ]
-    virtual bool Intersect (const Ray &ray, collision &recent_Inter, const double &timeMin, const double &timeMax) const;
+    virtual bool Intersect (const Ray &ray, intersection &recent_Inter, const double &timeMin, const double &timeMax) const;
     
 protected:
     vect3D _center;

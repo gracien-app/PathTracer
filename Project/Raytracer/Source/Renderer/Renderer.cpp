@@ -17,12 +17,12 @@ Renderer::~Renderer() {
     std::cout << "[D] Renderer: Destructed" << std::endl;
 }
 
-void Renderer::Initialise(std::shared_ptr<std::vector<std::map<std::string, int>>> &defaultPresets,
+void Renderer::Initialise(std::shared_ptr<std::vector<std::map<std::string, int>>> &userPresets,
                           const int &nThreads) {
     
     _outSprite.reset(new sf::Sprite);
     _outTexture.reset(new sf::Texture);
-    _presets = defaultPresets;
+    _presetSettings = userPresets;
     
     _imageChunks.reserve(nThreads);
     _outPixels.reserve(_width*_height*4); //MARK: Each pixel = R G B A separately.
@@ -31,8 +31,8 @@ void Renderer::Initialise(std::shared_ptr<std::vector<std::map<std::string, int>
         
         _outSprite->setTexture(*_outTexture);
         
-        for (auto &preset : *defaultPresets) {
-            _presetScenes.push_back( std::unique_ptr<Scene>( new Scene(_width, _height, preset.at("ID")) ) );
+        for (auto &preset : *userPresets) {
+            _presetScenes.push_back(std::make_unique<Scene>(_width, _height, preset.at("ID")));
         }
         
         distributeChunks(nThreads);
@@ -64,12 +64,12 @@ void Renderer::runChunks(const int &nPreset) {
     int counter = 0;
     _stopExecution = false;
     
-    auto samples = _presets->at(nPreset).at("SAMPLES");
-    auto bounces = _presets->at(nPreset).at("BOUNCES");
+    auto samples = _presetSettings->at(nPreset).at("SAMPLES");
+    auto bounces = _presetSettings->at(nPreset).at("BOUNCES");
         
     for (auto &chunk : _imageChunks) {
-        chunk.workerThread = std::thread(&Renderer::renderChunk, this, counter++, nPreset, samples, bounces );
-        chunk._working = true;
+        chunk.chunkThread = std::thread(&Renderer::renderChunk, this, counter++, nPreset, samples, bounces );
+        chunk.busy = true;
     }
     
 }
@@ -104,11 +104,6 @@ void Renderer::renderChunk(const int &chunkID, const int &presetID, const int &s
     auto chunkEnd = _imageChunks[chunkID].rangeEnd();
     auto chunkStart = _imageChunks[chunkID].rangeStart();
     
-    sf::Clock renderTime;
-    renderTime.restart();
-    
-    //MARK: Origin of renderer = camera position, camera is inside each scene
-    
     for (int j=chunkStart; j<=chunkEnd; j++) {
         for (int i=0; i<_width; i++) {
             
@@ -118,7 +113,7 @@ void Renderer::renderChunk(const int &chunkID, const int &presetID, const int &s
             //MARK: NON-SQUARE RESOLUTION FIX gridPos = i+(j x width) not (j x height)
             //MARK: Pixels are transfered from continuous RGBA data, not by rows & columns
 
-            auto outputPixel = colour(0, 0, 0);
+            auto outputPixel = Colour(0, 0, 0);
             
             for (int s=0; s<samplesN; s++) {
                 
@@ -128,13 +123,15 @@ void Renderer::renderChunk(const int &chunkID, const int &presetID, const int &s
                 
                 auto pixelRay = _presetScenes[presetID]->prepRay(x, y);
                 outputPixel += _presetScenes[presetID]->colourRay(pixelRay, bouncesN);
+                
             }
-            outputPixel.standardizeOutput(_outPixels, gridPos, samplesN);
+            
+            outputPixel.standardiseOutput(_outPixels, gridPos, samplesN);
+            
         }
     }
     
-//    _imageChunks[chunkID].taskFinished(renderTime.getElapsedTime(), printMutex, _stopExecution);
-    _imageChunks[chunkID]._working = false;
+    _imageChunks[chunkID].busy = false;
 }
 
 void Renderer::updateTexture() {

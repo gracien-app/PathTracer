@@ -18,28 +18,47 @@ class Chunk {
 
 public:
     
+    // MARK: Constructor
+    
+    /// Chunk constructor
+    /// @brief Sets appropriate unique ID of newly created chunk (using static chunkCounter). Initialises range according to parameters provided.
+    /// @param yStart Beginning of the range on which Chunk should work (height)
+    /// @param yEnd End of the range on which Chunk should work (height)
     Chunk(const int &yStart, const int &yEnd);
     
-//    void taskFinished(const sf::Time &executionTime, std::mutex &mut, const bool &stopped);
+    // MARK: Methods
     
-    bool joinChunk();
-    bool isWorking();
+    /// Method used to execute std::thread::join() method on chunkThread (if joinable).
+    /// @returns TRUE if successfully joined thread. FALSE otherwise.
+    const bool joinChunk();
     
+    /// Method used to determine, whether Chunk is currently busy.
+    /// @returns TRUE if Chunk is busy. FALSE otherwise.
+    const bool isWorking();
+    
+    /// Method used to extract end of the range on which Chunk is performing calculations.
+    /// @returns Constant integer value defining end of range.
     const int& rangeEnd();
+    
+    /// Method used to extract start of the range on which Chunk is performing calculations.
+    /// @returns Constant integer value defining start of range.
     const int& rangeStart();
+    
+    /// Method used to extract unique chunk ID.
+    /// @returns Constant integer defining ID of chunk.
     const int& getID();
     
-    std::thread workerThread;
+    // MARK: Data
     
-    bool _working;
+    bool busy;
+    std::thread chunkThread;
     
 private:
-    
     
     std::pair<int, int> _range;
     
     const int _chunkID;
-    static int counterID;
+    static int _chunkCounter;
 
 };
 

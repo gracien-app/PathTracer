@@ -13,12 +13,14 @@ int main()
     App Raytracer;
     
     try {
-        Raytracer.Initialise(1534, 1534, 7); //maximum height for my resolution 1534
+        Raytracer.Initialise(1534, 1534, 4); //maximum height for my resolution 1534
     }
+    
     catch(const char* err) {
         std::cerr << "[!] " << err << std::endl;
         return -1;
     }
+    
     catch (std::bad_alloc err) {
         std::cerr << "[!] " << err.what() << std::endl;
         return -1;

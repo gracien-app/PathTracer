@@ -10,7 +10,6 @@
 		BE15F1EC2600378E00A0BCF8 /* Colour.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE15F1EA2600378E00A0BCF8 /* Colour.cpp */; };
 		BE1FCE45263AD988009390CC /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE1FCE43263AD988009390CC /* Rectangle.cpp */; };
 		BE1FCE49263AEB0E009390CC /* Cube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE1FCE47263AEB0E009390CC /* Cube.cpp */; };
-		BE23B80125F57DAD000BFAD9 /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE23B80025F57DAD000BFAD9 /* ResourcePath.mm */; };
 		BE23B80425F57DAD000BFAD9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE23B80325F57DAD000BFAD9 /* main.cpp */; };
 		BE23B83325F5802A000BFAD9 /* App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE23B83125F5802A000BFAD9 /* App.cpp */; };
 		BE23B83725F582A3000BFAD9 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE23B83525F582A3000BFAD9 /* Window.cpp */; };
@@ -62,8 +61,6 @@
 		BE1FCE48263AEB0E009390CC /* Cube.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cube.hpp; sourceTree = "<group>"; };
 		BE23B7FB25F57DAD000BFAD9 /* Raytracer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Raytracer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE23B7FF25F57DAD000BFAD9 /* Raytracer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Raytracer-Info.plist"; sourceTree = "<group>"; };
-		BE23B80025F57DAD000BFAD9 /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
-		BE23B80225F57DAD000BFAD9 /* ResourcePath.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ResourcePath.hpp; sourceTree = "<group>"; };
 		BE23B80325F57DAD000BFAD9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		BE23B81425F57DF9000BFAD9 /* Raytracer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Raytracer.entitlements; sourceTree = "<group>"; };
 		BE23B83125F5802A000BFAD9 /* App.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = App.cpp; sourceTree = "<group>"; };
@@ -196,8 +193,6 @@
 			children = (
 				BE23B7FF25F57DAD000BFAD9 /* Raytracer-Info.plist */,
 				BE23B81425F57DF9000BFAD9 /* Raytracer.entitlements */,
-				BE23B80025F57DAD000BFAD9 /* ResourcePath.mm */,
-				BE23B80225F57DAD000BFAD9 /* ResourcePath.hpp */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -431,7 +426,6 @@
 				BED358372610BE000098E917 /* Solid.cpp in Sources */,
 				BE23B80425F57DAD000BFAD9 /* main.cpp in Sources */,
 				BECEC402264B0007005378B0 /* Chunk.cpp in Sources */,
-				BE23B80125F57DAD000BFAD9 /* ResourcePath.mm in Sources */,
 				BE4CB77125F97C5B0072DAE1 /* Camera.cpp in Sources */,
 				BE4CB76E25F97C210072DAE1 /* Ray.cpp in Sources */,
 				BEB97E9B26111E9E00D9B571 /* Material.cpp in Sources */,
