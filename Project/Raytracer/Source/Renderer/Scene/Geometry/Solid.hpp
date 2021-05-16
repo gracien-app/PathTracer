@@ -30,7 +30,7 @@ public:
     
     vect3D getPosition();
     
-    /// Virtual empty method for Deriving classes.
+    /// Virtual empty method for deriving classes.
     /// @param ray Ray object with specified origin and destination direction.
     /// @param recent_Inter Structure containing information about recent intersection.
     /// @param timeMin Value defining minimum time at which intersection can occur.

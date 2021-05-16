@@ -35,6 +35,7 @@ inline T randomNumber(const T &min, const T &max) {
 
 /// Function which "clamps" a value between an upper and lower bound.
 /// @discussion Used extensively during rendering to make sure that values are within proper, often normalised <0,1> range.
+/// @discussion Function set to inline as a optimisation - Small, often called function.
 /// @param x Value to be clamped.
 /// @param min Lower bound of clamping
 /// @param max Upper bound of clamping

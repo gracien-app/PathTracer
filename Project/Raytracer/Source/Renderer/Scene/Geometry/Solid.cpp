@@ -19,7 +19,7 @@ Solid::~Solid() {
 void Solid::setPosition(const vect3D &newPosition) {
     _center[0] = newPosition.x();
     _center[1] = newPosition.y();
-    _center[2] = -newPosition.z(); //Inverted to compensate right handed cooridinates system.
+    _center[2] = newPosition.z();
 }
 
 vect3D Solid::getPosition() {

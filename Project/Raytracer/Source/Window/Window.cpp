@@ -157,9 +157,9 @@ void Window::handleEvent() {
 
 void Window::initPresets() {
     _presetsVector.reset( new std::vector<std::map<std::string, int>> {
-//                            { {"ID", 99}, {"SAMPLES", 5}, {"BOUNCES", 10} }
-                            { {"ID", 1}, {"SAMPLES", 50}, {"BOUNCES", 50} }
-//                            { {"ID", 2}, {"SAMPLES", 50}, {"BOUNCES", 50} },
-//                            { {"ID", 3}, {"SAMPLES", 10}, {"BOUNCES", 25} }
+                            { {"ID", 99}, {"SAMPLES", 5}, {"BOUNCES", 10} },
+                            { {"ID", 1}, {"SAMPLES", 50}, {"BOUNCES", 50} },
+                            { {"ID", 2}, {"SAMPLES", 50}, {"BOUNCES", 50} },
+                            { {"ID", 3}, {"SAMPLES", 10}, {"BOUNCES", 25} }
                         });
 }

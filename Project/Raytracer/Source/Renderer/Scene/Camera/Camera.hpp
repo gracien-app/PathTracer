@@ -14,13 +14,38 @@
 class Camera {
 public:
     
-    Camera( const vect3D &position, const double &focal, const int &resWidth, const int &resHeight);
+    //MARK: Constructor
+    
+    /// Camera object constructor.
+    /// @discussion Camera is a point from which the scene is seen. It's a wrapper class made with expansion in mind (moving the point of view).
+    /// To mimic how real camera works (lens) an imaginary projection plane is created.
+    /// The distance between camera and projection plane is defined as focal length (for unaltered perspective focal = 1.0 should be used).
+    /// Projection plane defines direction of each ray (origin of each initial ray is the same - camera origin point).
+    /// Rendering should start from left upper corner (abbrev. LUC). This is because SFML transfers pixels array to texture starting from this point.
+    /// To find LUC for any focal length, and any resolution, appropriate vectors are added and subtracted (More specific comments in .cpp file).
+    /// @note X Y and Z coordinates respect Right Handed Coordinate system, otherwise vector operations would need corrections.
+    /// +X goes to right, +Y is up, +Z is BEHIND the camera.
+    /// @param position 3-dimensional vector defining point of view, origin of the camera.
+    /// @param focal Value defining focal length of the camera
+    /// @param resWidth Value defining width of the application
+    /// @param resHeight Value defining height of the application
+    Camera(const vect3D &position, const double &focal, const int &resWidth, const int &resHeight);
+    
+    //MARK: Methods
+    
+    /// Method used to prepare Ray object with respect to Camera parameters (focal length, resolution)
+    /// @discussion Origin remains unchanged, Direction is determined in such way:
+    /// To the starting point of the render (left upper corner - LUC) partials of X and Y vectors are added or subtracted.
+    /// X and Y vectors define total width and height. They allow to move by a given fraction in any direction.
+    /// @example To move to the middle pixel (from LUC), we can add half of whole X vector (move right by half) and subtract half of Y (move down by half).
+    /// @param x Value defining a fraction by which X vector should be moved.
+    /// @param y Value defining a fraction by which Y vector should be moved
     Ray prepRay(const double &x, const double &y);
 
 private:
     
     double _focalLenght;
-    double _aspectRatio; // Resolution Width/Height
+    double _aspectRatio; 
     double _projectionHeight;
     double _projectionWidth;
 

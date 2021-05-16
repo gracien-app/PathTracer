@@ -10,8 +10,5 @@
 #define main_h
 
 #include "App.hpp"
-#include <thread>
-
-
 
 #endif /* main_h */

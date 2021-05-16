@@ -61,22 +61,19 @@ void Renderer::distributeChunks(const int &nThreads) {
 
 void Renderer::runChunks(const int &nPreset) {
     
-    int counter = 0;
     _stopExecution = false;
     
     auto samples = _presetSettings->at(nPreset).at("SAMPLES");
     auto bounces = _presetSettings->at(nPreset).at("BOUNCES");
         
     for (auto &chunk : _imageChunks) {
-        chunk.chunkThread = std::thread(&Renderer::renderChunk, this, counter++, nPreset, samples, bounces );
+        chunk.chunkThread = std::thread(&Renderer::renderChunk, this, chunk.getID(), nPreset, samples, bounces );
         chunk.busy = true;
     }
     
 }
 
 bool Renderer::joinAll() {
-    
-    if (_stopExecution) std::cout << " [R] Stopped manually" << std::endl;
 
     bool allJoined = true;
 

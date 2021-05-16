@@ -22,10 +22,10 @@ public:
     vect3D(double x, double y, double z);
 
     // MARK: Operators
-    double& operator[] (const int &index);
+    double& operator[](const int &index);
     
-    vect3D operator - () const;
-    vect3D& operator += (const vect3D &rhs);
+    vect3D operator-() const;
+    vect3D& operator+=(const vect3D &rhs);
     
     // MARK: Methods
     double x() const;
@@ -62,9 +62,7 @@ inline vect3D operator*(const vect3D &lhs, const double &multiplier ) {
 }
 
 inline vect3D operator/(const vect3D &lhs, const double &divider) {
-    return vect3D(lhs.x()*(1/divider),
-                  lhs.y()*(1/divider),
-                  lhs.z()*(1/divider));
+    return (1/divider)*lhs;
 }
 
 inline vect3D Normalize(const vect3D &vector) {
@@ -80,9 +78,9 @@ inline static vect3D randomize(const double &min, const double &max) {
 inline vect3D randUnitVector() {
     while (true) {
         auto vec = randomize(-1,1);
-//        if (vec.lengthSquared() >= 1) continue;
-        auto unitVec = Normalize(vec); //Just an idea, difference is just 1 sec faster but more noise.
-        return unitVec;
+        if (vec.lengthSquared() >= 1) continue;
+//        auto unitVec = Normalize(vec); //Just an idea, difference is just 1 sec faster but more noise.
+        return vec;
     }
 }
 
