@@ -25,18 +25,19 @@ public:
     /// @param colour Colour object defining colour of the geometry
     Plane(const vect3D &centerPoint, const vect3D &normalDirection, std::shared_ptr<Material> &materialPtr);
     
-    /// Overloaded method checking if passed ray can intersect with infinite plane geometry.
+    /// Overloaded method checking if passed ray can intersect with infinite one-sided plane geometry.
     /// @param ray Reference to object of type Ray
     /// @param recent_Inter Reference to Recent structure which keeps track of recent intersections performed.
     /// @param timeMin Specifies minimum time when the intersection can occur.
     /// @param timeMax Specifies maximum time when the intersection can occur.
     /// @return - True if ray INTERSECTS the geometry.
     /// @return - False if no intersections occur.
-    /// @warning Plane is one-sided, only rays coming from correct direction (opposite to Normal vector of geometry) can intersect with it.
-    /// @discussion Normal vector is what defines the geometry. All vectors which have their dot product with normal vector equal 0, lie on the plane.
-    /// @discussion That is because if dot product is 0, it means that two vectors are perpendicular.
+    /// @warning Plane is one-sided, only rays coming from correct direction (opposite to Normal vector of geometry) can intersect with it properly (Reflect).
+    /// @discussion Normal vector is what defines the geometry. All vectors which have their Dot product with normal vector equal 0, lie on the plane.
+    /// @discussion That is because if Dot product is 0, it means that two vectors are perpendicular (lie on the same "plane").
     /// @discussion Function tries to find time t in range (timeMin, timeMax) where ray.pos(t) is perpendicular to Normal vector of the geometry.
-    bool Intersect (const Ray &ray, intersection &recent_Inter, const double &timeMin, const double &timeMax) const override;
+    /// @note Source: https://www.sciencedirect.com/topics/computer-science/intersection-routine
+    bool Intersect (const Ray &ray, Intersection &recent_Inter, const double &timeMin, const double &timeMax) const override;
     
 private:
     vect3D _normal;

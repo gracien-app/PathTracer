@@ -14,6 +14,9 @@
 #include <thread>
 #include <mutex>
 
+/// Wrapper class for std::thread with helper methods.
+/// @discussion Each object contains unique ID which is used to differentiate between threads in easy way.
+/// @note Created with future expansion in mind.
 class Chunk {
 
 public:

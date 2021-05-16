@@ -12,13 +12,20 @@
 #include "Vectors.hpp"
 #include <SFML/Graphics.hpp>
 
+/// Helper class representing RGBA colour.
+/// @discussion Created mainly to differentiate between vect3D objects which hold colour instead of position / vector.
+/// Derives from vect3D to get access to already defined operators and _data array storage for partial components RGB.
+/// Owns normalise method suitable for normalisation <0,1> of RGB colour, and standardise method used to transform colour back to standard form <0,255>
+/// @note Alpha component is not used, although it was prepared for future expansion.
 class Colour : public vect3D{
 public:
-    
     
     /// Default Colour constructor.
     /// @note Initialised using default vect3D constructor to (0.0, 0.0, 0.0) - perfect black.
     Colour();
+    
+    /// Destructor override of Base vect3D.
+    ~Colour() override;
     
     /// Colour constructor creating colour from partial elements of vect3D object where XYZ = RGB
     /// @param rhs vect3D object from which partials are extracted to construct a RGB colour,
@@ -53,7 +60,7 @@ public:
     
 private:
     
-    /// Exists for future expansion. Not used throughout the program at the current stage. Uninitialised/
+    /// Exists for future expansion. Not used throughout the program at the current stage.
     double Alpha;
 };
 

@@ -11,6 +11,8 @@
 
 #include "Renderer.hpp"
 
+/// Class containing SFML renderWindow component together with Renderer engine.
+/// @discussion Deals with user input, displaying and updating the rendered image and initialising all components of objects.
 class Window {
 public:
     

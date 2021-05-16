@@ -11,6 +11,7 @@
 
 #include "Window.hpp"
 
+/// Appliaction class containing Window object. Prepared for future expansion.
 class App {
 public:
     

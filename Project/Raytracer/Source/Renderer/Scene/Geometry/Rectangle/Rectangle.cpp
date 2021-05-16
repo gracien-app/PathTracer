@@ -27,10 +27,10 @@ Rectangle::Rectangle(   const vect3D &centerPoint, const vect3D &normalDirection
     
     }
 
-bool Rectangle::Intersect (const Ray &ray, intersection &recInter, const double &timeMin, const double &timeMax) const {
+bool Rectangle::Intersect (const Ray &ray, Intersection &recInter, const double &timeMin, const double &timeMax) const {
     
-    auto nominator = (_center - ray.getOrigin()).dot(_normal);
-    auto denominator = ray.getDir().dot(_normal);
+    auto nominator = (_center - ray.getOrigin()).Dot(_normal);
+    auto denominator = ray.getDir().Dot(_normal);
     
     auto t = nominator / denominator;
     if (t > timeMax || t < timeMin ) return false;

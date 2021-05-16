@@ -19,16 +19,16 @@ Disc::Disc(  const vect3D &centerPoint,
                                                       _normal(normalDirection),
                                                       Solid(centerPoint, materialPtr) {}
 
-bool Disc::Intersect (const Ray &ray, intersection &recInter, const double &timeMin, const double &timeMax) const {
+bool Disc::Intersect (const Ray &ray, Intersection &recInter, const double &timeMin, const double &timeMax) const {
     
-    auto nominator = (_center - ray.getOrigin()).dot(_normal);
-    auto denominator = ray.getDir().dot(_normal);
+    auto nominator = (_center - ray.getOrigin()).Dot(_normal);
+    auto denominator = ray.getDir().Dot(_normal);
     
     auto t = nominator / denominator;
     auto rayAtT= ray.getPos(t);
     auto distance = rayAtT - _center;
     
-    if (t > timeMax || t < timeMin || (distance.length() > (_radius/2)) ) return false;
+    if (t > timeMax || t < timeMin || (distance.Length() > (_radius/2)) ) return false;
     
     else {
         

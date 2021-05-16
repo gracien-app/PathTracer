@@ -7,10 +7,10 @@
 //
 
 #include "Colour.hpp"
-
-Colour::Colour() : vect3D() {};
-Colour::Colour(const vect3D &rhs) : vect3D(rhs.x(),rhs.y(),rhs.z()) {};
-Colour::Colour(const double &R, const double &G, const double &B) : vect3D(R,G,B) {};
+Colour::~Colour() {}
+Colour::Colour() : vect3D() {}
+Colour::Colour(const vect3D &rhs) : vect3D(rhs.x(),rhs.y(),rhs.z()) {}
+Colour::Colour(const double &R, const double &G, const double &B) : vect3D(R,G,B) {}
 
 Colour& Colour::normalizeRGB() {
     

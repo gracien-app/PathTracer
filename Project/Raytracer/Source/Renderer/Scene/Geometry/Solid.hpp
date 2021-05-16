@@ -12,7 +12,7 @@
 #include "Material.hpp"
 
 /// Base class for all Solid (hitable by rays) objects.
-/// @discussion [POLYMORPHIC] [COLLISIONS]
+/// @discussion [POLYMORPHIC] [INTERSECTS]
 class Solid {
 public:
     
@@ -21,13 +21,16 @@ public:
     /// @param colour Colour object defining colour of the geometry
     Solid(const vect3D &centerPoint, std::shared_ptr<Material> &materialPtr);
    
+    /// Empty Base destructor
+    /// @warning [ NEEDS TO BE OVERLOADED ]
     virtual ~Solid();
     
     /// Sets the position according to the XYZ of vect3D object passed.
     /// @param vector Reference to vect3D object
-    /// @warning Inverts Z to compensate the right handed coordinate system, so that objects with positive Z are in front of "camera".
     void setPosition(const vect3D &newPosition);
     
+    /// Method returning position of the object.
+    /// @returns Value of 3-dimensional vector defining center point of geometry.
     vect3D getPosition();
     
     /// Virtual empty method for deriving classes.
@@ -36,7 +39,7 @@ public:
     /// @param timeMin Value defining minimum time at which intersection can occur.
     /// @param timeMax Value defining maximum time at which intersection can occur.
     /// @warning [ NEEDS TO BE OVERLOADED ]
-    virtual bool Intersect (const Ray &ray, intersection &recent_Inter, const double &timeMin, const double &timeMax) const;
+    virtual bool Intersect (const Ray &ray, Intersection &recent_Inter, const double &timeMin, const double &timeMax) const;
     
 protected:
     vect3D _center;

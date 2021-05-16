@@ -42,7 +42,7 @@ Scene::~Scene() {
 
 Colour Scene::colourRay(const Ray &r, const int &rayBounces) const {
     
-    intersection recentInter;
+    Intersection recentInter;
     
     if (rayBounces == 0) return Colour(0,0,0);
     
@@ -68,8 +68,8 @@ Colour Scene::colourRay(const Ray &r, const int &rayBounces) const {
     }
 }
 
-bool Scene::intersectScene (const Ray &ray, intersection &recent_Inter, const double &tMin, const double &tMax) const {
-    intersection tempRecent;
+bool Scene::intersectScene (const Ray &ray, Intersection &recent_Inter, const double &tMin, const double &tMax) const {
+    Intersection tempRecent;
     bool didIntersect = false;
     auto closestIntersect = tMax;
 
@@ -84,8 +84,11 @@ bool Scene::intersectScene (const Ray &ray, intersection &recent_Inter, const do
 }
 
 void Scene::setupCornell(const bool &reflective) {
-    std::cout << "[C] Scene: Cornell Box" << std::endl;
-    if (reflective) std::cout << "           Metallic version" << std::endl;
+    
+    std::string message = "[C] Scene: Cornell Box";
+    if (reflective) message += " (Reflective)";
+    else message += " (Matte)";
+    std::cout << message << std::endl;
     
     const double rectSide = 1;
     
@@ -95,16 +98,16 @@ void Scene::setupCornell(const bool &reflective) {
     std::shared_ptr<Material> leftWallMat, rightWallMat, wallMat, objectsMat;
     
     if (reflective) {
-        leftWallMat = std::make_shared<Metallic>       ( Colour (252,70, 107).normalizeRGB(), 1.0 );
-        rightWallMat = std::make_shared<Metallic>      ( Colour (63, 94, 251).normalizeRGB(), 1.0 );
-        wallMat = std::make_shared<Metallic>      ( Colour (255,255,255).normalizeRGB(), 0.2 );
-        objectsMat = std::make_shared<Metallic>    ( Colour (255,255,255).normalizeRGB(), 0.05);
+        leftWallMat =   std::make_shared<Metallic>    ( Colour (252,70, 107).normalizeRGB(), 1.0 );
+        rightWallMat =  std::make_shared<Metallic>    ( Colour (63, 94, 251).normalizeRGB(), 1.0 );
+        wallMat =       std::make_shared<Metallic>    ( Colour (255,255,255).normalizeRGB(), 0.2 );
+        objectsMat =    std::make_shared<Metallic>    ( Colour (255,255,255).normalizeRGB(), 0.05);
     }
     else {
-        leftWallMat = std::make_shared<Diffused>       ( Colour (252,70, 107).normalizeRGB() );
-        rightWallMat = std::make_shared<Diffused>      ( Colour (63, 94, 251).normalizeRGB() );
-        wallMat = std::make_shared<Diffused>      ( Colour (255,255,255).normalizeRGB() );
-        objectsMat = std::make_shared<Diffused>    ( Colour (255,255,255).normalizeRGB() );
+        leftWallMat =   std::make_shared<Diffused>    ( Colour (252,70, 107).normalizeRGB() );
+        rightWallMat =  std::make_shared<Diffused>    ( Colour (63, 94, 251).normalizeRGB() );
+        wallMat =       std::make_shared<Diffused>    ( Colour (255,255,255).normalizeRGB() );
+        objectsMat =    std::make_shared<Diffused>    ( Colour (255,255,255).normalizeRGB() );
     }
     
     /* ITEMS */
@@ -113,7 +116,7 @@ void Scene::setupCornell(const bool &reflective) {
     
     
     /* LEFT  */
-     _sceneObjects.push_back( std::make_unique<Rectangle> (vect3D(-0.5, 0, -0.5), vect3D(1, 0, 0),
+    _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(-0.5, 0, -0.5), vect3D(1, 0, 0),
                                                           rectSide, leftWallMat));
     /* RIGHT */
     _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0.5, 0, -0.5), vect3D(-1, 0, 0),
@@ -147,9 +150,9 @@ void Scene::setupSpheres() {
     
     /* ITEMS */
     vect3D groupTranslation(0.0, -0.05, -0.8);
-    _sceneObjects.push_back( std::make_unique<Sphere> (vect3D(0.0, 0.3, 0.0)+groupTranslation, 0.2, sphereMat));
-    _sceneObjects.push_back( std::make_unique<Sphere> (vect3D(0.0, 0.0, 0.0)+groupTranslation, 0.1, sphereMat));
-    _sceneObjects.push_back( std::make_unique<Sphere> (vect3D(0.0, -0.15, 0.0)+groupTranslation, 0.05, sphereMat));
+    _sceneObjects.push_back( std::make_unique<Sphere> (vect3D(0.0, 0.3, 0.0)    +groupTranslation, 0.2, sphereMat));
+    _sceneObjects.push_back( std::make_unique<Sphere> (vect3D(0.0, -0.01, 0.0)  +groupTranslation, 0.1, sphereMat));
+    _sceneObjects.push_back( std::make_unique<Sphere> (vect3D(0.0, -0.17, 0.0)  +groupTranslation, 0.05, sphereMat));
     
     /* LEFT  */
      _sceneObjects.push_back( std::make_unique<Rectangle> (vect3D(-0.5, 0.0, -0.5), vect3D(1, 0, 0),

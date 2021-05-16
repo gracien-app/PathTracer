@@ -11,7 +11,8 @@
 
 #include "Chunk.hpp"
 
-
+/// Helper class used to connect all logic of the Path-Tracer algorithm and provide unique storage for all Chunks.
+/// @discussion Divides tasks between Chunks (threads) and initialises necessary data. Controls behaviour of Chunks.
 class Renderer {
 public:
     

@@ -16,15 +16,15 @@
 class Sphere : public Solid {
 public:
     
-    /// Sphere constructor with specifiable object parameters.
-    /// @param center Center of mass of sphere
-    /// @param radius Radius of sphere
-    /// @param colour RGB colour of the sphere
-    /// @discussion Careful when initialising, choose radius and center point with respect
-    /// to the world size (<1). Remember to specify colour as RGB, it's going to be normalized.
-    Sphere(const vect3D& centerPoint, const double radius, std::shared_ptr<Material> &materialPtr);
-    
+    /// Base class destructor override to correctly destruct the Sphere object.
     ~Sphere() override;
+    
+    /// Default Sphere constructor
+    /// @discussion Uses base Solid class constructor to initialise position and material data.
+    /// @param centerPoint 3-dimensional vector defining center point of the Sphere.
+    /// @param radius Value defining radius of the Sphere.
+    /// @param materialPtr Pointer to material for the geometry.
+    Sphere(const vect3D& centerPoint, const double radius, std::shared_ptr<Material> &materialPtr);
     
     /// Checks if passed ray intersects with the geometrical figure of type Sphere.
     /// @param ray Reference to object of type Ray
@@ -36,10 +36,11 @@ public:
     ///
     /// @discussion To obtain the final intersection formula, transform the (x-Cx)+(y-Cy)+(z-Cz) = r^2.
     /// @discussion For point P, and center of sphere C, the difference is (Px-Cx)+(Py-Cy)+(Pz-Cz)
-    /// @note Ray is a P(time) = Origin + time * Destination
-    /// @note Final formula F(t) = t^2*Destination^2 + t*2*Destination*(Origin-C)+ Origin^2-R^2 = 0
+    /// @note Ray is a P(time) = Origin + time * Direction
+    /// @note Final formula F(t) = t^2*Direction^2 + t*2*Direction*(Origin-C)+ Origin^2-R^2
+    /// Method behaves accordingly to the number of roots found (quadratic equation above). Method definition contains proper comments.
     /// @warning Multiplication of vectors - Dot product!
-    bool Intersect (const Ray &ray, intersection &recent_Inter, const double &timeMin, const double &timeMax) const override;
+    bool Intersect (const Ray &ray, Intersection &recent_Inter, const double &timeMin, const double &timeMax) const override;
     
 private:
     double _radius;

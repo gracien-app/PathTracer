@@ -33,13 +33,12 @@ public:
     /// @param timeMax Specifies maximum time when the intersection can occur.
     /// @return - True if ray INTERSECTS the geometry.
     /// @return - False if no intersections occur.
-    /// @warning Disc is one-sided, only rays coming from correct direction (opposite to Normal vector of geometry) can intersect with it.
+    /// @warning Disc is one-sided, only rays coming from correct direction (opposite to Normal vector of geometry) can intersect with it properly (Reflect).
     /// @discussion Disc intersection function is Plane intersection function, with one additional if statement.
-    /// @ref if ( distance.length() > (_radius/2) )
     /// For more in-depth explanation, one shoud refer to the infinite Plane intersection first.
     /// Additional statement: Length of vector defined as vector from center of geometry to the point of intersection, cannot be greater than radius.
     bool Intersect (const Ray &ray,
-                    intersection &recent_Inter,
+                    Intersection &recent_Inter,
                     const double &timeMin,
                     const double &timeMax) const override;
     

@@ -12,9 +12,7 @@ Solid::Solid(const vect3D &centerPoint, std::shared_ptr<Material> &materialPtr) 
     setPosition(centerPoint);
 }
 
-Solid::~Solid() {
-    std::cout << "  [D] Solid: Destructed" << std::endl;
-}
+Solid::~Solid() {}
 
 void Solid::setPosition(const vect3D &newPosition) {
     _center[0] = newPosition.x();
@@ -26,6 +24,6 @@ vect3D Solid::getPosition() {
     return _center;
 }
 
-bool Solid::Intersect (const Ray &ray, intersection &recent_Inter, const double &timeMin, const double &timeMax) const {
+bool Solid::Intersect (const Ray &ray, Intersection &recent_Inter, const double &timeMin, const double &timeMax) const {
     return false;
 }

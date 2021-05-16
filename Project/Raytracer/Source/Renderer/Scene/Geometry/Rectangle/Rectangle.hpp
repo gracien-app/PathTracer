@@ -26,7 +26,10 @@ public:
               const double &sideLength,
               std::shared_ptr<Material> &materialPtr);
     
-    /// @brief Overloaded method checking if passed ray can intersect with rectangle geometry.
+    /// Overloaded method checking if passed ray can intersect with rectangle geometry.
+    /// @discussion Rectangle uses one-sided Plane intersection equation with addition of XYZ limiting factors calculated based on _center of geometry.
+    /// @note Rectangle is axis-limited Plane object.
+    /// For more information, Plane::Intersect method should be referred.
     /// @param ray Reference to object of type Ray
     /// @param recent_Inter Reference to Recent structure which keeps track of recent intersections performed.
     /// @param timeMin Specifies minimum time when the intersection can occur.
@@ -34,7 +37,7 @@ public:
     /// @return - True if ray INTERSECTS the geometry.
     /// @return - False if no intersections occur.
     bool Intersect (const Ray &ray,
-                    intersection &recent_Inter,
+                    Intersection &recent_Inter,
                     const double &timeMin,
                     const double &timeMax) const override;
     

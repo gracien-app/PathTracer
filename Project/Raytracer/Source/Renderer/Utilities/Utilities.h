@@ -9,7 +9,9 @@
 #ifndef Utilities_h
 #define Utilities_h
 
+#include <cmath>
 #include <random>
+#include <iostream>
 
 /// Template function used to generate random number using Mersenne-Twister RNG. Numbers are generated within <0,1> range.
 /// @discussion Function set to inline as a optimisation - Small, often called function.

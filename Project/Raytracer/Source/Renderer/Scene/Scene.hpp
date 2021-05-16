@@ -12,6 +12,10 @@
 #include "Cube.hpp"
 #include "Camera.hpp"
 
+/// Class representing Scene object which contains objects (Solids).
+/// @discussion Created with expansion in mind, allows to easily create unique "scene" objects containing large amounts of geometry which can be rendered.
+/// @note Contains the most important methods of the engine - colourRay and intersectScene.
+/// Derives from Camera - each Scene must have a point of view from which it is rendered.
 class Scene : public Camera {
 public:
     
@@ -72,7 +76,7 @@ private:
     /// @param tMin Lower bound of time at which intersection can occur (necessary to prevent intersections which tend to 0).
     /// @param tMax Upper bound of time at which intersection can occur.
     /// @returns TRUE if any intersection occurs. FALSE otherwise.
-    bool intersectScene (const Ray &ray, intersection &recent_Inter, const double &tMin, const double &tMax) const;
+    bool intersectScene (const Ray &ray, Intersection &recent_Inter, const double &tMin, const double &tMax) const;
     
     std::vector<Colour> _skyGradient;
     std::vector<std::unique_ptr<Solid>> _sceneObjects;

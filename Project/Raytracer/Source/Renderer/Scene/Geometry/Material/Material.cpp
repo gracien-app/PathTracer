@@ -19,20 +19,28 @@ Metallic::Metallic(const Colour &rgbColour, const double &roughness) : Material(
     else _rough = 1.0;
 }
 
-// MARK: Reflect methods
+// MARK: Destructors
+Material::~Material() {}
+Diffused::~Diffused() {}
+Metallic::~Metallic() {}
+
+// MARK: Methods
 
 bool Material::reflect(
                        const Ray &inputRay,
-                             Ray &reflRay, const intersection &recInter, Colour &reflColour ) const {
+                             Ray &reflRay, const Intersection &recInter, Colour &reflColour ) const {
     return false;
 }
 
 bool Diffused::reflect(const Ray &inputRay,
-                             Ray &reflRay, const intersection &recInter, Colour &reflColour ) const {
+                             Ray &reflRay, const Intersection &recInter, Colour &reflColour ) const {
     
     auto nextDir = randUnitDir(recInter.outNormal);
     
     reflRay = Ray(recInter.position, nextDir);
+    
+    //MARK: Random unit vector (length=1) is generated on the same side of the geometry (OUTWARD normal).
+    //MARK: Reflected ray is given origin at intersection point, and new direction defined by nextDir.
     
     reflColour = _colour;
     
@@ -40,16 +48,21 @@ bool Diffused::reflect(const Ray &inputRay,
 }
 
 bool Metallic::reflect(const Ray &inputRay,
-                             Ray &reflRay, const intersection &recInter, Colour &reflColour ) const {
+                             Ray &reflRay, const Intersection &recInter, Colour &reflColour ) const {
     
-    auto unitDir = Normalize( inputRay.getDir() );
+    auto unitDir = Normalise( inputRay.getDir() );
     
     reflRay = Ray(recInter.position,
-                  unitDir - 2*recInter.outNormal*unitDir.dot(recInter.outNormal) + (randUnitVector()*_rough));
+                  unitDir - 2 * recInter.outNormal * unitDir.Dot(recInter.outNormal) + (randUnitVect() * _rough));
+    
+    // MARK: Reflected ray is given starting point at the point of intersection.
+    // MARK: New direction is created using mathematical formula for reflection ray with normal vector (header comment).
+    // MARK: Perfect reflection direction is then altered by some fraction (_rough) of randomly generated unit vector.
     
     reflColour = _colour;
     
-    if (reflRay.getDir().dot(recInter.outNormal)) return true;
+    //MARK: Checks if direction is correct (on the outside of geometry - positive dot product) after applying roughness.
+    if (reflRay.getDir().Dot(recInter.outNormal)) return true;
     else return false;
 }
 

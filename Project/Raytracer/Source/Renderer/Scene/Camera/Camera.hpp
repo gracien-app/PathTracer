@@ -11,6 +11,8 @@
 
 #include "Ray.hpp"
 
+/// Helper class used to separate point of view / projection logic from the renderer engine.
+/// @discussion Created with expansion in mind. Base class for Scene, defines point of view from which geometry is rendered.
 class Camera {
 public:
     

@@ -19,13 +19,15 @@ class Material;
 /// @param position Ray is a linear function ax+b where x=time, storing position is useful for determining normal vector for sphere.
 /// @param outNormal Outward normal at the intersection point. Inward normals are not taken into account at the current stage of program.
 /// @param material Pointer to material which was intersected by ray.
-struct intersection {
+struct Intersection {
     double time;
     vect3D position;
     vect3D outNormal; //MARK: Normal is always outward (outside of geometry / user defined for plane, rectangle).
     std::shared_ptr<Material> material;
 };
 
+/// Class representing Ray object (linear function of time).
+/// @discussion Contains helper methods used to access or interpret data.
 class Ray {
 public:
     
