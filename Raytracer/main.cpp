@@ -13,7 +13,7 @@ int main()
     App Raytracer;
     
     try {
-        Raytracer.Initialise(1534, 1534, 4);
+        Raytracer.Initialise(1536, 1536, 4);
     }
     
     catch(const char* err) {

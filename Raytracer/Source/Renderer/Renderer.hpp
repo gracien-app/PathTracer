@@ -9,7 +9,7 @@
 #ifndef Renderer_hpp
 #define Renderer_hpp
 
-#include "Chunk.hpp"
+#include "Worker.hpp"
 
 /// Helper class used to connect all logic of the Path-Tracer algorithm and provide unique storage for all Chunks.
 /// @discussion Divides tasks between Chunks (threads) and initialises necessary data. Controls behaviour of Chunks.
@@ -37,6 +37,10 @@ public:
     /// Method used to determine if all Chunks (wrapper class for std::thread) finished execution of given task.
     bool allFinished();
     
+    void acquireChunk(Worker &thread);
+    
+    void resetChunksIndex();
+    
     /// Method used to alter _stopExecution boolean to stop current rendering task on all Chunks.
     void stopAll();
     
@@ -51,7 +55,7 @@ public:
     
     /// Method used to distribute tasks between Chunks, giving each of them unique range on which they work. Last thread is given range extended to the end of the image, for cases where image height is not divisible by number of threads.
     /// @param nThreads Number of threads available
-    void distributeChunks(const int &nThreads);
+    void distributeChunks(const int &nThreads, const int &bucketSize);
     
     /// Method used to render chunk of the whole image. Iterates through pixels in given range, performing calculations samplesN-times.
     /// @discussion Gridpos defines cell in _outPixels vector, calcuated to match 1-dimensional vector of pixels (Implementation forced by SFML).
@@ -77,16 +81,19 @@ public:
     
 private:
     
-    int _samples, _bounces;
+    std::mutex acquireMtx;
+    
     double _width, _height;
+    int _samples, _bounces, _chunkIndex;
     
     std::atomic<bool> _stopExecution;
     
     std::shared_ptr<sf::Sprite> _outSprite;
     std::unique_ptr<sf::Texture> _outTexture;
     
-    std::vector<Chunk> _imageChunks;
+    std::vector<Range> _chunksVector;
     std::vector<sf::Uint8> _outPixels;
+    std::vector<Worker> _workerThreads;
     std::vector<std::unique_ptr<Scene>> _presetScenes;
     
 };
