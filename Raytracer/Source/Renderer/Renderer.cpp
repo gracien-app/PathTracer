@@ -22,7 +22,6 @@ void Renderer::Initialise(std::shared_ptr<std::vector<std::map<std::string, int>
     
     _outSprite.reset(new sf::Sprite);
     _outTexture.reset(new sf::Texture);
-    _presetSettings = userPresets;
     
     _imageChunks.reserve(nThreads);
     _outPixels.reserve(_width*_height*4); //MARK: Each pixel = R G B A separately.
@@ -59,30 +58,24 @@ void Renderer::distributeChunks(const int &nThreads) {
     std::cout << " [R] Multi-threaded rendering on " << nThreads << " concurrent threads" << std::endl;
 }
 
-void Renderer::runChunks(const int &nPreset) {
+void Renderer::runChunks(const int &nPreset, const int &samples, const int &bounces) {
     
+    _samples = samples;
+    _bounces = bounces;
     _stopExecution = false;
     
-    auto samples = _presetSettings->at(nPreset).at("SAMPLES");
-    auto bounces = _presetSettings->at(nPreset).at("BOUNCES");
-        
     for (auto &chunk : _imageChunks) {
-        chunk.chunkThread = std::thread(&Renderer::renderChunk, this, chunk.getID(), nPreset, samples, bounces );
+        chunk.chunkThread = std::thread(&Renderer::renderChunk, this, chunk.getID(), nPreset );
         chunk.busy = true;
     }
     
 }
 
 bool Renderer::joinAll() {
-
-    bool allJoined = true;
-
     for (auto &chunk : _imageChunks) {
-        if( !chunk.joinChunk() ) allJoined = false;
+        if( !chunk.joinChunk() ) return false;
     }
-    
-    return allJoined;
-    
+    return true;
 }
 
 void Renderer::stopAll() {
@@ -96,7 +89,7 @@ bool Renderer::allFinished() {
     return true;
 }
 
-void Renderer::renderChunk(const int &chunkID, const int &presetID, const int &samplesN, const int &bouncesN) {
+void Renderer::renderChunk(const int &chunkID, const int &presetID) {
     
     auto chunkEnd = _imageChunks[chunkID].rangeEnd();
     auto chunkStart = _imageChunks[chunkID].rangeStart();
@@ -112,18 +105,18 @@ void Renderer::renderChunk(const int &chunkID, const int &presetID, const int &s
 
             auto outputPixel = Colour(0, 0, 0);
             
-            for (int s=0; s<samplesN; s++) {
+            for (int s=0; s<_samples; s++) {
                 
                 auto x = ( double(i)+randomNumber<double>() ) / (_width-1);
                 auto y = ( double(j)+randomNumber<double>() ) / (_height-1);
                 //MARK: x and y are to multiply the vertical and horizontal projection vectors to the correct pixel.
                 
                 auto pixelRay = _presetScenes[presetID]->prepRay(x, y);
-                outputPixel += _presetScenes[presetID]->colourRay(pixelRay, bouncesN);
+                outputPixel += _presetScenes[presetID]->colourRay(pixelRay, _bounces);
                 
             }
             
-            outputPixel.standardiseOutput(_outPixels, gridPos, samplesN);
+            outputPixel.standardiseOutput(_outPixels, gridPos, _samples);
             
         }
     }

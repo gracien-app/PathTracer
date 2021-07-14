@@ -45,7 +45,9 @@ public:
     
     /// Method used to run renderChunk on all available Chunks (wrapper class for std::thread)
     /// @param nPreset Index of preset from predefined presets for which renderChunk is ran.
-    void runChunks(const int &nPreset);
+    /// @param samples Number of performed samples per pixel.
+    /// @param bounces Number of performed ray bounces per ray.
+    void runChunks(const int &nPreset, const int &samples, const int &bounces);
     
     /// Method used to distribute tasks between Chunks, giving each of them unique range on which they work. Last thread is given range extended to the end of the image, for cases where image height is not divisible by number of threads.
     /// @param nThreads Number of threads available
@@ -59,9 +61,7 @@ public:
     /// At the end of execution, marks completion of the calculations by changing appropriate flag of the worker Chunk.
     /// @param chunkID ID of the chunk executing the metod, necessary to determine appropriate range of calculations.
     /// @param presetID ID of current preset from predefined scenes settings.
-    /// @param samplesN Number of samples per pixel (how many times calculations are performed)
-    /// @param bouncesN Number of ray bounces (reflections) per pixel.
-    void renderChunk(const int &chunkID, const int &presetID, const int &samplesN, const int &bouncesN);
+    void renderChunk(const int &chunkID, const int &presetID);
     
     /// Method used to initialise all necessary components of renderer object.
     /// @discussion Reserves space for _outPixels and vector of Chunks. Creates predefined scenes based on presets vector passed, only scenes defined in defaultPresets are allocated. Associates sf::Sprite with sf::Texture on which render results are presented and later passed to the window.
@@ -77,13 +77,13 @@ public:
     
 private:
     
+    int _samples, _bounces;
     double _width, _height;
     
     std::atomic<bool> _stopExecution;
     
     std::shared_ptr<sf::Sprite> _outSprite;
     std::unique_ptr<sf::Texture> _outTexture;
-    std::shared_ptr<std::vector<std::map<std::string, int>>> _presetSettings;
     
     std::vector<Chunk> _imageChunks;
     std::vector<sf::Uint8> _outPixels;
