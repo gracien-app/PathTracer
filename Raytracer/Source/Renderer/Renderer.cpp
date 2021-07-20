@@ -155,6 +155,14 @@ void Renderer::renderChunk(const int &chunkID, const int &presetID, const Mode r
                         case DEPTH:
                             outputPixel += _presetScenes[presetID]->colourDistance(pixelRay);
                             break;
+                            
+                        case NORMALS:
+                            outputPixel += _presetScenes[presetID]->colourNormals(pixelRay);
+                            break;
+                            
+                        case TURBO:
+                            outputPixel += _presetScenes[presetID]->colourTurbo(pixelRay, turbo_srgb_floats);
+                            break;
                     }    
                 }
                 

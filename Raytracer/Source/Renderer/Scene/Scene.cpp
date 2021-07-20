@@ -75,11 +75,47 @@ Colour Scene::colourDistance(const Ray &r) const {
     if (intersectScene(r, recentInter, 0.0001, infinity<double>)) {
         
         auto differVec = recentInter.position - r.getOrigin();
-        auto distance = differVec.Length() * 0.5;
+        auto distance = differVec.lengthSquared() * 0.5;
         
-        distance = clamp(distance, 0.05, 0.9);
+        distance = clamp(distance, 0.05, 0.996);
         
         return Colour(1.0-distance, 1.0-distance, 1.0-distance);
+        
+    }
+    
+    return Colour(0.0, 0.0, 0.0);
+    
+}
+
+Colour Scene::colourNormals(const Ray &r) const {
+    
+    Intersection recentInter;
+    
+    if (intersectScene(r, recentInter, 0.0001, infinity<double>)) {
+        
+        auto temp = recentInter.outNormal;
+        
+        return 0.5*Colour(temp.x()+1, temp.y()+1 , temp.z()+1 );
+        
+    }
+    
+    return Colour(0.0, 0.0, 0.0);
+    
+}
+
+Colour Scene::colourTurbo(const Ray &r, const float (&turbo_map)[256][3]) const {
+    
+    Intersection recentInter;
+    
+    if (intersectScene(r, recentInter, 0.0001, infinity<double>)) {
+        
+        auto time = recentInter.time;
+        auto ratio = time / 1.0;
+        
+        auto distance = clamp(ratio, 0.0, 1.0);
+        auto index = int((1.0-distance)*256);
+        
+        return Colour(turbo_map[index][0], turbo_map[index][1], turbo_map[index][2]);
         
     }
     

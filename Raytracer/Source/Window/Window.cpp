@@ -151,6 +151,22 @@ void Window::handleEvent() {
             }
         }
         
+        if (_windowEvent.key.code == sf::Keyboard::Num3) {
+            if (_renderMode != Mode::TURBO) {
+                _renderMode = Mode::TURBO;
+                restartScene();
+            }
+        }
+        
+        if (_windowEvent.key.code == sf::Keyboard::Num4) {
+            if (_renderMode != Mode::NORMALS) {
+                _renderMode = Mode::NORMALS;
+                restartScene();
+            }
+        }
+        
+        
+        
         else if (_windowEvent.key.code == sf::Keyboard::Left) {
             if (_currentScene > 0) changeScene();
         }

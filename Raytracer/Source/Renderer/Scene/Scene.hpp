@@ -65,6 +65,10 @@ public:
     Colour colourRay(const Ray& r, const int &rayBounces) const;
     
     Colour colourDistance(const Ray &r) const;
+    
+    Colour colourNormals(const Ray &r) const;
+    
+    Colour colourTurbo(const Ray &r, const float (&turbo_map)[256][3]) const;
         
 private:
     

@@ -53,4 +53,5 @@ inline T clamp(T x, T min, T max) {
 template <typename T>
 const T infinity = std::numeric_limits<T>::infinity();
 
+
 #endif /* Utilities_h */

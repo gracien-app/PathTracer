@@ -62,6 +62,7 @@ private:
     
     /// Exists for future expansion. Not used throughout the program at the current stage.
     double Alpha;
+
 };
 
 /// Operator overload used to multiply Colours.
@@ -72,5 +73,6 @@ inline Colour operator*(const Colour &lhs, const Colour &rhs) {
                   lhs.y()*rhs.y(),
                   lhs.z()*rhs.z());
 }
+
 
 #endif /* Colour_hpp */
