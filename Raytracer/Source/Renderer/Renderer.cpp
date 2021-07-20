@@ -125,8 +125,8 @@ void Renderer::renderChunk(const int &chunkID, const int &presetID, const Mode r
         auto chunkEnd = _workerThreads[chunkID].workerRange.end;
         auto chunkStart = _workerThreads[chunkID].workerRange.start;
         
-        for (int j=chunkStart.second; j<=chunkEnd.second; j++) {
-            for (int i=chunkStart.first; i<=chunkEnd.first; i++) {
+        for (int j=chunkStart.second; j<=chunkEnd.second; j+=1) {
+            for (int i=chunkStart.first; i<=chunkEnd.first; i+=1) {
                 
                 if (_stopExecution || !_workerThreads[chunkID].isWorking()) {
                     _workerThreads[chunkID].busy = false;

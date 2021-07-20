@@ -97,7 +97,6 @@ void Window::Display() {
         
     }
     
-    _renderEngine->stopAll();
     if (_renderEngine->joinAll()) std::cout << " [R] All threads joined safely." << std::endl;
     else std::cout << "[!] WARNING: Not all threads joined." << std::endl;
     
@@ -124,6 +123,15 @@ void Window::restartScene() {
     
 }
 
+void Window::initPresets() {
+    _presetsVector.reset( new std::vector<std::map<std::string, int>> {
+                            { {"ID", 99}, {"SAMPLES", 10}, {"BOUNCES", 10} },
+                            { {"ID", 1}, {"SAMPLES", 5}, {"BOUNCES", 50} },
+                            { {"ID", 2}, {"SAMPLES", 5}, {"BOUNCES", 50} },
+                            { {"ID", 3}, {"SAMPLES", 10}, {"BOUNCES", 100} }
+                        });
+}
+
 void Window::handleEvent() {
     
     if (_windowEvent.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
@@ -133,68 +141,63 @@ void Window::handleEvent() {
     
     else if (_windowEvent.type == sf::Event::KeyReleased) {
         
-        if (_windowEvent.key.code == sf::Keyboard::Space) {
-            _renderEngine->stopAll();
-        }
-        
-        if (_windowEvent.key.code == sf::Keyboard::Num1) {
-            if (_renderMode != Mode::STANDARD) {
-                _renderMode = Mode::STANDARD;
+        switch (_windowEvent.key.code) {
+                
+            case sf::Keyboard::Space:
+                _renderEngine->stopAll();
+                break;
+                
+            case sf::Keyboard::Num1:
+                if (_renderMode != Mode::STANDARD) {
+                    _renderMode = Mode::STANDARD;
+                    restartScene();
+                }
+                break;
+                
+            case sf::Keyboard::Num2:
+                if (_renderMode != Mode::DEPTH) {
+                    _renderMode = Mode::DEPTH;
+                    restartScene();
+                }
+                break;
+                
+            case sf::Keyboard::Num3:
+                if (_renderMode != Mode::THERMOGRAPHY) {
+                    _renderMode = Mode::THERMOGRAPHY;
+                    restartScene();
+                }
+                break;
+                
+            case sf::Keyboard::Num4:
+                if (_renderMode != Mode::NORMALS) {
+                    _renderMode = Mode::NORMALS;
+                    restartScene();
+                }
+                break;
+                
+            case sf::Keyboard::Left:
+                if (_currentScene > 0) changeScene();
+                break;
+                
+            case sf::Keyboard::Right:
+                if (_currentScene < _scenesCount) changeScene(true);
+                break;
+                
+            case sf::Keyboard::Up:
+                _presetsVector->at(_currentScene).at("SAMPLES") += 5;
                 restartScene();
-            }
+                break;
+                
+            case sf::Keyboard::Down:
+                if ((_currentSamples-5) > 0) {
+                    _presetsVector->at(_currentScene).at("SAMPLES") -= 5;
+                    restartScene();
+                }
+                break;
+                
+            default:
+                break;
+                
         }
-        
-        if (_windowEvent.key.code == sf::Keyboard::Num2) {
-            if (_renderMode != Mode::DEPTH) {
-                _renderMode = Mode::DEPTH;
-                restartScene();
-            }
-        }
-        
-        if (_windowEvent.key.code == sf::Keyboard::Num3) {
-            if (_renderMode != Mode::THERMOGRAPHY) {
-                _renderMode = Mode::THERMOGRAPHY;
-                restartScene();
-            }
-        }
-        
-        if (_windowEvent.key.code == sf::Keyboard::Num4) {
-            if (_renderMode != Mode::NORMALS) {
-                _renderMode = Mode::NORMALS;
-                restartScene();
-            }
-        }
-        
-        
-        
-        else if (_windowEvent.key.code == sf::Keyboard::Left) {
-            if (_currentScene > 0) changeScene();
-        }
-        
-        else if (_windowEvent.key.code == sf::Keyboard::Right) {
-            if (_currentScene < _scenesCount) changeScene(true);
-        }
-        
-        else if (_windowEvent.key.code == sf::Keyboard::Up) {
-            _presetsVector->at(_currentScene).at("SAMPLES") += 5;
-            restartScene();
-        }
-        
-        else if (_windowEvent.key.code == sf::Keyboard::Down) {
-            if (_currentSamples != 5) {
-                _presetsVector->at(_currentScene).at("SAMPLES") -= 5;
-                restartScene();
-            }
-        }
-        
     }
-}
-
-void Window::initPresets() {
-    _presetsVector.reset( new std::vector<std::map<std::string, int>> {
-                            { {"ID", 99}, {"SAMPLES", 10}, {"BOUNCES", 10} },
-                            { {"ID", 1}, {"SAMPLES", 5}, {"BOUNCES", 50} },
-                            { {"ID", 2}, {"SAMPLES", 5}, {"BOUNCES", 50} },
-                            { {"ID", 3}, {"SAMPLES", 10}, {"BOUNCES", 100} }
-                        });
 }

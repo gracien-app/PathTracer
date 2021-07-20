@@ -24,8 +24,8 @@ Cube::Cube(     const vect3D &centerPoint, const double &sideLength,
     auto topCenter = _center + vect3D(0, halfSide, 0);
     auto bottomCenter = _center + vect3D(0, -halfSide, 0);
     
-    _cubeSides.push_back( std::make_unique<Rectangle> (frontCenter,     vect3D(0, 0, -1), sideLength, _material) );
-    _cubeSides.push_back( std::make_unique<Rectangle> (backCenter,      vect3D(0, 0, 1),  sideLength, _material) );
+    _cubeSides.push_back( std::make_unique<Rectangle> (frontCenter,     vect3D(0, 0, 1), sideLength, _material) );
+    _cubeSides.push_back( std::make_unique<Rectangle> (backCenter,      vect3D(0, 0, -1),  sideLength, _material) );
     
     _cubeSides.push_back( std::make_unique<Rectangle> (topCenter,       vect3D(0, 1, 0),  sideLength, _material) );
     _cubeSides.push_back( std::make_unique<Rectangle> (bottomCenter,    vect3D(0, -1, 0), sideLength, _material) );
