@@ -68,6 +68,25 @@ Colour Scene::colourRay(const Ray &r, const int &rayBounces) const {
     }
 }
 
+Colour Scene::colourDistance(const Ray &r) const {
+    
+    Intersection recentInter;
+    
+    if (intersectScene(r, recentInter, 0.0001, infinity<double>)) {
+        
+        auto differVec = recentInter.position - r.getOrigin();
+        auto distance = differVec.Length() * 0.5;
+        
+        distance = clamp(distance, 0.05, 0.9);
+        
+        return Colour(1.0-distance, 1.0-distance, 1.0-distance);
+        
+    }
+    
+    return Colour(0.0, 0.0, 0.0);
+    
+}
+
 bool Scene::intersectScene (const Ray &ray, Intersection &recent_Inter, const double &tMin, const double &tMax) const {
     Intersection tempRecent;
     bool didIntersect = false;
@@ -180,11 +199,11 @@ void Scene::plainScene() {
     _skyGradient.push_back( ( Colour(28,  146, 210).normalizeRGB() ) );
     
     std::shared_ptr<Material> plainMat;
-    plainMat = std::make_shared<Metallic> ( Colour (215, 210, 204).normalizeRGB(), 1.0 );
+    plainMat = std::make_shared<Diffused> ( Colour (215, 210, 204).normalizeRGB() );
     
     /* ITEMS */
     _sceneObjects.push_back( std::make_unique<Sphere>   (vect3D(0.0, -0.2, -1.5), 0.3, plainMat));
-    _sceneObjects.push_back( std::make_unique<Plane> (vect3D(0.0, -0.5, 0.0), vect3D(0, 1, 0), plainMat));
+    _sceneObjects.push_back( std::make_unique<Rectangle>(vect3D(0.0, -0.5, 0.0), vect3D(0, 1, 0), 10, plainMat));
     
 }
 

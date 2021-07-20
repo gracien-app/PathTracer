@@ -59,6 +59,8 @@ private:
     
     int _userThreads, _scenesCount, _currentScene, _currentSamples, _currentBounces;
     
+    Mode _renderMode;
+    
     sf::Clock _timer;
     sf::Event _windowEvent;
     sf::RenderWindow _renderWindow;

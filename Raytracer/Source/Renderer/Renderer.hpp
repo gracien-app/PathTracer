@@ -11,6 +11,11 @@
 
 #include "Worker.hpp"
 
+enum Mode {
+    STANDARD,
+    DEPTH,
+};
+
 /// Helper class used to connect all logic of the Path-Tracer algorithm and provide unique storage for all Chunks.
 /// @discussion Divides tasks between Chunks (threads) and initialises necessary data. Controls behaviour of Chunks.
 class Renderer {
@@ -51,7 +56,7 @@ public:
     /// @param nPreset Index of preset from predefined presets for which renderChunk is ran.
     /// @param samples Number of performed samples per pixel.
     /// @param bounces Number of performed ray bounces per ray.
-    void runChunks(const int &nPreset, const int &samples, const int &bounces);
+    void runChunks(const int &nPreset, const int &samples, const int &bounces, const Mode render_mode);
     
     /// Method used to distribute tasks between Chunks, giving each of them unique range on which they work. Last thread is given range extended to the end of the image, for cases where image height is not divisible by number of threads.
     /// @param nThreads Number of threads available
@@ -65,7 +70,7 @@ public:
     /// At the end of execution, marks completion of the calculations by changing appropriate flag of the worker Chunk.
     /// @param chunkID ID of the chunk executing the metod, necessary to determine appropriate range of calculations.
     /// @param presetID ID of current preset from predefined scenes settings.
-    void renderChunk(const int &chunkID, const int &presetID);
+    void renderChunk(const int &chunkID, const int &presetID, const Mode render_mode);
     
     /// Method used to initialise all necessary components of renderer object.
     /// @discussion Reserves space for _outPixels and vector of Chunks. Creates predefined scenes based on presets vector passed, only scenes defined in defaultPresets are allocated. Associates sf::Sprite with sf::Texture on which render results are presented and later passed to the window.

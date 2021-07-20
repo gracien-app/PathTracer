@@ -30,6 +30,8 @@ void Window::Initialise(const uint &width, const uint &height, const int &inputT
     try {
         
         // RENDERER INIT //
+        _renderMode = Mode::STANDARD;
+        
         if (inputThreads > 0) _userThreads = inputThreads;
         else _userThreads = std::thread::hardware_concurrency();
         
@@ -64,7 +66,7 @@ void Window::renderCurrentScene() {
     _currentSamples = _presetsVector->at(_currentScene).at("SAMPLES");
     
     _renderEngine->resetChunksIndex();
-    _renderEngine->runChunks( _currentScene, _currentSamples, _currentBounces );
+    _renderEngine->runChunks( _currentScene, _currentSamples, _currentBounces, _renderMode );
     
 }
 
@@ -95,6 +97,7 @@ void Window::Display() {
         
     }
     
+    _renderEngine->stopAll();
     if (_renderEngine->joinAll()) std::cout << " [R] All threads joined safely." << std::endl;
     else std::cout << "[!] WARNING: Not all threads joined." << std::endl;
     
@@ -134,6 +137,20 @@ void Window::handleEvent() {
             _renderEngine->stopAll();
         }
         
+        if (_windowEvent.key.code == sf::Keyboard::Num1) {
+            if (_renderMode != Mode::STANDARD) {
+                _renderMode = Mode::STANDARD;
+                restartScene();
+            }
+        }
+        
+        if (_windowEvent.key.code == sf::Keyboard::Num2) {
+            if (_renderMode != Mode::DEPTH) {
+                _renderMode = Mode::DEPTH;
+                restartScene();
+            }
+        }
+        
         else if (_windowEvent.key.code == sf::Keyboard::Left) {
             if (_currentScene > 0) changeScene();
         }
@@ -161,7 +178,7 @@ void Window::initPresets() {
     _presetsVector.reset( new std::vector<std::map<std::string, int>> {
                             { {"ID", 99}, {"SAMPLES", 10}, {"BOUNCES", 10} },
                             { {"ID", 1}, {"SAMPLES", 5}, {"BOUNCES", 50} },
-                            { {"ID", 2}, {"SAMPLES", 50}, {"BOUNCES", 50} },
+                            { {"ID", 2}, {"SAMPLES", 5}, {"BOUNCES", 50} },
                             { {"ID", 3}, {"SAMPLES", 10}, {"BOUNCES", 100} }
                         });
 }

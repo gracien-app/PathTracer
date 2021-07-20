@@ -43,8 +43,6 @@ void Renderer::Initialise(std::shared_ptr<std::vector<std::map<std::string, int>
 
 void Renderer::distributeChunks(const int &nThreads, const int &bucketSize) {
     
-    _chunkIndex = 0;
-    
     for (int j=0; j<_height; j+=bucketSize) {
         for (int i=0; i<_width; i+=bucketSize) {
             Range temp;
@@ -59,29 +57,19 @@ void Renderer::distributeChunks(const int &nThreads, const int &bucketSize) {
         }
     }
     
-//    int chunkSize = _height / nThreads;
-    
-    for (int i=0; i < nThreads; i++) {
-    
-//        int yStart = i*chunkSize;
-//        int yEnd;
-//        if (i == (nThreads-1) ) yEnd = _height-1;
-//        else yEnd = yStart + chunkSize-1;
-    
-        _workerThreads.push_back(Worker());
-    }
+    for (int i=0; i < nThreads; i++) _workerThreads.push_back(Worker());
     
     std::cout << " [R] Multi-threaded rendering on " << nThreads << " concurrent threads" << std::endl;
 }
 
-void Renderer::runChunks(const int &nPreset, const int &samples, const int &bounces) {
+void Renderer::runChunks(const int &nPreset, const int &samples, const int &bounces, const Mode render_mode) {
     
     _samples = samples;
     _bounces = bounces;
     _stopExecution = false;
     
     for (auto &worker : _workerThreads) {
-        worker.Thread = std::thread(&Renderer::renderChunk, this, worker.getID(), nPreset );
+        worker.Thread = std::thread(&Renderer::renderChunk, this, worker.getID(), nPreset, render_mode );
         worker.busy = true;
     }
     
@@ -128,7 +116,7 @@ void Renderer::resetChunksIndex() {
     _chunkIndex = 0;
 }
 
-void Renderer::renderChunk(const int &chunkID, const int &presetID) {
+void Renderer::renderChunk(const int &chunkID, const int &presetID, const Mode render_mode ) {
     
     while (true) {
         
@@ -158,8 +146,16 @@ void Renderer::renderChunk(const int &chunkID, const int &presetID) {
                     //MARK: x and y are to multiply the vertical and horizontal projection vectors to the correct pixel.
                     
                     auto pixelRay = _presetScenes[presetID]->prepRay(x, y);
-                    outputPixel += _presetScenes[presetID]->colourRay(pixelRay, _bounces);
                     
+                    switch (render_mode) {
+                        case STANDARD:
+                            outputPixel += _presetScenes[presetID]->colourRay(pixelRay, _bounces);
+                            break;
+                            
+                        case DEPTH:
+                            outputPixel += _presetScenes[presetID]->colourDistance(pixelRay);
+                            break;
+                    }    
                 }
                 
                 outputPixel.standardiseOutput(_outPixels, gridPos, _samples);

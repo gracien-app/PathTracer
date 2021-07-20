@@ -63,6 +63,8 @@ public:
     /// @param rayBounces Value defining how many times a ray can be bounced (reflected).
     /// @returns Colour accumulated from the ray traveling, with normalised partial components RGB.
     Colour colourRay(const Ray& r, const int &rayBounces) const;
+    
+    Colour colourDistance(const Ray &r) const;
         
 private:
     
