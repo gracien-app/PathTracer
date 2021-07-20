@@ -152,8 +152,8 @@ void Window::handleEvent() {
         }
         
         if (_windowEvent.key.code == sf::Keyboard::Num3) {
-            if (_renderMode != Mode::TURBO) {
-                _renderMode = Mode::TURBO;
+            if (_renderMode != Mode::THERMOGRAPHY) {
+                _renderMode = Mode::THERMOGRAPHY;
                 restartScene();
             }
         }

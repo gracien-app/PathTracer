@@ -15,7 +15,7 @@ enum Mode {
     STANDARD,
     DEPTH,
     NORMALS,
-    TURBO,
+    THERMOGRAPHY,
 };
 
 /// Helper class used to connect all logic of the Path-Tracer algorithm and provide unique storage for all Chunks.

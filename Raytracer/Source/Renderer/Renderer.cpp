@@ -160,7 +160,7 @@ void Renderer::renderChunk(const int &chunkID, const int &presetID, const Mode r
                             outputPixel += _presetScenes[presetID]->colourNormals(pixelRay);
                             break;
                             
-                        case TURBO:
+                        case THERMOGRAPHY:
                             outputPixel += _presetScenes[presetID]->colourTurbo(pixelRay, turbo_srgb_floats);
                             break;
                     }    
