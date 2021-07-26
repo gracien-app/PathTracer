@@ -118,6 +118,8 @@ void Window::changeScene(const bool &next) {
     _renderEngine->stopAll();
     _renderEngine->joinAll();
     
+    _moved = false;
+    
     if (next) _currentScene++;
     else _currentScene--;
     
