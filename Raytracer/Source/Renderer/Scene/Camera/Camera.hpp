@@ -43,13 +43,14 @@ public:
     /// @param x Value defining a fraction by which X vector should be moved.
     /// @param y Value defining a fraction by which Y vector should be moved
     Ray prepRay(const double &x, const double &y);
+    
+    void Move(const vect3D &moveVect);
 
 private:
     
-    double _focalLenght;
-    double _aspectRatio; 
-    double _projectionHeight;
-    double _projectionWidth;
+    double _FOV;
+    double _viewH;
+    double _viewW;
 
     vect3D _X;
     vect3D _Y;

@@ -11,9 +11,10 @@
 Cube::~Cube() {}
 
 Cube::Cube(     const vect3D &centerPoint, const double &sideLength,
-                std::shared_ptr<Material> &materialPtr) : Solid(centerPoint, materialPtr) {
+                std::shared_ptr<Material> &materialPtr, const bool invertNormals) : Solid(centerPoint, materialPtr) {
     
     auto halfSide = sideLength/2;
+    auto mult = invertNormals ? -1.0 : 1.0;
     
     auto frontCenter = _center + vect3D(0, 0, halfSide);
     auto backCenter = _center + vect3D(0, 0, -halfSide);
@@ -24,14 +25,14 @@ Cube::Cube(     const vect3D &centerPoint, const double &sideLength,
     auto topCenter = _center + vect3D(0, halfSide, 0);
     auto bottomCenter = _center + vect3D(0, -halfSide, 0);
     
-    _cubeSides.push_back( std::make_unique<Rectangle> (frontCenter,     vect3D(0, 0, 1), sideLength, _material) );
-    _cubeSides.push_back( std::make_unique<Rectangle> (backCenter,      vect3D(0, 0, -1),  sideLength, _material) );
+    _cubeSides.push_back( std::make_unique<Rectangle> (frontCenter,  vect3D(0, 0, 1*mult), sideLength, _material) );
+    _cubeSides.push_back( std::make_unique<Rectangle> (backCenter,   vect3D(0, 0, -1*mult),  sideLength, _material) );
     
-    _cubeSides.push_back( std::make_unique<Rectangle> (topCenter,       vect3D(0, 1, 0),  sideLength, _material) );
-    _cubeSides.push_back( std::make_unique<Rectangle> (bottomCenter,    vect3D(0, -1, 0), sideLength, _material) );
+    _cubeSides.push_back( std::make_unique<Rectangle> (topCenter,    vect3D(0, 1*mult, 0),  sideLength, _material) );
+    _cubeSides.push_back( std::make_unique<Rectangle> (bottomCenter, vect3D(0, -1*mult, 0), sideLength, _material) );
     
-    _cubeSides.push_back( std::make_unique<Rectangle> (leftCenter,      vect3D(1, 0, 0),  sideLength, _material) );
-    _cubeSides.push_back( std::make_unique<Rectangle> (rightCenter,     vect3D(-1, 0, 0), sideLength, _material) );
+    _cubeSides.push_back( std::make_unique<Rectangle> (leftCenter,   vect3D(1*mult, 0, 0),  sideLength, _material) );
+    _cubeSides.push_back( std::make_unique<Rectangle> (rightCenter,  vect3D(-1*mult, 0, 0), sideLength, _material) );
     
 }
 

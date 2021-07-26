@@ -37,6 +37,8 @@ public:
     virtual bool reflect(const Ray &inputRay, Ray &reflRay,
                          const Intersection &recInter, Colour &reflColour ) const;
     
+    virtual bool emit(const Intersection &recInter, Colour &totalColour) const;
+    
 protected:
     Colour _colour;
 };
@@ -62,6 +64,7 @@ public:
     /// @param reflColour Colour object passed by reference which will be given information about material colour.
     virtual bool reflect(const Ray &inputRay, Ray &reflRay,
                          const Intersection &recInter, Colour &reflColour ) const override;
+    
 };
 
 /// @brief Metallic material which reflects the ray with angle equal to the collision angle.
@@ -90,8 +93,37 @@ public:
     /// @param reflColour Colour object passed by reference which will be given information about material colour.
     virtual bool reflect(const Ray &inputRay, Ray &reflRay,
                          const Intersection &recInter, Colour &reflColour ) const override;
+    
 private:
     double _rough;
+};
+
+class EmissiveColour : public Material {
+    
+public:
+    
+    EmissiveColour(const Colour &rgbColour, const double &intensity);
+    
+    virtual ~EmissiveColour() override;
+    
+    virtual bool emit(const Intersection &recInter, Colour &totalColour) const override;
+    
+private:
+    double _intensity;
+};
+
+class EmissiveNormal : public Material {
+  
+public:
+    
+    EmissiveNormal(const double &intensity);
+    
+    virtual ~EmissiveNormal() override;
+    
+    virtual bool emit(const Intersection &recInter, Colour &totalColour) const override;
+    
+private:
+    double _intensity;
 };
 
 #endif /* Material_hpp */

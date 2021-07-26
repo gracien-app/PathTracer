@@ -38,6 +38,8 @@ public:
     /// Method used to initialise plain Scene containing Plane and Sphere objects.
     void plainScene();
     
+    void lightScene();
+    
     /// Method used to initialise Scene containing three Sphere objects and five walls created using Rectangle.
     void setupSpheres();
     

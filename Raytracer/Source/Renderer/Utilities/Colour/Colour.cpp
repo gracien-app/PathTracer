@@ -39,3 +39,12 @@ void Colour::standardiseOutput(std::vector<sf::Uint8> &outPixels, const int &gri
     
 }
 
+void Colour::standardiseOutputPreview(std::vector<sf::Uint8> &outPixels, const int &gridPos) {
+    
+    outPixels[4*gridPos+0] = int(256 * sqrt(this->x()));
+    outPixels[4*gridPos+1] = int(256 * sqrt(this->y()));
+    outPixels[4*gridPos+2] = int(256 * sqrt(this->z()));
+    outPixels[4*gridPos+3] = 255;
+    
+}
+

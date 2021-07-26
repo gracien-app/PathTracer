@@ -44,7 +44,7 @@ public:
     /// Method used to determine if all Chunks (wrapper class for std::thread) finished execution of given task.
     bool allFinished();
     
-    void acquireChunk(Worker &thread);
+    bool acquireChunk(Worker &thread);
     
     void resetChunksIndex();
     
@@ -58,7 +58,7 @@ public:
     /// @param nPreset Index of preset from predefined presets for which renderChunk is ran.
     /// @param samples Number of performed samples per pixel.
     /// @param bounces Number of performed ray bounces per ray.
-    void runChunks(const int &nPreset, const int &samples, const int &bounces, const Mode render_mode);
+    void runChunks(const int &nPreset, const int &samples, const int &bounces, const Mode render_mode, bool preview);
     
     /// Method used to distribute tasks between Chunks, giving each of them unique range on which they work. Last thread is given range extended to the end of the image, for cases where image height is not divisible by number of threads.
     /// @param nThreads Number of threads available
@@ -74,6 +74,8 @@ public:
     /// @param presetID ID of current preset from predefined scenes settings.
     void renderChunk(const int &chunkID, const int &presetID, const Mode render_mode);
     
+    void renderChunkPreview(const int &chunkID, const int &sceneID);
+    
     /// Method used to initialise all necessary components of renderer object.
     /// @discussion Reserves space for _outPixels and vector of Chunks. Creates predefined scenes based on presets vector passed, only scenes defined in defaultPresets are allocated. Associates sf::Sprite with sf::Texture on which render results are presented and later passed to the window.
     /// @param defaultPresets Presets vector containing settings for predefined scenes.
@@ -85,6 +87,10 @@ public:
     /// @discussion sf::Sprite consists of sf::Texture, which is loaded with _outPixels to form an image. Can be displayed by sf::RenderWindow
     /// @returns std::shared_ptr object by reference to increment smart pointer usage counter appropriately.
     std::shared_ptr<sf::Sprite> &refSprite();
+    
+    void moveCamera(const vect3D displacement, const int &sceneID);
+    
+    
     
 private:
     

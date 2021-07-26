@@ -58,6 +58,8 @@ public:
     /// For 255 * 1.0, it's rounded to (254) instead.
     void standardiseOutput(std::vector<sf::Uint8> &outPixels, const int &gridPos, const int &samples);
     
+    void standardiseOutputPreview(std::vector<sf::Uint8> &outPixels, const int &gridPos);
+    
 private:
     
     /// Exists for future expansion. Not used throughout the program at the current stage.

@@ -15,16 +15,25 @@ Material::Material(const Colour &rgbColour) : _colour(rgbColour) {}
 Diffused::Diffused(const Colour &rgbColour) : Material(rgbColour) {}
 
 Metallic::Metallic(const Colour &rgbColour, const double &roughness) : Material(rgbColour) {
-    if (roughness <= 1.0 || roughness >= 0) _rough = roughness;
-    else _rough = 1.0;
+    _rough = clamp(roughness, 0.0, 1.0);
+}
+
+EmissiveColour::EmissiveColour(const Colour &rgbColour, const double &intensity) : Material(rgbColour) {
+    _intensity = clamp(intensity, 0.0, 100.0);
+}
+
+EmissiveNormal::EmissiveNormal(const double &intensity) : Material(Colour(0.0, 0.0, 0.0)) {
+    _intensity = clamp(intensity, 0.0, 100.0);
 }
 
 // MARK: Destructors
 Material::~Material() {}
 Diffused::~Diffused() {}
 Metallic::~Metallic() {}
+EmissiveColour::~EmissiveColour() {}
+EmissiveNormal::~EmissiveNormal() {}
 
-// MARK: Methods
+// MARK: Reflect Methods
 
 bool Material::reflect(
                        const Ray &inputRay,
@@ -66,6 +75,29 @@ bool Metallic::reflect(const Ray &inputRay,
     else return false;
 }
 
+/// MARK: Emit Methods
+
+bool Material::emit(const Intersection &recInter, Colour &totalColour) const {
+    return false;
+}
+
+bool EmissiveColour::emit(const Intersection &recInter, Colour &totalColour) const {
+    
+    totalColour = _colour * _intensity;
+    return true;
+    
+}
+
+bool EmissiveNormal::emit(const Intersection &recInter, Colour &totalColour) const {
+    
+    auto unitNormal = 0.5 * Colour(recInter.outNormal.x()+1,
+                                   recInter.outNormal.y()+1,
+                                   recInter.outNormal.z()+1);
+    
+    totalColour = unitNormal * _intensity;
+    
+    return true;
+}
 
 
 

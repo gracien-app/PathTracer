@@ -31,7 +31,8 @@ public:
     /// @note Cube is always axis-aligned. No rotations are possible at the current implementation stage.
     Cube(const vect3D &centerPoint,
          const double &sideLength,
-         std::shared_ptr<Material> &materialPtr);
+         std::shared_ptr<Material> &materialPtr,
+         const bool invertNormals = false);
     
     /// Overloaded method checking if passed ray can intersect with Cube geometry (six Rectangles in _cubeSides).
     /// @discussion Intersects ray with all rectangular sides and looks for the closest intersection available (copy of Scene::intersectScene method)

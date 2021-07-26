@@ -8,7 +8,7 @@
 
 #include "Scene.hpp"
 
-Scene::Scene(const int &width, const int &height, int &variant) : Camera(vect3D(0,0,0), 1.0, width, height) {
+Scene::Scene(const int &width, const int &height, int &variant) : Camera(vect3D(0.0,0.0,0.0), 1.0, width, height) {
     
     switch (variant) {
         case 1:
@@ -25,6 +25,10 @@ Scene::Scene(const int &width, const int &height, int &variant) : Camera(vect3D(
             
         case 99:
             plainScene();
+            break;
+            
+        case 4:
+            lightScene();
             break;
             
         default:
@@ -54,6 +58,8 @@ Colour Scene::colourRay(const Ray &r, const int &rayBounces) const {
         if (recentInter.material->reflect(r, reflectedRay, recentInter, totalColour)) {
             return totalColour * colourRay(reflectedRay, rayBounces-1);
         }
+        
+        if (recentInter.material->emit(recentInter, totalColour)) return totalColour;
         
         else return Colour(0,0,0);
         
@@ -109,11 +115,8 @@ Colour Scene::colourTurbo(const Ray &r, const float (&turbo_map)[256][3]) const 
     
     if (intersectScene(r, recentInter, 0.0001, infinity<double>)) {
         
-        auto time = recentInter.time;
-        auto ratio = time / 1.0;
-        
-        auto distance = clamp(ratio, 0.0, 1.0);
-        auto index = int((1.0-distance)*256);
+        auto depth = clamp(recentInter.time, 0.0, 1.0);
+        auto index = int((1.0-depth)*256);
         
         return Colour(turbo_map[index][0], turbo_map[index][1], turbo_map[index][2]);
         
@@ -167,7 +170,7 @@ void Scene::setupCornell(const bool &reflective) {
     
     /* ITEMS */
     _sceneObjects.push_back( std::make_unique<Sphere> (vect3D(0.2, -0.3, -0.8), 0.2, objectsMat));
-    _sceneObjects.push_back( std::make_unique<Cube>   (vect3D(-0.2, -0.35, -0.8), 0.3, objectsMat));
+    _sceneObjects.push_back( std::make_unique<Cube>   (vect3D(-0.2, -0.35, -0.8), 0.3, objectsMat, true));
     
     
     /* LEFT  */
@@ -240,6 +243,40 @@ void Scene::plainScene() {
     /* ITEMS */
     _sceneObjects.push_back( std::make_unique<Sphere>   (vect3D(0.0, -0.2, -1.5), 0.3, plainMat));
     _sceneObjects.push_back( std::make_unique<Rectangle>(vect3D(0.0, -0.5, 0.0), vect3D(0, 1, 0), 10, plainMat));
+    
+}
+
+void Scene::lightScene() {
+    
+    std::cout << "[C] Scene: Lights Scene for debugging" << std::endl;
+    
+    _skyGradient.push_back( Colour(0.0, 0.0, 0.0) );
+    _skyGradient.push_back( Colour(0.0, 0.0, 0.0) );
+    
+    std::shared_ptr<Material> wallsMat, ballsMat, whiteEmit;
+    
+    wallsMat = std::make_shared<Diffused> ( Colour (40, 40, 40).normalizeRGB());
+    ballsMat = std::make_shared<Metallic>( Colour(0.1, 0.1, 0.1), 1.0);
+    
+    whiteEmit = std::make_shared<EmissiveNormal> ( 1.0 );
+  
+    _sceneObjects.push_back( std::make_unique<Sphere>(vect3D(0.0, -0.15, -0.5), 0.1, whiteEmit) );
+
+    /// MARK: Room - Ground at -0.3
+    _sceneObjects.push_back(std::make_unique<Plane>(vect3D(0.0, -0.165, 0.0), vect3D(0.0, 1.0, 0.0), wallsMat));
+
+    _sceneObjects.push_back(std::make_unique<Plane>(vect3D(0.0, 0.165, 0.0), vect3D(0.0, -1.0, 0.0), wallsMat));
+
+    _sceneObjects.push_back(std::make_unique<Plane>(vect3D(-0.165, 0.0, 0.0), vect3D(1.0, 0.0, 0.0), wallsMat));
+
+    _sceneObjects.push_back(std::make_unique<Plane>(vect3D(0.165, 0.0, 0.0), vect3D(-1.0, 0.0, 0.0), wallsMat));
+
+    std::shared_ptr<Material> fullyRefl = std::make_shared<Metallic>(Colour(1.0, 1.0, 1.0), 0.0);
+
+    _sceneObjects.push_back(std::make_unique<Rectangle>(vect3D(0.0, 0.0, -1.0), vect3D(0.0, 0.0, 1.0), 2, fullyRefl));
+
+    _sceneObjects.push_back(std::make_unique<Rectangle>(vect3D(0.0, 0.0, 1.0), vect3D(0.0, 0.0, -1.0), 2, fullyRefl));
+
     
 }
 

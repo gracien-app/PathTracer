@@ -12,18 +12,27 @@ Ray Camera::prepRay(const double &x, const double &y) {
     return Ray(_origin, (_LUC + _X*x - _Y*y));
 }
 
-Camera::Camera( const vect3D &position, const double &focal, const int &resWidth, const int &resHeight) {
+void Camera::Move(const vect3D &moveVect) {
     
-    _origin = position;
-    _focalLenght = focal;
-    _aspectRatio = resWidth / resHeight; //MARK: How height defines width.
+    /// Move camera by displacement vector passed to the function.
+    _origin += moveVect;
     
-    _projectionHeight = 2.0; //MARK: Height coordinates go from -1,1 so the total length is 2.
-    _projectionWidth = _projectionHeight*_aspectRatio; //MARK: Defining the width of projection based on height.
+    /// Reevaluate Left Upper Corner (abbr. LUC) of the projection view.
+    _LUC = vect3D(_origin - _Depth + _Y/2 - _X/2);
+}
+
+Camera::Camera( const vect3D &pos, const double &fov, const int &width, const int &height) {
     
-    _Depth = vect3D(0, 0, _focalLenght);
-    _X = vect3D(_projectionWidth, 0, 0);
-    _Y = vect3D(0, _projectionHeight, 0);
+    _origin = pos;
+    _FOV = fov;
+    auto aspectRatio = width / height; //MARK: How height defines width.
+    
+    _viewH = 2.0; //MARK: Height coordinates go from -1,1 so the total length is 2.
+    _viewW = _viewH * aspectRatio; //MARK: Defining the width of projection based on height.
+    
+    _Depth = vect3D(0, 0, _FOV);
+    _X = vect3D(_viewW, 0, 0);
+    _Y = vect3D(0, _viewH, 0);
     _LUC = vect3D(_origin - _Depth + _Y/2 - _X/2);
     
     //MARK: Depth - Direction vector defining the depth (Default = +Z)

@@ -62,14 +62,15 @@ void Renderer::distributeChunks(const int &nThreads, const int &bucketSize) {
     std::cout << " [R] Multi-threaded rendering on " << nThreads << " concurrent threads" << std::endl;
 }
 
-void Renderer::runChunks(const int &nPreset, const int &samples, const int &bounces, const Mode render_mode) {
+void Renderer::runChunks(const int &nPreset, const int &samples, const int &bounces, const Mode render_mode, bool preview) {
     
     _samples = samples;
     _bounces = bounces;
     _stopExecution = false;
     
     for (auto &worker : _workerThreads) {
-        worker.Thread = std::thread(&Renderer::renderChunk, this, worker.getID(), nPreset, render_mode );
+        if (preview) worker.Thread = std::thread(&Renderer::renderChunkPreview, this, worker.getID(), nPreset );
+        else worker.Thread = std::thread(&Renderer::renderChunk, this, worker.getID(), nPreset, render_mode );
         worker.busy = true;
     }
     
@@ -92,35 +93,74 @@ bool Renderer::allFinished() {
     }
     return true;
 }
-void Renderer::acquireChunk(Worker &thread) {
+
+void Renderer::moveCamera(const vect3D displacement, const int &sceneID) {
+    _presetScenes[sceneID]->Move(displacement);
+}
+
+bool Renderer::acquireChunk(Worker &thread) {
+    
     acquireMtx.lock();
     
     if (_chunkIndex <= (_chunksVector.size()-1)) {
         thread.busy = true;
-        thread.workerRange = _chunksVector[_chunkIndex];
-        _chunkIndex++;
-        
+        thread.workerRange = _chunksVector[_chunkIndex++];
         acquireMtx.unlock();
-        return;
+        return true;
     }
     
     else {
         _chunkIndex = -1;
         thread.busy = false;
         acquireMtx.unlock();
-        return;
+        return false;
     }
+    
 }
 
 void Renderer::resetChunksIndex() {
     _chunkIndex = 0;
 }
 
-void Renderer::renderChunk(const int &chunkID, const int &presetID, const Mode render_mode ) {
+void Renderer::renderChunkPreview(const int &chunkID, const int &sceneID) {
     
-    while (true) {
+    int loopOffset = 1;
+    auto wRatio = 1.0 / (_width-1);
+    auto hRatio = 1.0 / (_height-1);
+    
+    while (acquireChunk(_workerThreads[chunkID])) {
         
-        acquireChunk(_workerThreads[chunkID]);
+        auto chunkEnd = _workerThreads[chunkID].workerRange.end;
+        auto chunkStart = _workerThreads[chunkID].workerRange.start;
+        
+        for (int j=chunkStart.second; j<=chunkEnd.second; j+=loopOffset) {
+            for (int i=chunkStart.first; i<=chunkEnd.first; i+=loopOffset) {
+                
+                if (_stopExecution) {
+                    _workerThreads[chunkID].busy = false;
+                    return;
+                }
+                
+                int gridPos = i+(j*_width);
+                auto outputPixel = Colour(0, 0, 0);
+                    
+                auto x = i * wRatio;
+                auto y = j * hRatio;
+                    
+                auto pixelRay = _presetScenes[sceneID]->prepRay(x, y);
+                    
+                outputPixel += _presetScenes[sceneID]->colourTurbo(pixelRay, turbo_srgb_floats);
+
+                outputPixel.standardiseOutputPreview(_outPixels, gridPos);
+                
+            }
+        }
+    }
+}
+
+void Renderer::renderChunk(const int &chunkID, const int &sceneID, const Mode render_mode) {
+    
+    while (acquireChunk(_workerThreads[chunkID])) {
         
         auto chunkEnd = _workerThreads[chunkID].workerRange.end;
         auto chunkStart = _workerThreads[chunkID].workerRange.start;
@@ -128,7 +168,7 @@ void Renderer::renderChunk(const int &chunkID, const int &presetID, const Mode r
         for (int j=chunkStart.second; j<=chunkEnd.second; j+=1) {
             for (int i=chunkStart.first; i<=chunkEnd.first; i+=1) {
                 
-                if (_stopExecution || !_workerThreads[chunkID].isWorking()) {
+                if (_stopExecution) {
                     _workerThreads[chunkID].busy = false;
                     return;
                 }
@@ -145,23 +185,23 @@ void Renderer::renderChunk(const int &chunkID, const int &presetID, const Mode r
                     auto y = ( double(j)+randomNumber<double>() ) / (_height-1);
                     //MARK: x and y are to multiply the vertical and horizontal projection vectors to the correct pixel.
                     
-                    auto pixelRay = _presetScenes[presetID]->prepRay(x, y);
+                    auto pixelRay = _presetScenes[sceneID]->prepRay(x, y);
                     
                     switch (render_mode) {
                         case STANDARD:
-                            outputPixel += _presetScenes[presetID]->colourRay(pixelRay, _bounces);
+                            outputPixel += _presetScenes[sceneID]->colourRay(pixelRay, _bounces);
                             break;
                             
                         case DEPTH:
-                            outputPixel += _presetScenes[presetID]->colourDistance(pixelRay);
+                            outputPixel += _presetScenes[sceneID]->colourDistance(pixelRay);
                             break;
                             
                         case NORMALS:
-                            outputPixel += _presetScenes[presetID]->colourNormals(pixelRay);
+                            outputPixel += _presetScenes[sceneID]->colourNormals(pixelRay);
                             break;
                             
                         case THERMOGRAPHY:
-                            outputPixel += _presetScenes[presetID]->colourTurbo(pixelRay, turbo_srgb_floats);
+                            outputPixel += _presetScenes[sceneID]->colourTurbo(pixelRay, turbo_srgb_floats);
                             break;
                     }    
                 }

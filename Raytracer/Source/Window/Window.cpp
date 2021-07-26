@@ -59,14 +59,17 @@ void Window::Initialise(const uint &width, const uint &height, const int &inputT
     
 }
 
-void Window::renderCurrentScene() {
+void Window::renderCurrentScene(const bool preview) {
     
     _timer.restart();
+    if (preview) _moveTimer.restart();
+
     _currentBounces = _presetsVector->at(_currentScene).at("BOUNCES");
     _currentSamples = _presetsVector->at(_currentScene).at("SAMPLES");
     
     _renderEngine->resetChunksIndex();
-    _renderEngine->runChunks( _currentScene, _currentSamples, _currentBounces, _renderMode );
+    
+    _renderEngine->runChunks( _currentScene, _currentSamples, _currentBounces, _renderMode, preview );
     
 }
 
@@ -74,6 +77,9 @@ void Window::Display() {
     
     auto renderSprite = _renderEngine->refSprite();
     renderCurrentScene();
+    
+    _moved = false;
+    _moveOffset = 0.04;
     
     while (_renderWindow.isOpen()) {
         
@@ -88,6 +94,11 @@ void Window::Display() {
             
             _renderWindow.setTitle(titleInfo);
             
+        }
+        
+        if (_moved && _moveTimer.getElapsedTime().asSeconds() >= 1.0) {
+            _moved = false;
+            restartScene();
         }
         
         _renderWindow.clear(sf::Color(15, 15, 15));
@@ -114,21 +125,22 @@ void Window::changeScene(const bool &next) {
     
 }
 
-void Window::restartScene() {
+void Window::restartScene(const bool preview) {
     
     _renderEngine->stopAll();
     _renderEngine->joinAll();
     
-    renderCurrentScene();
+    renderCurrentScene(preview);
     
 }
 
 void Window::initPresets() {
     _presetsVector.reset( new std::vector<std::map<std::string, int>> {
-                            { {"ID", 99}, {"SAMPLES", 10}, {"BOUNCES", 10} },
+                            { {"ID", 4}, {"SAMPLES", 5}, {"BOUNCES", 5} },
+                            { {"ID", 99}, {"SAMPLES", 5}, {"BOUNCES", 10} },
                             { {"ID", 1}, {"SAMPLES", 5}, {"BOUNCES", 50} },
                             { {"ID", 2}, {"SAMPLES", 5}, {"BOUNCES", 50} },
-                            { {"ID", 3}, {"SAMPLES", 10}, {"BOUNCES", 100} }
+                            { {"ID", 3}, {"SAMPLES", 5}, {"BOUNCES", 50} },
                         });
 }
 
@@ -137,6 +149,105 @@ void Window::handleEvent() {
     if (_windowEvent.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
         _renderEngine->stopAll();
         _renderWindow.close();
+    }
+
+    else if (_windowEvent.type == sf::Event::KeyPressed) {
+        switch (_windowEvent.key.code) {
+                
+            case sf::Keyboard::W:
+                if (_moved) {
+                    if (_renderEngine->allFinished()) {
+                        _renderEngine->moveCamera(vect3D(0.0, 0.0, -_moveOffset), _currentScene);
+                        restartScene(true);
+                    }
+                }
+                else {
+                    _moved = true;
+                    _renderEngine->stopAll();
+                    _renderEngine->moveCamera(vect3D(0.0, 0.0, -_moveOffset), _currentScene);
+                    restartScene(true);
+                }
+                break;
+                
+            case sf::Keyboard::S:
+                if (_moved) {
+                    if (_renderEngine->allFinished()) {
+                        _renderEngine->moveCamera(vect3D(0.0, 0.0, _moveOffset), _currentScene);
+                        restartScene(true);
+                    }
+                }
+                else {
+                    _moved = true;
+                    _renderEngine->stopAll();
+                    _renderEngine->moveCamera(vect3D(0.0, 0.0, _moveOffset), _currentScene);
+                    restartScene(true);
+                }
+                break;
+                
+            case sf::Keyboard::A:
+                if (_moved) {
+                    if (_renderEngine->allFinished()) {
+                        _renderEngine->moveCamera(vect3D(-_moveOffset, 0.0, 0.0), _currentScene);
+                        restartScene(true);
+                    }
+                }
+                else {
+                    _moved = true;
+                    _renderEngine->stopAll();
+                    _renderEngine->moveCamera(vect3D(-_moveOffset, 0.0, 0.0), _currentScene);
+                    restartScene(true);
+                }
+                break;
+                
+            case sf::Keyboard::D:
+                if (_moved) {
+                    if (_renderEngine->allFinished()) {
+                        _renderEngine->moveCamera(vect3D(_moveOffset, 0.0, 0.0), _currentScene);
+                        restartScene(true);
+                    }
+                }
+                else {
+                    _moved = true;
+                    _renderEngine->stopAll();
+                    _renderEngine->moveCamera(vect3D(_moveOffset, 0.0, 0.0), _currentScene);
+                    restartScene(true);
+                }
+                break;
+                
+            case sf::Keyboard::Q:
+                if (_moved) {
+                    if (_renderEngine->allFinished()) {
+                        _renderEngine->moveCamera(vect3D(0.0, _moveOffset, 0.0), _currentScene);
+                        restartScene(true);
+                    }
+                }
+                else {
+                    _moved = true;
+                    _renderEngine->stopAll();
+                    _renderEngine->moveCamera(vect3D(0.0, _moveOffset, 0.0), _currentScene);
+                    restartScene(true);
+                }
+                break;
+                
+            case sf::Keyboard::E:
+                if (_moved) {
+                    if (_renderEngine->allFinished()) {
+                        _renderEngine->moveCamera(vect3D(0.0, -_moveOffset, 0.0), _currentScene);
+                        restartScene(true);
+                    }
+                }
+                else {
+                    _moved = true;
+                    _renderEngine->stopAll();
+                    _renderEngine->moveCamera(vect3D(0.0, -_moveOffset, 0.0), _currentScene);
+                    restartScene(true);
+                }
+                break;
+                
+            default:
+                break;
+        }
+        
     }
     
     else if (_windowEvent.type == sf::Event::KeyReleased) {

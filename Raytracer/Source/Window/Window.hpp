@@ -39,10 +39,10 @@ public:
     void handleEvent();
     
     /// Method which performs all necessary actions, to restart calculations of current scene. Executed in case when number of samples is changed by user using user input functionality.
-    void restartScene();
+    void restartScene(const bool preview = false);
     
     /// Method which calls Renderer::runChunks() for currently set scene. Additionally, currentSamples and currentBounces are updated to match current render settings, which are later displayed in title of application window.
-    void renderCurrentScene();
+    void renderCurrentScene(const bool preview = false);
     
     
     /// @brief Method which changes current scene. Performs all necessary actions to safely stop previous, and start rendering of new scene.
@@ -57,11 +57,15 @@ public:
    
 private:
     
+    bool _moved;
+    
+    double _moveOffset;
+    
     int _userThreads, _scenesCount, _currentScene, _currentSamples, _currentBounces;
     
     Mode _renderMode;
     
-    sf::Clock _timer;
+    sf::Clock _timer, _moveTimer;
     sf::Event _windowEvent;
     sf::RenderWindow _renderWindow;
     
