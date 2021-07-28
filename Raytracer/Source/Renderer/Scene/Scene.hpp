@@ -40,6 +40,10 @@ public:
     
     void lightScene();
     
+    void roomsScene();
+    
+    void ballLightsScene();
+    
     /// Method used to initialise Scene containing three Sphere objects and five walls created using Rectangle.
     void setupSpheres();
     

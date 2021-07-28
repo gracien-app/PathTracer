@@ -31,6 +31,14 @@ Scene::Scene(const int &width, const int &height, int &variant) : Camera(vect3D(
             lightScene();
             break;
             
+        case 5:
+            ballLightsScene();
+            break;
+            
+        case 6:
+            roomsScene();
+            break;
+            
         default:
             std::cout << "[!] Preset scene with ID: " << variant << " doesn't exist" << std::endl;
             std::cout << "    Using default instead " << std::endl;
@@ -148,16 +156,16 @@ void Scene::setupCornell(const bool &reflective) {
     else message += " (Matte)";
     std::cout << message << std::endl;
     
-    const double rectSide = 1;
+    const double rectSide = 1.1;
     
-    _skyGradient.push_back( ( Colour(1.0, 1.0, 1.0) ) );
-    _skyGradient.push_back( ( Colour(1.0, 1.0, 1.0) ) );
+    _skyGradient.push_back( ( Colour(0.0, 0.0, 0.0) ) );
+    _skyGradient.push_back( ( Colour(0.0, 0.0, 0.0) ) );
     
-    std::shared_ptr<Material> leftWallMat, rightWallMat, wallMat, objectsMat;
+    std::shared_ptr<Material> leftWallMat, rightWallMat, wallMat, objectsMat, lightSource;
     
     if (reflective) {
-        leftWallMat =   std::make_shared<Metallic>    ( Colour (252,70, 107).normalizeRGB(), 1.0 );
-        rightWallMat =  std::make_shared<Metallic>    ( Colour (63, 94, 251).normalizeRGB(), 1.0 );
+        leftWallMat =   std::make_shared<Metallic>    ( Colour (4,231,98).normalizeRGB(), 1.0 );
+        rightWallMat =  std::make_shared<Metallic>    ( Colour (10,102,250).normalizeRGB(), 1.0 );
         wallMat =       std::make_shared<Metallic>    ( Colour (255,255,255).normalizeRGB(), 0.2 );
         objectsMat =    std::make_shared<Metallic>    ( Colour (255,255,255).normalizeRGB(), 0.05);
     }
@@ -168,9 +176,11 @@ void Scene::setupCornell(const bool &reflective) {
         objectsMat =    std::make_shared<Diffused>    ( Colour (255,255,255).normalizeRGB() );
     }
     
+    lightSource = std::make_shared<EmissiveColour>(Colour(1.0, 1.0, 1.0), 1.0);
+    
     /* ITEMS */
     _sceneObjects.push_back( std::make_unique<Sphere> (vect3D(0.2, -0.3, -0.8), 0.2, objectsMat));
-    _sceneObjects.push_back( std::make_unique<Cube>   (vect3D(-0.2, -0.35, -0.8), 0.3, objectsMat, true));
+    _sceneObjects.push_back( std::make_unique<Cube>   (vect3D(-0.2, -0.35, -0.8), 0.3, objectsMat, false));
     
     
     /* LEFT  */
@@ -186,11 +196,14 @@ void Scene::setupCornell(const bool &reflective) {
     _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, -0.5, -0.5), vect3D(0, 1, 0),
                                                           rectSide, wallMat));
     /* FRONT BOTTOM */
-    _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, -0.6, 0), vect3D(0, 0, -1),
+    _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, 0.0, 0.05), vect3D(0, 0, -1),
                                                           rectSide, wallMat));
     /* FRONT UPPER */
-    _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, 0.6, 0), vect3D(0, 0, -1),
-                                                          rectSide, wallMat));
+//    _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, 0.6, 0), vect3D(0, 0, -1),
+//                                                          rectSide, wallMat));
+    
+    _sceneObjects.push_back( std::make_unique<Disc>  (vect3D(0, 0.4, 0.0), vect3D(0, 0, -1),
+                                                          rectSide/1.5, lightSource));
     /* BACK */
     _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, 0, -1), vect3D(0, 0, 1),
                                                           rectSide, objectsMat));
@@ -277,6 +290,82 @@ void Scene::lightScene() {
 
     _sceneObjects.push_back(std::make_unique<Rectangle>(vect3D(0.0, 0.0, 1.0), vect3D(0.0, 0.0, -1.0), 2, fullyRefl));
 
+}
+
+void Scene::ballLightsScene() {
+    
+    std::cout << "[C] Scene: Ball Lights Scene" << std::endl;
+    
+    auto gT = vect3D(-0.6, -0.2, -1.0);
+    
+    _skyGradient.push_back( Colour(0.0, 0.0, 0.0) );
+    _skyGradient.push_back( Colour(0.0, 0.0, 0.0) );
+    
+    std::shared_ptr<Material> groundMat, oneMat, twoMat, threeMat, fourMat, glassMat;
+    
+    groundMat = std::make_shared<Diffused> ( Colour (100, 100, 100).normalizeRGB() );
+    glassMat = std::make_shared<Metallic>( Colour (255,255,255).normalizeRGB(), 0.05);
+    
+    /// EMMISSIVE
+    auto bright = 1.0;
+    oneMat = std::make_shared<EmissiveColour>(Colour(250,186,10).normalizeRGB(), bright );
+    twoMat = std::make_shared<EmissiveColour>(Colour(250,86,10).normalizeRGB(), bright );
+    threeMat = std::make_shared<EmissiveColour>(Colour(4,231,98).normalizeRGB(), bright );
+    fourMat = std::make_shared<EmissiveColour>(Colour(10,102,250).normalizeRGB(), bright );
+    
+    /// BALLS
+    auto radius = 0.2;
+    auto ballsT = vect3D(0.0, 0.2, -0.26);
+    _sceneObjects.push_back(std::make_unique<Sphere>(vect3D(0.0, radius, 0.0)+gT+ballsT, radius, oneMat));
+    _sceneObjects.push_back(std::make_unique<Sphere>(vect3D(0.0+radius*2, radius, 0.0)+gT+ballsT, radius, twoMat));
+    _sceneObjects.push_back(std::make_unique<Sphere>(vect3D(0.0+radius*4, radius, 0.0)+gT+ballsT, radius, threeMat));
+    _sceneObjects.push_back(std::make_unique<Sphere>(vect3D(0.0+radius*6, radius, 0.0)+gT+ballsT, radius, fourMat));
+    
+    /// WALLS
+    _sceneObjects.push_back( std::make_unique<Plane>(vect3D(0.0, 0.0, 0.0)+gT, vect3D(0, 1, 0), groundMat));
+    _sceneObjects.push_back( std::make_unique<Plane>(vect3D(0.0, 0.0, -radius)+gT, vect3D(0, 0, 1), groundMat));
+    
+    
+    /// GLASS BALLS
+    _sceneObjects.push_back(std::make_unique<Sphere>(vect3D(0.4, radius/3, 0.6)+gT, radius/3, glassMat));
+    _sceneObjects.push_back(std::make_unique<Sphere>(vect3D(0.6, radius/3, 0.6)+gT, radius/3, glassMat));
+    _sceneObjects.push_back(std::make_unique<Sphere>(vect3D(0.8, radius/3, 0.6)+gT, radius/3, glassMat));
+    
+    _sceneObjects.push_back(std::make_unique<Sphere>(vect3D(0.6, radius/6, 0.8)+gT, radius/6, glassMat));
     
 }
 
+void Scene::roomsScene() {
+    
+    std::cout << "[C] Scene: Rooms Scene" << std::endl;
+    
+    auto gT = vect3D(-1.3, -1.3, -2.6);
+    auto cubeSide = 1.0;
+    auto spacing = 1.3;
+    
+    _skyGradient.push_back( Colour(0.0, 0.0, 0.0) );
+    _skyGradient.push_back( Colour(0.0, 0.0, 0.0) );
+    
+    std::shared_ptr<Material> whiteMat;
+    
+    Colour gradients[3] = {Colour(250,86,10), Colour(4,231,98) , Colour(10,102,250)};
+    
+    whiteMat = std::make_shared<Diffused> ( Colour (8, 8, 8).normalizeRGB() );
+    
+    for (int j = 0; j<3; j++) {
+        for (int i = 0; i<3; i++) {
+            auto localT = vect3D(spacing*cubeSide*i, spacing*cubeSide*j, 0.0);
+            std::shared_ptr<Material> tempMat;
+            tempMat = std::make_shared<EmissiveColour>(gradients[i], 1.0);
+            /// SINGLE CUBICLE
+            /// Walls
+            _sceneObjects.push_back(std::make_unique<Cube>(vect3D(0.0, 0.0, 0.0)+gT+localT, cubeSide, whiteMat, true));
+            /// Objects
+            _sceneObjects.push_back(std::make_unique<Sphere>(vect3D(0.2, -0.3, 0.0)+gT+localT, 0.2, whiteMat));
+            _sceneObjects.push_back(std::make_unique<Cube>(vect3D(-0.2, -0.3499, 0.0)+gT+localT, 0.3, whiteMat));
+            /// Light
+            _sceneObjects.push_back(std::make_unique<Disc>(vect3D(0.0, 0.45, 0.0)+gT+localT, vect3D(0.0, -1.0, 0.0), 0.5, tempMat));
+        }
+    }
+    
+}
