@@ -17,14 +17,6 @@
 		BE3CBF7925F842D8008D5A9B /* Vectors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE3CBF7725F842D8008D5A9B /* Vectors.cpp */; };
 		BE4CB76E25F97C210072DAE1 /* Ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE4CB76C25F97C210072DAE1 /* Ray.cpp */; };
 		BE4CB77125F97C5B0072DAE1 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE4CB76F25F97C5B0072DAE1 /* Camera.cpp */; };
-		BE9A79162643461F0071621B /* sfml-window.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9A79122643461F0071621B /* sfml-window.framework */; };
-		BE9A79172643461F0071621B /* sfml-window.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE9A79122643461F0071621B /* sfml-window.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		BE9A79182643461F0071621B /* freetype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9A79132643461F0071621B /* freetype.framework */; };
-		BE9A79192643461F0071621B /* freetype.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE9A79132643461F0071621B /* freetype.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		BE9A791A2643461F0071621B /* sfml-graphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9A79142643461F0071621B /* sfml-graphics.framework */; };
-		BE9A791B2643461F0071621B /* sfml-graphics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE9A79142643461F0071621B /* sfml-graphics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		BE9A791C2643461F0071621B /* sfml-system.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9A79152643461F0071621B /* sfml-system.framework */; };
-		BE9A791D2643461F0071621B /* sfml-system.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE9A79152643461F0071621B /* sfml-system.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BEAD4D87260EB87C0074EC28 /* Disc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BEAD4D85260EB87C0074EC28 /* Disc.cpp */; };
 		BEB97E9B26111E9E00D9B571 /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BEB97E9926111E9E00D9B571 /* Material.cpp */; };
 		BECBB28F25FAB6B200D6554E /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BECBB28D25FAB6B200D6554E /* Scene.cpp */; };
@@ -33,23 +25,6 @@
 		BEDF18E525FE73EE00E52FD2 /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BEDF18E325FE73EE00E52FD2 /* Sphere.cpp */; };
 		BEF22E8A260F94E600388A0B /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BEF22E88260F94E600388A0B /* Plane.cpp */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		BE9A791E2643461F0071621B /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				BE9A79192643461F0071621B /* freetype.framework in Embed Frameworks */,
-				BE9A791D2643461F0071621B /* sfml-system.framework in Embed Frameworks */,
-				BE9A79172643461F0071621B /* sfml-window.framework in Embed Frameworks */,
-				BE9A791B2643461F0071621B /* sfml-graphics.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		BE116BBF2607C6C100042B38 /* Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
@@ -92,6 +67,11 @@
 		BED358362610BE000098E917 /* Solid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Solid.hpp; sourceTree = "<group>"; };
 		BEDF18E325FE73EE00E52FD2 /* Sphere.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
 		BEDF18E425FE73EE00E52FD2 /* Sphere.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sphere.hpp; sourceTree = "<group>"; };
+		BEE0013326B1DD780087CE55 /* sfml-graphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-graphics.framework"; path = "../../Downloads/SFML-2.5.1-macos-clang/Frameworks/sfml-graphics.framework"; sourceTree = "<group>"; };
+		BEE0013426B1DD780087CE55 /* sfml-window.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-window.framework"; path = "../../Downloads/SFML-2.5.1-macos-clang/Frameworks/sfml-window.framework"; sourceTree = "<group>"; };
+		BEE0013526B1DD780087CE55 /* SFML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SFML.framework; path = "../../Downloads/SFML-2.5.1-macos-clang/Frameworks/SFML.framework"; sourceTree = "<group>"; };
+		BEE0013626B1DD780087CE55 /* sfml-system.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-system.framework"; path = "../../Downloads/SFML-2.5.1-macos-clang/Frameworks/sfml-system.framework"; sourceTree = "<group>"; };
+		BEE0014026B1DD860087CE55 /* freetype.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = freetype.framework; path = "../../Downloads/SFML-2.5.1-macos-clang/extlibs/freetype.framework"; sourceTree = "<group>"; };
 		BEF22E88260F94E600388A0B /* Plane.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Plane.cpp; sourceTree = "<group>"; };
 		BEF22E89260F94E600388A0B /* Plane.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Plane.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,10 +81,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE9A79182643461F0071621B /* freetype.framework in Frameworks */,
-				BE9A791C2643461F0071621B /* sfml-system.framework in Frameworks */,
-				BE9A79162643461F0071621B /* sfml-window.framework in Frameworks */,
-				BE9A791A2643461F0071621B /* sfml-graphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +144,11 @@
 		BE23B81625F57E33000BFAD9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BEE0014026B1DD860087CE55 /* freetype.framework */,
+				BEE0013326B1DD780087CE55 /* sfml-graphics.framework */,
+				BEE0013626B1DD780087CE55 /* sfml-system.framework */,
+				BEE0013426B1DD780087CE55 /* sfml-window.framework */,
+				BEE0013526B1DD780087CE55 /* SFML.framework */,
 				BE9A79132643461F0071621B /* freetype.framework */,
 				BE9A79142643461F0071621B /* sfml-graphics.framework */,
 				BE9A79152643461F0071621B /* sfml-system.framework */,
@@ -337,8 +318,6 @@
 				BE23B7F625F57DAD000BFAD9 /* Sources */,
 				BE23B7F725F57DAD000BFAD9 /* Frameworks */,
 				BE23B7F825F57DAD000BFAD9 /* Resources */,
-				BE23B7F925F57DAD000BFAD9 /* Run Script */,
-				BE9A791E2643461F0071621B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -390,28 +369,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		BE23B7F925F57DAD000BFAD9 /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "
-";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BE23B7F625F57DAD000BFAD9 /* Sources */ = {
