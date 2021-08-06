@@ -39,6 +39,10 @@ Scene::Scene(const int &width, const int &height, int &variant) : Camera(vect3D(
             roomsScene();
             break;
             
+        case 7:
+            nvidiaScene();
+            break;
+            
         default:
             std::cout << "[!] Preset scene with ID: " << variant << " doesn't exist" << std::endl;
             std::cout << "    Using default instead " << std::endl;
@@ -350,13 +354,13 @@ void Scene::roomsScene() {
     
     Colour gradients[3] = {Colour(250,86,10), Colour(4,231,98) , Colour(10,102,250)};
     
-    whiteMat = std::make_shared<Diffused> ( Colour (8, 8, 8).normalizeRGB() );
+    whiteMat = std::make_shared<Diffused> ( Colour (120, 120, 120).normalizeRGB() );
     
     for (int j = 0; j<3; j++) {
         for (int i = 0; i<3; i++) {
             auto localT = vect3D(spacing*cubeSide*i, spacing*cubeSide*j, 0.0);
             std::shared_ptr<Material> tempMat;
-            tempMat = std::make_shared<EmissiveColour>(gradients[i], 1.0);
+            tempMat = std::make_shared<EmissiveColour>(gradients[i], 0.2);
             /// SINGLE CUBICLE
             /// Walls
             _sceneObjects.push_back(std::make_unique<Cube>(vect3D(0.0, 0.0, 0.0)+gT+localT, cubeSide, whiteMat, true));
@@ -367,5 +371,69 @@ void Scene::roomsScene() {
             _sceneObjects.push_back(std::make_unique<Disc>(vect3D(0.0, 0.45, 0.0)+gT+localT, vect3D(0.0, -1.0, 0.0), 0.5, tempMat));
         }
     }
+    
+}
+
+void Scene::nvidiaScene() {
+    std::cout << "[C] Scene: Nvidia Scene" << std::endl;
+    
+    auto gT = vect3D(0.0, -0.1, 0.0);
+    
+    _skyGradient.push_back( ( Colour(0.0,0.0,0.0) ) );
+    _skyGradient.push_back( ( Colour(0.0,0.0,0.0) ) );
+    
+    std::shared_ptr<Material> glassMat, wallsMat, lightMat, blackMat, black2Mat;
+    wallsMat = std::make_shared<Metallic>( Colour (200,200,200).normalizeRGB(), 0.015);
+    
+    blackMat = std::make_shared<Diffused>( Colour (10,10,10).normalizeRGB());
+    black2Mat = std::make_shared<Diffused>( Colour (15,15,15).normalizeRGB());
+//    wallsMat = std::make_shared<Metallic>( Colour (63, 94, 251).normalizeRGB(), 0.8 );
+    
+    lightMat = std::make_shared<EmissiveColour>(Colour(0.221, 0.811, 1.0), 3.5);
+    
+    /* ITEMS */
+    vect3D groupTranslation(0.0, -0.1, -0.8);
+    _sceneObjects.push_back( std::make_unique<Sphere> (vect3D(0.0, 0.3, 0.0)+gT    +groupTranslation, 0.2, wallsMat));
+    
+    /* LEFT  */
+     _sceneObjects.push_back( std::make_unique<Rectangle> (vect3D(-0.5, 0.0, -0.5)+gT, vect3D(1, 0, 0),
+                                                          1.0, blackMat));
+    /* RIGHT */
+    _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0.5, 0.0, -0.5)+gT, vect3D(-1, 0, 0),
+                                                          1.0, blackMat));
+    /* TOP */
+    _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, 0.5, -0.5)+gT, vect3D(0, -1, 0),
+                                                          1.0, wallsMat));
+    /* BOTTOM */
+    _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, -0.5, -0.5)+gT, vect3D(0, 1, 0),
+                                                          1.0, wallsMat));
+    /* BACK */
+    _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, 0, 0)+gT, vect3D(0, 0, -1),
+                                                          1.0, blackMat));
+    
+    /* FRONT */
+    _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, 0, -0.8)+gT, vect3D(0, 0, 1),
+                                                          1.0, blackMat));
+    
+    /* FRONT LIGHT */
+    _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, 0, -0.78)+gT, vect3D(0, 0, 1),
+                                                          0.98, lightMat));
+    
+    /* FRONT BLOCK */
+    _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, 0, -0.73)+gT, vect3D(0, 0, -1),
+                                                          0.6, black2Mat));
+    
+    /* FRONT BLOCK */
+    _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0.3, 0, -0.73-0.3)+gT, vect3D(1, 0, 0),
+                                                          0.6, black2Mat));
+    
+    _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(-0.3, 0, -0.73-0.3)+gT, vect3D(-1, 0, 0),
+                                                          0.6, black2Mat));
+    
+    _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0.0, -0.3, -0.73-0.3)+gT, vect3D(0, -1, 0),
+                                                          0.6, black2Mat));
+    
+    _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0.0, 0.3, -0.73-0.3)+gT, vect3D(0, 1, 0),
+                                                          0.6, black2Mat));
     
 }
