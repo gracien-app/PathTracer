@@ -138,7 +138,7 @@ void Window::restartScene(const bool preview) {
 
 void Window::initPresets() {
     _presetsVector.reset( new std::vector<std::map<std::string, int>> {
-                            { {"ID", 5}, {"SAMPLES", 5}, {"BOUNCES", 25} },
+                            { {"ID", 98}, {"SAMPLES", 5}, {"BOUNCES", 25} },
                             { {"ID", 7}, {"SAMPLES", 5}, {"BOUNCES", 25} },
 //                            { {"ID", 6}, {"SAMPLES", 5}, {"BOUNCES", 100} },
                             { {"ID", 4}, {"SAMPLES", 5}, {"BOUNCES", 25} },

@@ -43,6 +43,10 @@ Scene::Scene(const int &width, const int &height, int &variant) : Camera(vect3D(
             nvidiaScene();
             break;
             
+        case 98:
+            furnaceTest();
+            break;
+            
         default:
             std::cout << "[!] Preset scene with ID: " << variant << " doesn't exist" << std::endl;
             std::cout << "    Using default instead " << std::endl;
@@ -436,4 +440,22 @@ void Scene::nvidiaScene() {
     _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0.0, 0.3, -0.73-0.3)+gT, vect3D(0, 1, 0),
                                                           0.6, black2Mat));
     
+}
+
+void Scene::furnaceTest() {
+    
+    std::cout << "[C] Debug: Furnace Test Scene" << std::endl;
+    
+    Move(vect3D(0.0, 0.0, -1.0));
+    
+    _skyGradient.push_back( ( Colour(0.0, 0.0, 0.0).normalizeRGB() ) );
+    _skyGradient.push_back( ( Colour(0.0, 0.0, 0.0).normalizeRGB() ) );
+    
+    std::shared_ptr<Material> sphere, light;
+    sphere = std::make_shared<Diffused> ( Colour (0.18, 0.18, 0.18) );
+    light = std::make_shared<EmissiveColour>(Colour(1.0, 1.0, 1.0), 1.0);
+    
+    /* ITEMS */
+    _sceneObjects.push_back( std::make_unique<Sphere>   (vect3D(0.0, 0.0, -1.5), 0.3, sphere));
+    _sceneObjects.push_back( std::make_unique<Sphere>   (vect3D(0.0, 0.0, -1.5), 1.0, light));
 }
