@@ -18,22 +18,25 @@ void Camera::Move(const vect3D &moveVect) {
     _origin += moveVect;
     
     /// Reevaluate Left Upper Corner (abbr. LUC) of the projection view.
-    _LUC = vect3D(_origin - _Depth + _Y/2 - _X/2);
+    _LUC = vect3D(_origin - _Depth + _Y/2 - _X/2 - _origin);
 }
 
-Camera::Camera( const vect3D &pos, const double &fov, const int &width, const int &height) {
+Camera::Camera( const vect3D &pos, const double &fovDeg, const int &width, const int &height) {
     
     _origin = pos;
-    _FOV = fov;
+    _FOV = fovDeg * M_PI/180;
+    
+    auto focalLength = 1.0;
+    auto H = tan(_FOV/2.0);
     auto aspectRatio = width / height; //MARK: How height defines width.
     
-    _viewH = 2.0; //MARK: Height coordinates go from -1,1 so the total length is 2.
+    _viewH = 2.0 * H; //MARK: Height coordinates go from -1,1 so the total length is 2.
     _viewW = _viewH * aspectRatio; //MARK: Defining the width of projection based on height.
     
-    _Depth = vect3D(0, 0, _FOV);
+    _Depth = vect3D(0, 0, focalLength);
     _X = vect3D(_viewW, 0, 0);
     _Y = vect3D(0, _viewH, 0);
-    _LUC = vect3D(_origin - _Depth + _Y/2 - _X/2);
+    _LUC = vect3D(_origin - _Depth + _Y/2 - _X/2 - _origin);
     
     //MARK: Depth - Direction vector defining the depth (Default = +Z)
     //MARK: X - Direction vector defining the direction of rendering in X axis (Default = +X)

@@ -31,7 +31,7 @@ public:
     /// @param focal Value defining focal length of the camera
     /// @param resWidth Value defining width of the application
     /// @param resHeight Value defining height of the application
-    Camera(const vect3D &position, const double &focal, const int &resWidth, const int &resHeight);
+    Camera(const vect3D &pos, const double &fovDeg, const int &width, const int &height);
     
     //MARK: Methods
     

@@ -8,7 +8,7 @@
 
 #include "Scene.hpp"
 
-Scene::Scene(const int &width, const int &height, int &variant) : Camera(vect3D(0.0,0.0,0.0), 1.0, width, height) {
+Scene::Scene(const int &width, const int &height, int &variant) : Camera(vect3D(0.0,0.0,0.0), 90.0, width, height) {
     
     switch (variant) {
         case 1:
