@@ -9,6 +9,8 @@
 #ifndef Window_hpp
 #define Window_hpp
 
+#include <sstream>
+#include <iomanip>
 #include "Renderer.hpp"
 
 /// Class containing SFML renderWindow component together with Renderer engine.
@@ -16,8 +18,8 @@
 class Window {
 public:
     
-    // MARK: Constructors & Destructor
     
+    // MARK: Constructors & Destructor
     
     /// Window constructor
     /// @brief Displays appropriate message in the console

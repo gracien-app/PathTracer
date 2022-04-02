@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,xcode,windows,visualstudiocode,visualstudio
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,xcode,windows,visualstudiocode,visualstudio
 
+## Private screenshots 
+Images/Private
+
 ### macOS ###
 # General
 .DS_Store

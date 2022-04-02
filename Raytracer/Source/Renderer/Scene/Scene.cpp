@@ -8,23 +8,26 @@
 
 #include "Scene.hpp"
 
+
+// MARK: - Constructors & Destructors
+
+Scene::~Scene() {
+    std::cout << "[D] Scene: Destructed" << std::endl;
+}
+
 Scene::Scene(const int &width, const int &height, int &variant) : Camera(vect3D(0.0,0.0,0.0), 90.0, width, height) {
     
     switch (variant) {
         case 1:
-            setupCornell();
+            cornellScene();
             break;
             
         case 2:
-            setupCornell(true);
+            cornellScene(true);
             break;
             
         case 3:
-            setupSpheres();
-            break;
-            
-        case 99:
-            plainScene();
+            blueSpheresScene();
             break;
             
         case 4:
@@ -47,56 +50,53 @@ Scene::Scene(const int &width, const int &height, int &variant) : Camera(vect3D(
             furnaceTest();
             break;
             
+        case 99:
+            plainScene();
+            break;
+            
         default:
-            std::cout << "[!] Preset scene with ID: " << variant << " doesn't exist" << std::endl;
-            std::cout << "    Using default instead " << std::endl;
+            std::cout << "[!] Preset scene with ID: " << variant << " doesn't exist. Using default." << std::endl;
             variant = 99;
             plainScene();
     }
-    
 }
 
-Scene::~Scene() {
-    std::cout << "[D] Scene: Destructed" << std::endl;
-}
 
-Colour Scene::colourRay(const Ray &r, const int &rayBounces) const {
+// MARK: - Traversal Methods
+
+Colour Scene::traverseColour(const Ray &r, const int &rayBounces) const {
     
     Intersection recentInter;
     
     if (rayBounces == 0) return Colour(0,0,0);
     
-    if (intersectScene(r, recentInter, 0.0001, infinity<double>)) {
-        
+    if (intersectAll(r, recentInter, 0.0001, infinity<double>)) {
         Colour totalColour;
         Ray reflectedRay;
         
         if (recentInter.material->reflect(r, reflectedRay, recentInter, totalColour)) {
-            return totalColour * colourRay(reflectedRay, rayBounces-1);
+            return totalColour * traverseColour(reflectedRay, rayBounces-1);
         }
         
         if (recentInter.material->emit(recentInter, totalColour)) return totalColour;
         
         else return Colour(0,0,0);
-        
     }
     
     else {
-        
-        auto unit_R = r.getDir(); //MARK:: Y can be between <-1,1> (projection plane height = 2)
-        auto t = (unit_R.y()+1) * 0.5; //MARK: Limiting the range to <0,1>
-        return Colour(_skyGradient[1]*(1-t) + _skyGradient[0]*t); //MARK: Horizontal gradient formula (header)
-        
+        auto unit_R = r.direction();
+        auto t = (unit_R.y()+1) * 0.5;
+        return Colour(_skyGradient[1]*(1-t) + _skyGradient[0]*t);
     }
 }
 
-Colour Scene::colourDistance(const Ray &r) const {
+Colour Scene::traverseDepth(const Ray &r) const {
     
     Intersection recentInter;
     
-    if (intersectScene(r, recentInter, 0.0001, infinity<double>)) {
+    if (intersectAll(r, recentInter, 0.0001, infinity<double>)) {
         
-        auto differVec = recentInter.position - r.getOrigin();
+        auto differVec = recentInter.position - r.origin();
         auto distance = differVec.lengthSquared() * 0.5;
         
         distance = clamp(distance, 0.05, 0.996);
@@ -109,11 +109,11 @@ Colour Scene::colourDistance(const Ray &r) const {
     
 }
 
-Colour Scene::colourNormals(const Ray &r) const {
+Colour Scene::traverseNormal(const Ray &r) const {
     
     Intersection recentInter;
     
-    if (intersectScene(r, recentInter, 0.0001, infinity<double>)) {
+    if (intersectAll(r, recentInter, 0.0001, infinity<double>)) {
         
         auto temp = recentInter.outNormal;
         
@@ -125,11 +125,10 @@ Colour Scene::colourNormals(const Ray &r) const {
     
 }
 
-Colour Scene::colourTurbo(const Ray &r, const float (&turbo_map)[256][3]) const {
-    
+Colour Scene::traverseTurbo(const Ray &r, const float (&turbo_map)[256][3]) const {
     Intersection recentInter;
     
-    if (intersectScene(r, recentInter, 0.0001, infinity<double>)) {
+    if (intersectAll(r, recentInter, 0.0001, infinity<double>)) {
         
         auto depth = clamp(recentInter.time, 0.0, 1.0);
         auto index = int((1.0-depth)*256);
@@ -139,10 +138,9 @@ Colour Scene::colourTurbo(const Ray &r, const float (&turbo_map)[256][3]) const 
     }
     
     return Colour(0.0, 0.0, 0.0);
-    
 }
 
-bool Scene::intersectScene (const Ray &ray, Intersection &recent_Inter, const double &tMin, const double &tMax) const {
+bool Scene::intersectAll(const Ray &ray, Intersection &recent_Inter, const double &tMin, const double &tMax) const {
     Intersection tempRecent;
     bool didIntersect = false;
     auto closestIntersect = tMax;
@@ -157,7 +155,10 @@ bool Scene::intersectScene (const Ray &ray, Intersection &recent_Inter, const do
     return didIntersect;
 }
 
-void Scene::setupCornell(const bool &reflective) {
+
+// MARK: - Scenes Methods
+
+void Scene::cornellScene(const bool &reflective) {
     
     std::string message = "[C] Scene: Cornell Box";
     if (reflective) message += " (Reflective)";
@@ -174,7 +175,7 @@ void Scene::setupCornell(const bool &reflective) {
     if (reflective) {
         leftWallMat =   std::make_shared<Metallic>    ( Colour (4,231,98).normalizeRGB(), 1.0 );
         rightWallMat =  std::make_shared<Metallic>    ( Colour (10,102,250).normalizeRGB(), 1.0 );
-        wallMat =       std::make_shared<Metallic>    ( Colour (255,255,255).normalizeRGB(), 0.2 );
+        wallMat =       std::make_shared<Metallic>    ( Colour (255,255,255).normalizeRGB(), 0.4 );
         objectsMat =    std::make_shared<Metallic>    ( Colour (255,255,255).normalizeRGB(), 0.05);
     }
     else {
@@ -207,17 +208,18 @@ void Scene::setupCornell(const bool &reflective) {
     _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, 0.0, 0.05), vect3D(0, 0, -1),
                                                           rectSide, wallMat));
     /* FRONT UPPER */
-//    _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, 0.6, 0), vect3D(0, 0, -1),
-//                                                          rectSide, wallMat));
+    _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, 0.6, 0), vect3D(0, 0, -1),
+                                                          rectSide, wallMat));
     
-    _sceneObjects.push_back( std::make_unique<Disc>  (vect3D(0, 0.4, 0.0), vect3D(0, 0, -1),
+    _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, 0.4, 0.0), vect3D(0, 0, -1),
                                                           rectSide/1.5, lightSource));
     /* BACK */
     _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, 0, -1), vect3D(0, 0, 1),
                                                           rectSide, objectsMat));
 }
 
-void Scene::setupSpheres() {
+
+void Scene::blueSpheresScene() {
     std::cout << "[C] Scene: Blue Spheres" << std::endl;
     
     _skyGradient.push_back( ( Colour(142,158,171).normalizeRGB() ) );
@@ -248,8 +250,8 @@ void Scene::setupSpheres() {
     /* BACK */
     _sceneObjects.push_back( std::make_unique<Rectangle>  (vect3D(0, 0, 0), vect3D(0, 0, -1),
                                                           1.0, wallsMat));
-    
 }
+
 
 void Scene::plainScene() {
     
@@ -267,6 +269,7 @@ void Scene::plainScene() {
     
 }
 
+
 void Scene::lightScene() {
     
     std::cout << "[C] Scene: Lights Scene for debugging" << std::endl;
@@ -283,7 +286,6 @@ void Scene::lightScene() {
   
     _sceneObjects.push_back( std::make_unique<Sphere>(vect3D(0.0, -0.15, -0.5), 0.1, whiteEmit) );
 
-    /// MARK: Room - Ground at -0.3
     _sceneObjects.push_back(std::make_unique<Plane>(vect3D(0.0, -0.165, 0.0), vect3D(0.0, 1.0, 0.0), wallsMat));
 
     _sceneObjects.push_back(std::make_unique<Plane>(vect3D(0.0, 0.165, 0.0), vect3D(0.0, -1.0, 0.0), wallsMat));
@@ -300,6 +302,7 @@ void Scene::lightScene() {
 
 }
 
+
 void Scene::ballLightsScene() {
     
     std::cout << "[C] Scene: Ball Lights Scene" << std::endl;
@@ -311,7 +314,7 @@ void Scene::ballLightsScene() {
     
     std::shared_ptr<Material> groundMat, oneMat, twoMat, threeMat, fourMat, glassMat;
     
-    groundMat = std::make_shared<Diffused> ( Colour (100, 100, 100).normalizeRGB() );
+    groundMat = std::make_shared<Diffused> ( Colour (190, 190, 190).normalizeRGB() );
     glassMat = std::make_shared<Metallic>( Colour (255,255,255).normalizeRGB(), 0.05);
     
     /// EMMISSIVE
@@ -342,6 +345,7 @@ void Scene::ballLightsScene() {
     _sceneObjects.push_back(std::make_unique<Sphere>(vect3D(0.6, radius/6, 0.8)+gT, radius/6, glassMat));
     
 }
+
 
 void Scene::roomsScene() {
     
@@ -377,6 +381,7 @@ void Scene::roomsScene() {
     }
     
 }
+
 
 void Scene::nvidiaScene() {
     std::cout << "[C] Scene: Nvidia Scene" << std::endl;
@@ -441,6 +446,7 @@ void Scene::nvidiaScene() {
                                                           0.6, black2Mat));
     
 }
+
 
 void Scene::furnaceTest() {
     

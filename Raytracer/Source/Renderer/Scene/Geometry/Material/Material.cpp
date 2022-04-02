@@ -59,7 +59,7 @@ bool Diffused::reflect(const Ray &inputRay,
 bool Metallic::reflect(const Ray &inputRay,
                              Ray &reflRay, const Intersection &recInter, Colour &reflColour ) const {
     
-    auto unitDir = Normalise( inputRay.getDir() );
+    auto unitDir = Normalise( inputRay.direction() );
     
     reflRay = Ray(recInter.position,
                   unitDir - 2 * recInter.outNormal * unitDir.Dot(recInter.outNormal) + (randUnitVect() * _rough));
@@ -71,7 +71,7 @@ bool Metallic::reflect(const Ray &inputRay,
     reflColour = _colour;
     
     //MARK: Checks if direction is correct (on the outside of geometry - positive dot product) after applying roughness.
-    if (reflRay.getDir().Dot(recInter.outNormal)) return true;
+    if (reflRay.direction().Dot(recInter.outNormal)) return true;
     else return false;
 }
 

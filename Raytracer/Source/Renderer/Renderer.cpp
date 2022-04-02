@@ -8,6 +8,8 @@
 
 #include "Renderer.hpp"
 
+// MARK: - Constructors & Destructors
+
 Renderer::Renderer(const uint &windowWidth, const uint &windowHeight) : _width(windowWidth), _height(windowHeight) {
     std::cout << "[C] Renderer: Created" << std::endl;
 }
@@ -17,6 +19,9 @@ Renderer::~Renderer() {
     std::cout << "[D] Renderer: Destructed" << std::endl;
 }
 
+
+// MARK: - Methods
+
 void Renderer::Initialise(std::shared_ptr<std::vector<std::map<std::string, int>>> &userPresets,
                           const int &nThreads) {
     
@@ -24,7 +29,9 @@ void Renderer::Initialise(std::shared_ptr<std::vector<std::map<std::string, int>
     _outTexture.reset(new sf::Texture);
     
     _workerThreads.reserve(nThreads);
-    _outPixels.reserve(_width*_height*4); //MARK: Each pixel = R G B A separately.
+    
+    // Each pixel split into R G B A channels.
+    _outPixels.reserve(_width*_height*4);
     
     if ( _outTexture && _outSprite && _outTexture->create(_width, _height) ) {
         
@@ -40,6 +47,8 @@ void Renderer::Initialise(std::shared_ptr<std::vector<std::map<std::string, int>
     
     else throw "RENDERER Initialise - Can't allocate memory";
 }
+
+    // MARK: -
 
 void Renderer::distributeChunks(const int &nThreads, const int &bucketSize) {
     
@@ -64,38 +73,17 @@ void Renderer::distributeChunks(const int &nThreads, const int &bucketSize) {
 
 void Renderer::runChunks(const int &nPreset, const int &samples, const int &bounces, const Mode render_mode, bool preview) {
     
+    _chunkIndex = 0;
     _samples = samples;
     _bounces = bounces;
     _stopExecution = false;
     
     for (auto &worker : _workerThreads) {
-        if (preview) worker.Thread = std::thread(&Renderer::renderChunkPreview, this, worker.getID(), nPreset );
-        else worker.Thread = std::thread(&Renderer::renderChunk, this, worker.getID(), nPreset, render_mode );
+        if (preview) worker.run(std::thread(&Renderer::renderChunkPreview, this, worker.getID(), nPreset));
+        else worker.run(std::thread(&Renderer::renderChunk, this, worker.getID(), nPreset, render_mode));
         worker.busy = true;
     }
     
-}
-
-bool Renderer::joinAll() {
-    for (auto &worker : _workerThreads) {
-        if( !worker.joinWorker() ) return false;
-    }
-    return true;
-}
-
-void Renderer::stopAll() {
-    _stopExecution = true;
-}
-
-bool Renderer::allFinished() {
-    for (auto &worker : _workerThreads) {
-        if (worker.isWorking()) return false;
-    }
-    return true;
-}
-
-void Renderer::moveCamera(const vect3D displacement, const int &sceneID) {
-    _presetScenes[sceneID]->Move(displacement);
 }
 
 bool Renderer::acquireChunk(Worker &thread) {
@@ -118,8 +106,30 @@ bool Renderer::acquireChunk(Worker &thread) {
     
 }
 
-void Renderer::resetChunksIndex() {
-    _chunkIndex = 0;
+
+bool Renderer::joinAll() {
+    for (auto &worker : _workerThreads) {
+        if( !worker.joinWorker() ) return false;
+    }
+    return true;
+}
+
+void Renderer::stopAll() {
+    _stopExecution = true;
+}
+
+bool Renderer::allFinished() {
+    for (auto &worker : _workerThreads) {
+        if (worker.isWorking()) return false;
+    }
+    return true;
+}
+
+
+// MARK: -
+
+void Renderer::moveCamera(const vect3D displacement, const int &sceneID) {
+    _presetScenes[sceneID]->Move(displacement);
 }
 
 void Renderer::renderChunkPreview(const int &chunkID, const int &sceneID) {
@@ -149,7 +159,7 @@ void Renderer::renderChunkPreview(const int &chunkID, const int &sceneID) {
                     
                 auto pixelRay = _presetScenes[sceneID]->prepRay(x, y);
                     
-                outputPixel += _presetScenes[sceneID]->colourTurbo(pixelRay, turbo_srgb_floats);
+                outputPixel += _presetScenes[sceneID]->traverseTurbo(pixelRay, turbo_srgb_floats);
 
                 outputPixel.standardiseOutputPreview(_outPixels, gridPos);
                 
@@ -174,8 +184,6 @@ void Renderer::renderChunk(const int &chunkID, const int &sceneID, const Mode re
                 }
                 
                 int gridPos = i+(j*_width);
-                //MARK: NON-SQUARE RESOLUTION FIX gridPos = i+(j x width) not (j x height)
-                //MARK: Pixels are transfered from continuous RGBA data, not by rows & columns
 
                 auto outputPixel = Colour(0, 0, 0);
                 
@@ -183,31 +191,29 @@ void Renderer::renderChunk(const int &chunkID, const int &sceneID, const Mode re
                     
                     auto x = ( double(i)+randomNumber<double>() ) / (_width-1);
                     auto y = ( double(j)+randomNumber<double>() ) / (_height-1);
-                    //MARK: x and y are to multiply the vertical and horizontal projection vectors to the correct pixel.
                     
                     auto pixelRay = _presetScenes[sceneID]->prepRay(x, y);
                     
                     switch (render_mode) {
                         case STANDARD:
-                            outputPixel += _presetScenes[sceneID]->colourRay(pixelRay, _bounces);
+                            outputPixel += _presetScenes[sceneID]->traverseColour(pixelRay, _bounces);
                             break;
                             
                         case DEPTH:
-                            outputPixel += _presetScenes[sceneID]->colourDistance(pixelRay);
+                            outputPixel += _presetScenes[sceneID]->traverseDepth(pixelRay);
                             break;
                             
                         case NORMALS:
-                            outputPixel += _presetScenes[sceneID]->colourNormals(pixelRay);
+                            outputPixel += _presetScenes[sceneID]->traverseNormal(pixelRay);
                             break;
                             
                         case THERMOGRAPHY:
-                            outputPixel += _presetScenes[sceneID]->colourTurbo(pixelRay, turbo_srgb_floats);
+                            outputPixel += _presetScenes[sceneID]->traverseTurbo(pixelRay, turbo_srgb_floats);
                             break;
                     }    
                 }
                 
                 outputPixel.standardiseOutput(_outPixels, gridPos, _samples);
-                
             }
         }
     }

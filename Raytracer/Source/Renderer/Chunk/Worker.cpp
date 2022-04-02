@@ -22,11 +22,16 @@ const bool Worker::isWorking() {
 
 const bool Worker::joinWorker() {
     
-    if (Thread.joinable()) {
-        Thread.join();
+    if (_thread.joinable()) {
+        _thread.join();
         return true;
     }
     
     else return false;
     
 }
+
+const void Worker::run(std::thread task) { 
+    _thread = std::move(task);
+}
+

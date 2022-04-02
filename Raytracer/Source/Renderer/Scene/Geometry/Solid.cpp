@@ -24,6 +24,6 @@ vect3D Solid::getPosition() {
     return _center;
 }
 
-bool Solid::Intersect (const Ray &ray, Intersection &recent_Inter, const double &timeMin, const double &timeMax) const {
+bool Solid::Intersect(const Ray &ray, Intersection &recent_Inter, const double &timeMin, const double &timeMax) const {
     return false;
 }

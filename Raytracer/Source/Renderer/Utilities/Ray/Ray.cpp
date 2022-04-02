@@ -15,15 +15,15 @@ Ray::Ray(const vect3D &origin, const vect3D &direction) : orig(origin), dir(dire
 
 // MARK: Methods
 
-vect3D Ray::getOrigin() const {
+vect3D Ray::origin() const {
     return orig;
 }
 
-vect3D Ray::getDir() const {
+vect3D Ray::direction() const {
     return dir;
 }
 
-vect3D Ray::getPos(const double &time) const {
+vect3D Ray::position(const double &time) const {
     return orig+dir*time;
 }
 

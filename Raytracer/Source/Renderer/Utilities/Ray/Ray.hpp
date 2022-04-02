@@ -48,18 +48,18 @@ public:
     /// Method used to access private ray origin data.
     /// @const Method cannot alter the data during its execution.
     /// @returns Starting point of the ray (its origin)
-    vect3D getOrigin() const;
+    vect3D origin() const;
     
     /// Method used to access private ray direction data.
     /// @const Method cannot alter the data during its execution.
     /// @returns Direction defining point of the ray.
-    vect3D getDir() const;
+    vect3D direction() const;
     
     /// Method used to determine position of ray using linear function formula of the ray F(Time) = Origin + Direction*Time.
     /// @param time Integer defining time for which position should be evaluated.
     /// @const Method cannot alter the data during its execution.
     /// @returns 3-dimensional vector defining position of the ray at given time.
-    vect3D getPos(const double &time) const;
+    vect3D position(const double &time) const;
     
 private:
     

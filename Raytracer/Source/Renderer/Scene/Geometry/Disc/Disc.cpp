@@ -19,11 +19,11 @@ Disc::Disc(  const vect3D &centerPoint,
 
 bool Disc::Intersect (const Ray &ray, Intersection &recInter, const double &timeMin, const double &timeMax) const {
     
-    auto nominator = (_center - ray.getOrigin()).Dot(_normal);
-    auto denominator = ray.getDir().Dot(_normal);
+    auto nominator = (_center - ray.origin()).Dot(_normal);
+    auto denominator = ray.direction().Dot(_normal);
     
     auto t = nominator / denominator;
-    auto rayAtT= ray.getPos(t);
+    auto rayAtT= ray.position(t);
     auto distance = rayAtT - _center;
     
     if (t > timeMax || t < timeMin || (distance.Length() > (_radius/2)) ) return false;

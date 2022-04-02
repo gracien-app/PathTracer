@@ -45,15 +45,17 @@ public:
     /// @returns Constant integer defining ID of chunk.
     const int& getID();
     
+    const void run(std::thread task);
+    
     // MARK: Data
     
     bool busy;
-    std::thread Thread;
+    
     
     Range workerRange;
     
 private:
-
+    std::thread _thread;
     const int _chunkID;
     static int _chunkCounter;
 

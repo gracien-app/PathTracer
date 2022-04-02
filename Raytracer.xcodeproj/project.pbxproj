@@ -24,6 +24,7 @@
 		BED358372610BE000098E917 /* Solid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BED358352610BE000098E917 /* Solid.cpp */; };
 		BEDF18E525FE73EE00E52FD2 /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BEDF18E325FE73EE00E52FD2 /* Sphere.cpp */; };
 		BEF22E8A260F94E600388A0B /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BEF22E88260F94E600388A0B /* Plane.cpp */; };
+		EE9C2C5F27F7E3ED00066A04 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = EE9C2C5E27F7E3ED00066A04 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +75,7 @@
 		BEE0014026B1DD860087CE55 /* freetype.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = freetype.framework; path = "../../Downloads/SFML-2.5.1-macos-clang/extlibs/freetype.framework"; sourceTree = "<group>"; };
 		BEF22E88260F94E600388A0B /* Plane.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Plane.cpp; sourceTree = "<group>"; };
 		BEF22E89260F94E600388A0B /* Plane.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Plane.hpp; sourceTree = "<group>"; };
+		EE9C2C5E27F7E3ED00066A04 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 		BE23B7F125F57DAD000BFAD9 = {
 			isa = PBXGroup;
 			children = (
+				EE9C2C5E27F7E3ED00066A04 /* README.md */,
 				BE23B7FD25F57DAD000BFAD9 /* Raytracer */,
 				BE23B7FC25F57DAD000BFAD9 /* Products */,
 				BE23B81625F57E33000BFAD9 /* Frameworks */,
@@ -365,6 +368,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE9C2C5F27F7E3ED00066A04 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

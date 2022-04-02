@@ -10,8 +10,8 @@
 
 Cube::~Cube() {}
 
-Cube::Cube(     const vect3D &centerPoint, const double &sideLength,
-                std::shared_ptr<Material> &materialPtr, const bool invertNormals) : Solid(centerPoint, materialPtr) {
+Cube::Cube(const vect3D &centerPoint, const double &sideLength,
+           std::shared_ptr<Material> &materialPtr, const bool invertNormals) : Solid(centerPoint, materialPtr) {
     
     auto halfSide = sideLength/2;
     auto mult = invertNormals ? -1.0 : 1.0;

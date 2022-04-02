@@ -11,42 +11,31 @@
 // MARK: Constructors & Destructor
 
 Window::Window() {
-    
     std::cout << "[C] Window: Created" << std::endl;
-    
 }
 
 Window::~Window() {
-    
     _renderEngine.reset();
     std::cout << "[D] Window: Destructed" << std::endl;
-    
 }
 
 // MARK: Methods
 
 void Window::Initialise(const uint &width, const uint &height, const int &inputThreads) {
     
+    if (inputThreads > 0) _userThreads = inputThreads;
+    else _userThreads = std::thread::hardware_concurrency();
+    
+    _renderMode = Mode::STANDARD;
+    
     try {
-        
-        // RENDERER INIT //
-        _renderMode = Mode::STANDARD;
-        
-        if (inputThreads > 0) _userThreads = inputThreads;
-        else _userThreads = std::thread::hardware_concurrency();
-        
         initPresets();
         _renderEngine.reset(new Renderer(width, height) );
         _renderEngine->Initialise( _presetsVector, _userThreads );
         
-        // WINDOW INIT //
         sf::VideoMode _videoMode(width, height, 32);
-        _renderWindow.create(_videoMode, "RAYTRACER", sf::Style::Close);
+        _renderWindow.create(_videoMode, "PATHTRACER", sf::Style::Close);
         _renderWindow.setFramerateLimit(60);
-        
-        _currentScene = 0;
-        _scenesCount = int(_presetsVector->size()-1);
-        
     }
     
     catch(const char* &err) {
@@ -56,7 +45,6 @@ void Window::Initialise(const uint &width, const uint &height, const int &inputT
     catch (const std::bad_alloc &err) {
         throw;
     }
-    
 }
 
 void Window::renderCurrentScene(const bool preview) {
@@ -67,10 +55,7 @@ void Window::renderCurrentScene(const bool preview) {
     _currentBounces = _presetsVector->at(_currentScene).at("BOUNCES");
     _currentSamples = _presetsVector->at(_currentScene).at("SAMPLES");
     
-    _renderEngine->resetChunksIndex();
-    
     _renderEngine->runChunks( _currentScene, _currentSamples, _currentBounces, _renderMode, preview );
-    
 }
 
 void Window::Display() {
@@ -87,13 +72,15 @@ void Window::Display() {
         
         if (!_renderEngine->allFinished()) {
             
-            auto renderTime = std::to_string(float(_timer.getElapsedTime().asSeconds()));
-            auto titleInfo = "RAYTRACER | Bounces: " + std::to_string(_currentBounces) +
+            std::stringstream _timeStream;
+            _timeStream << std::fixed << std::setprecision(2) << float(_timer.getElapsedTime().asSeconds());
+            auto renderTime = _timeStream.str();
+            
+            auto titleInfo = "PATHTRACER | Bounces: " + std::to_string(_currentBounces) +
                              " | Samples: " + std::to_string(_currentSamples) +
                              " | Time: " + renderTime + " sec";
             
             _renderWindow.setTitle(titleInfo);
-            
         }
         
         if (_moved && _moveTimer.getElapsedTime().asSeconds() >= 1.0) {
@@ -138,15 +125,18 @@ void Window::restartScene(const bool preview) {
 
 void Window::initPresets() {
     _presetsVector.reset( new std::vector<std::map<std::string, int>> {
-                            { {"ID", 98}, {"SAMPLES", 5}, {"BOUNCES", 25} },
-                            { {"ID", 7}, {"SAMPLES", 5}, {"BOUNCES", 25} },
-//                            { {"ID", 6}, {"SAMPLES", 5}, {"BOUNCES", 100} },
-                            { {"ID", 4}, {"SAMPLES", 5}, {"BOUNCES", 25} },
-//                            { {"ID", 99}, {"SAMPLES", 5}, {"BOUNCES", 10} },
-//                            { {"ID", 1}, {"SAMPLES", 5}, {"BOUNCES", 50} },
-                            { {"ID", 2}, {"SAMPLES", 5}, {"BOUNCES", 25} },
-                            { {"ID", 3}, {"SAMPLES", 5}, {"BOUNCES", 25} },
-                        });
+        { {"ID", 5}, {"SAMPLES", 5}, {"BOUNCES", 50} },
+        { {"ID", 2}, {"SAMPLES", 5}, {"BOUNCES", 50} },
+        { {"ID", 7}, {"SAMPLES", 5}, {"BOUNCES", 10} },
+        
+        { {"ID", 4}, {"SAMPLES", 1}, {"BOUNCES", 25} },
+        { {"ID", 3}, {"SAMPLES", 1}, {"BOUNCES", 25} },
+        { {"ID", 9}, {"SAMPLES", 5}, {"BOUNCES", 25} },
+        { {"ID", 98}, {"SAMPLES", 1}, {"BOUNCES", 25} },
+    });
+    
+    _currentScene = 0;
+    _scenesCount = int(_presetsVector->size()-1);
 }
 
 void Window::handleEvent() {

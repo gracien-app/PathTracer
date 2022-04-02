@@ -10,8 +10,8 @@
 
 Rectangle::~Rectangle() {}
 
-Rectangle::Rectangle(   const vect3D &centerPoint, const vect3D &normalDirection,
-                        const double &sideLength, std::shared_ptr<Material> &materialPtr) : _side(sideLength), _normal(normalDirection), Solid(centerPoint, materialPtr) {
+Rectangle::Rectangle(const vect3D &centerPoint, const vect3D &normalDirection, const double &sideLength,
+                     std::shared_ptr<Material> &materialPtr) : _side(sideLength), _normal(normalDirection), Solid(centerPoint, materialPtr) {
                          
     auto half_Side = _side/2;
     _xmax = _center.x() + half_Side;
@@ -23,26 +23,26 @@ Rectangle::Rectangle(   const vect3D &centerPoint, const vect3D &normalDirection
     _zmax = _center.z() + half_Side;
     _zmin = _center.z() - half_Side;
     
-    }
+}
 
 bool Rectangle::Intersect (const Ray &ray, Intersection &recInter, const double &timeMin, const double &timeMax) const {
     
-    auto nominator = (_center - ray.getOrigin()).Dot(_normal);
-    auto denominator = ray.getDir().Dot(_normal);
+    auto nominator = (_center - ray.origin()).Dot(_normal);
+    auto denominator = ray.direction().Dot(_normal);
     
     auto t = nominator / denominator;
     if (t > timeMax || t < timeMin ) return false;
     
-    auto x = ray.getOrigin().x() + ray.getDir().x()*t;
-    auto y = ray.getOrigin().y() + ray.getDir().y()*t;
-    auto z = ray.getOrigin().z() + ray.getDir().z()*t;
+    auto x = ray.origin().x() + ray.direction().x()*t;
+    auto y = ray.origin().y() + ray.direction().y()*t;
+    auto z = ray.origin().z() + ray.direction().z()*t;
     
     if (y > _ymax || y < _ymin || x > _xmax || x < _xmin || z > _zmax || z < _zmin) return false;
     
     else {
         
         recInter.time       = t;
-        recInter.position   = ray.getPos(t);
+        recInter.position   = ray.position(t);
         recInter.outNormal  = _normal;
         recInter.material   = _material;
         return true;

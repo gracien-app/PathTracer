@@ -45,12 +45,15 @@ public:
     Ray prepRay(const double &x, const double &y);
     
     void Move(const vect3D &moveVect);
+    void setFOV(const double &newValue);
+    void calibrate();
 
 private:
     
     double _FOV;
     double _viewH;
     double _viewW;
+    double _aspect;
 
     vect3D _X;
     vect3D _Y;

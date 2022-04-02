@@ -27,7 +27,7 @@ public:
     
     /// Constructor of Scene object.
     /// @brief Constructor uses switch statement to initalise scene preset according to variant passed.
-    /// Camera object is initalised using initialiser list. at the current stage of the program, focal length and position is not changeable.
+    /// Camera object is initalised using initialiser list. At the current stage of the program, focal length and position is not changeable.
     /// @param width Value defining width of render, passed to Camera constructor.
     /// @param height Value defining height of render, passed to Camera constructor.
     /// @param variant Value defining variant of preset which will be initalised using switch statement.
@@ -35,7 +35,6 @@ public:
     
     // MARK: Methods
     
-    /// Method used to initialise plain Scene containing Plane and Sphere objects.
     void plainScene();
     
     void nvidiaScene();
@@ -48,37 +47,31 @@ public:
     
     void ballLightsScene();
     
-    /// Method used to initialise Scene containing three Sphere objects and five walls created using Rectangle.
-    void setupSpheres();
+    void blueSpheresScene();
     
     /// Method used to initialise Scene containing "Cornell Box" preset.
     /// @brief Allows creation of two distinct versions - reflective and matte. Materials are created accordingly to the boolean passed
     /// note By default, matte version of the scene is created.
     /// @param reflective If TRUE, reflective version is created. Matte otherwise.
-    void setupCornell(const bool &reflective = false);
+    void cornellScene(const bool &reflective = false);
     
     /// Method used to determine colour of the ray based on his origin, direction, and objects in the scene.
     /// @warning This method can be recursive (if intersection is found and ray bounces >= 1)
-    /// @discussion Ray is "shoot" through the scene, conditions are checked whether ray reaches the sky (No intersections, ray bounces > 0).
-    /// If a ray exceeds the number of bounces available or if recently hit geometry is a perfectly black object (ray is absorbed), function returns perfect black colour.
-    /// At the current stage, light source is global (Global Illumination), what it means, is that light is available from all directions (if there are no obstacles).
-    /// If ray intersects with any geometry in the scene, data is saved in temporary "intersection" structure.
-    /// Afterwards Material::Reflect method is called, at this stage method can be recursive,
-    /// If material "supports" reflection of the ray, new ray is constructed using Reflect.
-    /// Appropriate values are passed to intersectScene method, they represent lower and upper (infinity) bound of time at which intersection can occur.
+    /// @discussion Ray is travelling through the scene, conditions are checked whether ray reaches the sky (No intersections, ray bounces > 0).
+    /// If ray exceeds the number of bounces available or if recently hit geometry is a perfectly black object (ray is absorbed), function returns complete black.
     /// @note Linear interpolation (horizontal gradient) formula is used for the sky (global light source).
     /// heightColour = (1-height) x colourBottom + height x colourTop.
-    /// @warning Material colour must be NORMALISED <0,1>! Colour between bounces is accumulated using multiplication.
-    /// @param r Ray with starting position and direction defined
+    /// @warning Material colour must be NORMALISED <0,1>! Colour is a product of attenuation from consecutive bounces.
+    /// @param r Ray shot into the scene
     /// @param rayBounces Value defining how many times a ray can be bounced (reflected).
-    /// @returns Colour accumulated from the ray traveling, with normalised partial components RGB.
-    Colour colourRay(const Ray& r, const int &rayBounces) const;
+    /// @returns Colour accumulated from the ray path, with normalised partial components RGB.
+    Colour traverseColour(const Ray& r, const int &rayBounces) const;
     
-    Colour colourDistance(const Ray &r) const;
+    Colour traverseDepth(const Ray &r) const;
     
-    Colour colourNormals(const Ray &r) const;
+    Colour traverseNormal(const Ray &r) const;
     
-    Colour colourTurbo(const Ray &r, const float (&turbo_map)[256][3]) const;
+    Colour traverseTurbo(const Ray &r, const float (&turbo_map)[256][3]) const;
         
 private:
     
@@ -92,7 +85,7 @@ private:
     /// @param tMin Lower bound of time at which intersection can occur (necessary to prevent intersections which tend to 0).
     /// @param tMax Upper bound of time at which intersection can occur.
     /// @returns TRUE if any intersection occurs. FALSE otherwise.
-    bool intersectScene (const Ray &ray, Intersection &recent_Inter, const double &tMin, const double &tMax) const;
+    bool intersectAll (const Ray &ray, Intersection &recent_Inter, const double &tMin, const double &tMax) const;
     
     std::vector<Colour> _skyGradient;
     std::vector<std::unique_ptr<Solid>> _sceneObjects;
