@@ -1,5 +1,5 @@
 # PathTracer
-## Written in C++ using SFML for cross-platform windowing and event handling.
+### Written in C++ using SFML for cross-platform windowing and event handling.
 
 ## Description
 CPU based Pathtracer with multi-threaded chunk rendering system.  
@@ -23,4 +23,4 @@ Supports several rendering modes and user interaction such as:
 ![Depth mode](Images/Depth.png)
 
 ## Remarks
-Project was made in accordance with the requirements of the subject, some of which heavily altered structure of the project.
+Project was made in accordance with functional and non-functional requirements of the subject. Some requirements heavily influenced architectural structure of the engine.
