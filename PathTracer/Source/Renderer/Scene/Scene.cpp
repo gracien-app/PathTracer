@@ -47,7 +47,7 @@ Scene::Scene(const int &width, const int &height, int &variant) : Camera(vect3D(
             break;
             
         case 98:
-            furnaceTest();
+            furnaceTestScene();
             break;
             
         case 99:
@@ -64,7 +64,7 @@ Scene::Scene(const int &width, const int &height, int &variant) : Camera(vect3D(
 
 // MARK: - Traversal Methods
 
-Colour Scene::traverseColour(const Ray &r, const int &rayBounces) const {
+Colour Scene::traverseRegular(const Ray &r, const int &rayBounces) const {
     
     Intersection recentInter;
     
@@ -75,7 +75,7 @@ Colour Scene::traverseColour(const Ray &r, const int &rayBounces) const {
         Ray reflectedRay;
         
         if (recentInter.material->reflect(r, reflectedRay, recentInter, totalColour)) {
-            return totalColour * traverseColour(reflectedRay, rayBounces-1);
+            return totalColour * traverseRegular(reflectedRay, rayBounces-1);
         }
         
         if (recentInter.material->emit(recentInter, totalColour)) return totalColour;
@@ -156,7 +156,7 @@ bool Scene::intersectAll(const Ray &ray, Intersection &recent_Inter, const doubl
 }
 
 
-// MARK: - Scenes Methods
+// MARK: - Scenes Init Methods
 
 void Scene::cornellScene(const bool &reflective) {
     
@@ -396,7 +396,6 @@ void Scene::nvidiaScene() {
     
     blackMat = std::make_shared<Diffused>( Colour (10,10,10).normalizeRGB());
     black2Mat = std::make_shared<Diffused>( Colour (15,15,15).normalizeRGB());
-//    wallsMat = std::make_shared<Metallic>( Colour (63, 94, 251).normalizeRGB(), 0.8 );
     
     lightMat = std::make_shared<EmissiveColour>(Colour(0.221, 0.811, 1.0), 3.5);
     
@@ -448,7 +447,7 @@ void Scene::nvidiaScene() {
 }
 
 
-void Scene::furnaceTest() {
+void Scene::furnaceTestScene() {
     
     std::cout << "[C] Debug: Furnace Test Scene" << std::endl;
     

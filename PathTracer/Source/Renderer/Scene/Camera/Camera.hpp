@@ -21,7 +21,7 @@ public:
     /// Camera object constructor.
     /// @discussion Camera is a point from which the scene is seen. It's a wrapper class made with expansion in mind (moving the point of view).
     /// To mimic how real camera works (lens) an imaginary projection plane is created.
-    /// The distance between camera and projection plane is defined as focal length (for unaltered perspective focal = 1.0 should be used).
+    /// The distance between camera and projection plane is defined as focal length
     /// Projection plane defines direction of each ray (origin of each initial ray is the same - camera origin point).
     /// Rendering should start from left upper corner (abbrev. LUC). This is because SFML transfers pixels array to texture starting from this point.
     /// To find LUC for any focal length, and any resolution, appropriate vectors are added and subtracted (More specific comments in .cpp file).

@@ -41,7 +41,7 @@ public:
     void handleEvent();
     
     /// Method which performs all necessary actions, to restart calculations of current scene. Executed in case when number of samples is changed by user using user input functionality.
-    void restartScene(const bool preview = false);
+    void restartCurrentScene(const bool preview = false);
     
     /// Method which calls Renderer::runChunks() for currently set scene. Additionally, currentSamples and currentBounces are updated to match current render settings, which are later displayed in title of application window.
     void renderCurrentScene(const bool preview = false);
@@ -49,7 +49,13 @@ public:
     
     /// @brief Method which changes current scene. Performs all necessary actions to safely stop previous, and start rendering of new scene.
     /// @param next Parameter defining whether method should switch to next or previous scene. If TRUE, change to next scene occurs.
-    void changeScene(const bool &next = false);
+    void changeSceneIndex(const int offset);
+    
+    void changeSampleCount(const int offset);
+    
+    void changeRenderMode(const Mode &newMode);
+    
+    void moveCurrentCamera(const vect3D &offset);
     
     /// @brief Method used to initialise all necessary components for Renderer and Window classes. Uses exceptions to catch errors crucial for program execution.  If number of threads provided by the user is incorrect, std::thread::hardware_concurrency is used to determine optimal number of threads.
     /// @param width Parameter defining width of the window.
@@ -65,7 +71,7 @@ private:
     
     int _userThreads, _scenesCount, _currentScene, _currentSamples, _currentBounces;
     
-    Mode _renderMode;
+    Mode _currentMode;
     
     sf::Clock _timer, _moveTimer;
     sf::Event _windowEvent;

@@ -43,7 +43,7 @@ public:
     
     void roomsScene();
     
-    void furnaceTest();
+    void furnaceTestScene();
     
     void ballLightsScene();
     
@@ -65,7 +65,7 @@ public:
     /// @param r Ray shot into the scene
     /// @param rayBounces Value defining how many times a ray can be bounced (reflected).
     /// @returns Colour accumulated from the ray path, with normalised partial components RGB.
-    Colour traverseColour(const Ray& r, const int &rayBounces) const;
+    Colour traverseRegular(const Ray& r, const int &rayBounces) const;
     
     Colour traverseDepth(const Ray &r) const;
     

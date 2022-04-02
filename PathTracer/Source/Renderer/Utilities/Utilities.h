@@ -14,7 +14,6 @@
 #include <iostream>
 
 /// Template function used to generate random number using Mersenne-Twister RNG. Numbers are generated within <0,1> range.
-/// @discussion Function set to inline as a optimisation - Small, often called function.
 /// @warning To prevent data race in multi-threaded usage, thread_local flag is used to provide each thread with its own distribution and generator.
 template <typename T>
 inline T randomNumber() {
@@ -24,7 +23,6 @@ inline T randomNumber() {
 }
 
 /// Template function used to generate random number using Mersenne-Twister RNG. Numbers are generated within <min,max> range.
-/// @discussion Function set to inline as a optimisation - Small, often called function.
 /// @warning To prevent data race in multi-threaded usage, thread_local flag is used to provide each thread with its own distribution and generator.
 /// @param min Minimal number which can be generated.
 /// @param max Maximal number which can be generated.
@@ -37,7 +35,6 @@ inline T randomNumber(const T &min, const T &max) {
 
 /// Function which "clamps" a value between an upper and lower bound.
 /// @discussion Used extensively during rendering to make sure that values are within proper, often normalised <0,1> range.
-/// @discussion Function set to inline as a optimisation - Small, often called function.
 /// @param x Value to be clamped.
 /// @param min Lower bound of clamping
 /// @param max Upper bound of clamping
@@ -49,7 +46,7 @@ inline T clamp(T x, T min, T max) {
 }
 
 /// Template variable (C++ 14 standard) used to determine upper bound of type T.
-/// @discussion Used to determine theoretical infinity (ray which doesn't intersect with any object needs a limiting factor)
+/// @discussion Used to determine theoretical infinity (rays need upper distance / time bound)
 template <typename T>
 const T infinity = std::numeric_limits<T>::infinity();
 

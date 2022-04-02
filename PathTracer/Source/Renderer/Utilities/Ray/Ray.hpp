@@ -38,7 +38,6 @@ public:
     
     /// Ray constructor, creates Ray object with starting, and direction defining point.
     /// According to the Path Tracing algorithm, ray is a linear function F(Time) = Origin + Direction*Time
-    /// Ray is infinite (only limited during program execution using infinity template variable) thus direction defines orientation of the ray.
     /// @param origin 3-dimensional vector defining starting position of the ray.
     /// @param destination 3-dimensional vector defining direction point of the ray.
     Ray(const vect3D& origin, const vect3D& direction);
@@ -65,7 +64,7 @@ private:
     
     vect3D orig;
     vect3D dir;
-    
+   
 };
 
 #endif /* Ray_hpp */

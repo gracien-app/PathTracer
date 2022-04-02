@@ -43,7 +43,7 @@ public:
     
     /// Method used to extract unique chunk ID.
     /// @returns Constant integer defining ID of chunk.
-    const int& getID();
+    const int getID();
     
     const void run(std::thread task);
     
@@ -60,7 +60,5 @@ private:
     static int _chunkCounter;
 
 };
-
-
 
 #endif /* Chunk_hpp */

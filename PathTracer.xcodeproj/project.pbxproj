@@ -35,10 +35,10 @@
 		BE1FCE44263AD988009390CC /* Rectangle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Rectangle.hpp; sourceTree = "<group>"; };
 		BE1FCE47263AEB0E009390CC /* Cube.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Cube.cpp; sourceTree = "<group>"; };
 		BE1FCE48263AEB0E009390CC /* Cube.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cube.hpp; sourceTree = "<group>"; };
-		BE23B7FB25F57DAD000BFAD9 /* Raytracer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Raytracer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BE23B7FF25F57DAD000BFAD9 /* Raytracer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Raytracer-Info.plist"; sourceTree = "<group>"; };
+		BE23B7FB25F57DAD000BFAD9 /* PathTracer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PathTracer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE23B7FF25F57DAD000BFAD9 /* PathTracer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PathTracer-Info.plist"; sourceTree = "<group>"; };
 		BE23B80325F57DAD000BFAD9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		BE23B81425F57DF9000BFAD9 /* Raytracer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Raytracer.entitlements; sourceTree = "<group>"; };
+		BE23B81425F57DF9000BFAD9 /* PathTracer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PathTracer.entitlements; sourceTree = "<group>"; };
 		BE23B83125F5802A000BFAD9 /* App.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = App.cpp; sourceTree = "<group>"; };
 		BE23B83225F5802A000BFAD9 /* App.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = App.hpp; sourceTree = "<group>"; };
 		BE23B83425F58040000BFAD9 /* main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
@@ -120,7 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				EE9C2C5E27F7E3ED00066A04 /* README.md */,
-				BE23B7FD25F57DAD000BFAD9 /* Raytracer */,
+				BE23B7FD25F57DAD000BFAD9 /* PathTracer */,
 				BE23B7FC25F57DAD000BFAD9 /* Products */,
 				BE23B81625F57E33000BFAD9 /* Frameworks */,
 			);
@@ -129,19 +129,20 @@
 		BE23B7FC25F57DAD000BFAD9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BE23B7FB25F57DAD000BFAD9 /* Raytracer.app */,
+				BE23B7FB25F57DAD000BFAD9 /* PathTracer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		BE23B7FD25F57DAD000BFAD9 /* Raytracer */ = {
+		BE23B7FD25F57DAD000BFAD9 /* PathTracer */ = {
 			isa = PBXGroup;
 			children = (
+				BE23B82E25F57FA8000BFAD9 /* Resources */,
 				BE23B82D25F57F9F000BFAD9 /* Source */,
 				BE23B80325F57DAD000BFAD9 /* main.cpp */,
 				BE23B83425F58040000BFAD9 /* main.h */,
 			);
-			path = Raytracer;
+			path = PathTracer;
 			sourceTree = "<group>";
 		};
 		BE23B81625F57E33000BFAD9 /* Frameworks */ = {
@@ -165,7 +166,6 @@
 			children = (
 				BE23B83125F5802A000BFAD9 /* App.cpp */,
 				BE23B83225F5802A000BFAD9 /* App.hpp */,
-				BE23B82E25F57FA8000BFAD9 /* Resources */,
 				BE23B82F25F57FE8000BFAD9 /* Window */,
 				BE3CBF7125F7B950008D5A9B /* Renderer */,
 			);
@@ -175,8 +175,8 @@
 		BE23B82E25F57FA8000BFAD9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BE23B7FF25F57DAD000BFAD9 /* Raytracer-Info.plist */,
-				BE23B81425F57DF9000BFAD9 /* Raytracer.entitlements */,
+				BE23B7FF25F57DAD000BFAD9 /* PathTracer-Info.plist */,
+				BE23B81425F57DF9000BFAD9 /* PathTracer.entitlements */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -314,9 +314,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BE23B7FA25F57DAD000BFAD9 /* Raytracer */ = {
+		BE23B7FA25F57DAD000BFAD9 /* PathTracer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BE23B81025F57DAD000BFAD9 /* Build configuration list for PBXNativeTarget "Raytracer" */;
+			buildConfigurationList = BE23B81025F57DAD000BFAD9 /* Build configuration list for PBXNativeTarget "PathTracer" */;
 			buildPhases = (
 				BE23B7F625F57DAD000BFAD9 /* Sources */,
 				BE23B7F725F57DAD000BFAD9 /* Frameworks */,
@@ -326,9 +326,9 @@
 			);
 			dependencies = (
 			);
-			name = Raytracer;
+			name = PathTracer;
 			productName = Raytracer;
-			productReference = BE23B7FB25F57DAD000BFAD9 /* Raytracer.app */;
+			productReference = BE23B7FB25F57DAD000BFAD9 /* PathTracer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -345,7 +345,7 @@
 					};
 				};
 			};
-			buildConfigurationList = BE23B7F525F57DAD000BFAD9 /* Build configuration list for PBXProject "Raytracer" */;
+			buildConfigurationList = BE23B7F525F57DAD000BFAD9 /* Build configuration list for PBXProject "PathTracer" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -358,7 +358,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BE23B7FA25F57DAD000BFAD9 /* Raytracer */,
+				BE23B7FA25F57DAD000BFAD9 /* PathTracer */,
 			);
 		};
 /* End PBXProject section */
@@ -556,7 +556,7 @@
 				CLANG_MODULES_DISABLE_PRIVATE_WARNING = NO;
 				CLANG_WARN_CXX0X_EXTENSIONS = NO;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
-				CODE_SIGN_ENTITLEMENTS = Raytracer/Source/Resources/Raytracer.entitlements;
+				CODE_SIGN_ENTITLEMENTS = PathTracer/Resources/PathTracer.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 35X65N86W4;
@@ -568,7 +568,7 @@
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_VERSION = "";
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
-				INFOPLIST_FILE = "Raytracer/Source/Resources/Raytracer-Info.plist";
+				INFOPLIST_FILE = "PathTracer/Resources/PathTracer-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@loader_path/../Frameworks",
 					"@executable_path/../Frameworks",
@@ -588,7 +588,7 @@
 					"$(SFML_AUDIO)",
 					"$(SFML_NETWORK)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gracjanj.Raytracer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gracjanj.PathTracer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -604,7 +604,7 @@
 				CLANG_MODULES_DISABLE_PRIVATE_WARNING = NO;
 				CLANG_WARN_CXX0X_EXTENSIONS = NO;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
-				CODE_SIGN_ENTITLEMENTS = Raytracer/Source/Resources/Raytracer.entitlements;
+				CODE_SIGN_ENTITLEMENTS = PathTracer/Resources/PathTracer.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 35X65N86W4;
@@ -616,7 +616,7 @@
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_VERSION = "";
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
-				INFOPLIST_FILE = "Raytracer/Source/Resources/Raytracer-Info.plist";
+				INFOPLIST_FILE = "PathTracer/Resources/PathTracer-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@loader_path/../Frameworks",
 					"@executable_path/../Frameworks",
@@ -636,7 +636,7 @@
 					"$(SFML_AUDIO)",
 					"$(SFML_NETWORK)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gracjanj.Raytracer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gracjanj.PathTracer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -644,7 +644,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BE23B7F525F57DAD000BFAD9 /* Build configuration list for PBXProject "Raytracer" */ = {
+		BE23B7F525F57DAD000BFAD9 /* Build configuration list for PBXProject "PathTracer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BE23B80E25F57DAD000BFAD9 /* Debug */,
@@ -653,7 +653,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BE23B81025F57DAD000BFAD9 /* Build configuration list for PBXNativeTarget "Raytracer" */ = {
+		BE23B81025F57DAD000BFAD9 /* Build configuration list for PBXNativeTarget "PathTracer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BE23B81125F57DAD000BFAD9 /* Debug */,

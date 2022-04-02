@@ -79,7 +79,6 @@ protected:
 /// Addition operator overload
 /// @param lhs Left side vector for the addition
 /// @param rhs Right side vector for the addition
-/// @note Inline - Small, often used operator.
 inline vect3D operator+(const vect3D &lhs, const vect3D &rhs) {
     return vect3D(lhs.x()+rhs.x(),
                   lhs.y()+rhs.y(),
@@ -89,7 +88,6 @@ inline vect3D operator+(const vect3D &lhs, const vect3D &rhs) {
 /// Subtraction operator overload
 /// @param lhs Left side vector for the subtraction
 /// @param rhs Right side vector for the subtracion
-/// @note Inline - Small, often used operator.
 inline vect3D operator-(const vect3D &lhs, const vect3D &rhs) {
     return vect3D(lhs.x()-rhs.x(),
                   lhs.y()-rhs.y(),
@@ -99,7 +97,6 @@ inline vect3D operator-(const vect3D &lhs, const vect3D &rhs) {
 /// Multiplication by constant operator overload
 /// @param multiplier Value of multiplier.
 /// @param rhs Right side vector for the multiplication
-/// @note Inline - Small, often used operator.
 inline vect3D operator*(const double &multiplier, const vect3D &rhs) {
     return vect3D(rhs.x()*multiplier,
                   rhs.y()*multiplier,
@@ -109,7 +106,6 @@ inline vect3D operator*(const double &multiplier, const vect3D &rhs) {
 /// Multiplication by constant operator overload
 /// @param lhs Left side vector for the multiplication
 /// @param multiplier Value of multiplier.
-/// @note Inline - Small, often used operator.
 inline vect3D operator*(const vect3D &lhs, const double &multiplier ) {
     return multiplier*lhs; // Using the above operator.
 }
@@ -117,14 +113,12 @@ inline vect3D operator*(const vect3D &lhs, const double &multiplier ) {
 /// Division by constant operator overload
 /// @param lhs Dividend
 /// @param divider Value of divisor
-/// @note Inline - Small, often used operator.
 inline vect3D operator/(const vect3D &lhs, const double &divider) {
     return (1/divider)*lhs; // Using multiplication by inverse.
 }
 
 /// Method used to obtain normalised value of vector.
 /// @param vector Vector to be normalised.
-/// @note Inline - Small, often used method.
 inline vect3D Normalise(const vect3D &vector) {
     return vector / vector.Length();
 }
@@ -132,7 +126,6 @@ inline vect3D Normalise(const vect3D &vector) {
 /// Method used to obtain randomised value of vector
 /// @param min Lower bound of partials XYZ
 /// @param max Upper bound of partials XYZ
-/// @note Inline - Small, often used method.
 inline static vect3D Randomise(const double &min, const double &max) {
         return vect3D(randomNumber<double>(min, max),
                       randomNumber<double>(min, max),
@@ -142,7 +135,6 @@ inline static vect3D Randomise(const double &min, const double &max) {
 /// Method used to generate random vector of length <1.
 /// @warning Naming convention might be confusing, method generates random vector of length SMALLER than 1.
 /// @discussion Generates randomised vector until condition (lengthSquared < 1) is passed.
-/// @note Inline - Small, often used method. It's not necessary to square the length.
 inline vect3D randUnitVect() {
     
     while (true) {
@@ -156,7 +148,6 @@ inline vect3D randUnitVect() {
 /// Method used to generate random vector of length < 1 with respect to the normal vector passed.
 /// @note Newly generated direction is on the same side.
 /// @param normal Normal vector acting as a reference for newly generated random direction.
-/// @note Inline - Small, often used method.
 inline vect3D randUnitDir(const vect3D &normal) {
     vect3D unitVec = randUnitVect();
     

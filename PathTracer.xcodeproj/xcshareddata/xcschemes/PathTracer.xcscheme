@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BE23B7FA25F57DAD000BFAD9"
                BuildableName = "Raytracer.app"
-               BlueprintName = "Raytracer"
-               ReferencedContainer = "container:Raytracer.xcodeproj">
+               BlueprintName = "PathTracer"
+               ReferencedContainer = "container:PathTracer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -31,9 +31,9 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Release"
-      selectedDebuggerIdentifier = ""
-      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -47,8 +47,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BE23B7FA25F57DAD000BFAD9"
             BuildableName = "Raytracer.app"
-            BlueprintName = "Raytracer"
-            ReferencedContainer = "container:Raytracer.xcodeproj">
+            BlueprintName = "PathTracer"
+            ReferencedContainer = "container:PathTracer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -64,8 +64,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BE23B7FA25F57DAD000BFAD9"
             BuildableName = "Raytracer.app"
-            BlueprintName = "Raytracer"
-            ReferencedContainer = "container:Raytracer.xcodeproj">
+            BlueprintName = "PathTracer"
+            ReferencedContainer = "container:PathTracer.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

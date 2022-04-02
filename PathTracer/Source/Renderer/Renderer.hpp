@@ -88,7 +88,7 @@ public:
     /// @returns std::shared_ptr object by reference to increment smart pointer usage counter appropriately.
     std::shared_ptr<sf::Sprite> &refSprite();
     
-    void moveCamera(const vect3D displacement, const int &sceneID);
+    void moveCamera(const vect3D& displacement, const int &sceneID);
     
     
     

@@ -14,6 +14,7 @@ Renderer::Renderer(const uint &windowWidth, const uint &windowHeight) : _width(w
     std::cout << "[C] Renderer: Created" << std::endl;
 }
 
+
 Renderer::~Renderer() {
     for (auto &scene : _presetScenes) scene.reset();
     std::cout << "[D] Renderer: Destructed" << std::endl;
@@ -71,6 +72,7 @@ void Renderer::distributeChunks(const int &nThreads, const int &bucketSize) {
     std::cout << " [R] Multi-threaded rendering on " << nThreads << " concurrent threads" << std::endl;
 }
 
+
 void Renderer::runChunks(const int &nPreset, const int &samples, const int &bounces, const Mode render_mode, bool preview) {
     
     _chunkIndex = 0;
@@ -85,6 +87,7 @@ void Renderer::runChunks(const int &nPreset, const int &samples, const int &boun
     }
     
 }
+
 
 bool Renderer::acquireChunk(Worker &thread) {
     
@@ -114,9 +117,11 @@ bool Renderer::joinAll() {
     return true;
 }
 
+
 void Renderer::stopAll() {
     _stopExecution = true;
 }
+
 
 bool Renderer::allFinished() {
     for (auto &worker : _workerThreads) {
@@ -128,9 +133,10 @@ bool Renderer::allFinished() {
 
 // MARK: -
 
-void Renderer::moveCamera(const vect3D displacement, const int &sceneID) {
-    _presetScenes[sceneID]->Move(displacement);
+void Renderer::moveCamera(const vect3D& offset, const int &sceneID) {
+    _presetScenes[sceneID]->Move(offset);
 }
+
 
 void Renderer::renderChunkPreview(const int &chunkID, const int &sceneID) {
     
@@ -143,10 +149,10 @@ void Renderer::renderChunkPreview(const int &chunkID, const int &sceneID) {
         auto chunkEnd = _workerThreads[chunkID].workerRange.end;
         auto chunkStart = _workerThreads[chunkID].workerRange.start;
         
-        for (int j=chunkStart.second; j<=chunkEnd.second; j+=loopOffset) {
-            for (int i=chunkStart.first; i<=chunkEnd.first; i+=loopOffset) {
+        for (int j = chunkStart.second; j <= chunkEnd.second; j += loopOffset) {
+            for (int i = chunkStart.first; i <= chunkEnd.first; i += loopOffset) {
                 
-                if (_stopExecution) {
+                if (_stopExecution == true) {
                     _workerThreads[chunkID].busy = false;
                     return;
                 }
@@ -168,6 +174,7 @@ void Renderer::renderChunkPreview(const int &chunkID, const int &sceneID) {
     }
 }
 
+
 void Renderer::renderChunk(const int &chunkID, const int &sceneID, const Mode render_mode) {
     
     while (acquireChunk(_workerThreads[chunkID])) {
@@ -178,7 +185,7 @@ void Renderer::renderChunk(const int &chunkID, const int &sceneID, const Mode re
         for (int j=chunkStart.second; j<=chunkEnd.second; j+=1) {
             for (int i=chunkStart.first; i<=chunkEnd.first; i+=1) {
                 
-                if (_stopExecution) {
+                if (_stopExecution == true) {
                     _workerThreads[chunkID].busy = false;
                     return;
                 }
@@ -187,7 +194,7 @@ void Renderer::renderChunk(const int &chunkID, const int &sceneID, const Mode re
 
                 auto outputPixel = Colour(0, 0, 0);
                 
-                for (int s=0; s<_samples; s++) {
+                for (int s = 0; s < _samples; s++) {
                     
                     auto x = ( double(i)+randomNumber<double>() ) / (_width-1);
                     auto y = ( double(j)+randomNumber<double>() ) / (_height-1);
@@ -196,7 +203,7 @@ void Renderer::renderChunk(const int &chunkID, const int &sceneID, const Mode re
                     
                     switch (render_mode) {
                         case STANDARD:
-                            outputPixel += _presetScenes[sceneID]->traverseColour(pixelRay, _bounces);
+                            outputPixel += _presetScenes[sceneID]->traverseRegular(pixelRay, _bounces);
                             break;
                             
                         case DEPTH:
@@ -219,9 +226,11 @@ void Renderer::renderChunk(const int &chunkID, const int &sceneID, const Mode re
     }
 }
 
+
 void Renderer::updateTexture() {
-    _outTexture->update(&_outPixels[0]);
+    _outTexture->update((&_outPixels[0]));
 }
+
 
 std::shared_ptr<sf::Sprite> &Renderer::refSprite () {
     return _outSprite;

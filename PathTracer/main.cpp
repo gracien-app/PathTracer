@@ -15,12 +15,10 @@ int main()
     try {
         Raytracer.Initialise(1536, 1536, 4);
     }
-    
     catch(const char* err) {
         std::cerr << "[!] " << err << std::endl;
         return -1;
     }
-    
     catch (std::bad_alloc err) {
         std::cerr << "[!] " << err.what() << std::endl;
         return -1;

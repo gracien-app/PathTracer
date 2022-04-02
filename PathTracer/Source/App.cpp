@@ -8,7 +8,8 @@
 
 #include "App.hpp"
 
-// MARK: Constructors
+
+// MARK: - Constructors & Destructors
 
 App::App() {
     std::cout << "[C] Application: Created" << std::endl;
@@ -19,26 +20,25 @@ App::~App() {
     std::cout << "[D] Application: Destructed" << std::endl;
 }
 
-// MARK: Operators
+
+// MARK: - Operators
 
 void App::operator()() {
     _appWindow->Display();
 }
 
 
-// MARK: Methods
+// MARK: - Methods
 
-void App::Initialise(const uint &width, const uint &height, const int &inputThreads) {
+void App::Initialise(const uint &width, const uint &height, const int &threadCount) {
     
     try {
-        _appWindow.reset( new Window() );
-        _appWindow->Initialise(width, height, inputThreads);
+        _appWindow.reset(new Window());
+        _appWindow->Initialise(width, height, threadCount);
     }
-    
     catch(const char* &err) {
         throw;
     }
-    
     catch (const std::bad_alloc &err) {
         throw;
     }
