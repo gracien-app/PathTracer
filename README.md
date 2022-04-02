@@ -1,13 +1,13 @@
 # PathTracer
 ## Written in C++ using SFML for cross-platform windowing and event handling.
 
-### Description
+## Description
 CPU based Pathtracer with multi-threaded chunk rendering system.  
 Initially implemented for Advanced Programming in C++ university course, based on books such as **RTOW 1** by Peter Shirley and **Physically Based Rendering** by Matt Pharr, Wenzel Jakob and Greg Humphreys.
 
 ![Main](Images/Promo.png)
 
-### Features
+## Features
 Supports several rendering modes and user interaction such as:
 - Regular rendering mode (1),
 - Depth-based visualisation mode (2),
@@ -17,7 +17,10 @@ Supports several rendering modes and user interaction such as:
 - Sample count adjustment (UP/DOWN),
 - Switching between multiple scenes (LEFT/RIGHT)
 
-### Additional images
+## Additional images
 ![Regular mode](Images/Regular.png)
 ![Time mode](Images/TimeBased.png)
 ![Depth mode](Images/Depth.png)
+
+## Remarks
+Project was made in accordance with the requirements of the subject, some of which heavily altered structure of the project.
