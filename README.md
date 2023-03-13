@@ -19,11 +19,6 @@ Written in C++ using SFML for cross-platform windowing and event handling.
 - Time-based visualisation mode (3),
 - Normal-based visualisation mode (4),
 
-## Additional images
-![Regular mode](Images/Regular.png)
-![Time mode](Images/TimeBased.png)
-![Depth mode](Images/Depth.png)
-
 ## Remarks
 Project was made in accordance with functional and non-functional requirements of the subject.  
-_Subject requirements heavily influenced architectural structure of the engine.__
+_Subject requirements heavily influenced architectural structure of the engine._
